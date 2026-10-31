@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
+import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
 
@@ -29,6 +30,7 @@ export default function App() {
       </header>
       <main>
         {error && <p className="error">{error}</p>}
+        <SummaryCards transactions={transactions} />
         <TransactionForm onSubmit={handleCreate} />
         <TransactionList transactions={transactions} onDelete={handleDelete} />
       </main>

@@ -194,3 +194,40 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.summary .card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-label {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.summary-value {
+  font-size: 1.375rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-value.income {
+  color: var(--income);
+}
+
+.summary-value.expense {
+  color: var(--expense);
+}
+
+@media (max-width: 600px) {
+  .summary {
+    grid-template-columns: 1fr;
+  }
+}
