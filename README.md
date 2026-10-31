@@ -24,6 +24,10 @@ npm run dev:api   # http://localhost:4000
 npm run dev:web   # http://localhost:5173
 ```
 
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md) for the day-by-day plan.
+
 ## License
 
 MIT
