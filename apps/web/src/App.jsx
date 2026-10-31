@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
+import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
 
 export default function App() {
@@ -9,6 +10,11 @@ export default function App() {
   useEffect(() => {
     api.listTransactions().then(setTransactions).catch((err) => setError(err.message));
   }, []);
+
+  async function handleCreate(data) {
+    const created = await api.createTransaction(data);
+    setTransactions((items) => [created, ...items].sort((a, b) => b.date.localeCompare(a.date)));
+  }
 
   async function handleDelete(id) {
     await api.deleteTransaction(id);
@@ -23,6 +29,7 @@ export default function App() {
       </header>
       <main>
         {error && <p className="error">{error}</p>}
+        <TransactionForm onSubmit={handleCreate} />
         <TransactionList transactions={transactions} onDelete={handleDelete} />
       </main>
     </div>
