@@ -33,7 +33,7 @@ Commit messages follow Conventional Commits, for example `feat(web): create Head
 Goal: break the single page into small reusable pieces.
 
 - [x] feat(web): create Header component
-- [ ] feat(web): create Footer component with version and repo link
+- [x] feat(web): create Footer component with version and repo link
 - [ ] feat(web): create Layout component wrapping header, main and footer
 - [ ] feat(web): create Card component
 - [ ] refactor(web): use Card in SummaryCards

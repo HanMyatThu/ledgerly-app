@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
+import Footer from './components/Footer.jsx';
 import Header from './components/Header.jsx';
 import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
@@ -32,6 +33,7 @@ export default function App() {
         <TransactionForm onSubmit={handleCreate} />
         <TransactionList transactions={transactions} onDelete={handleDelete} />
       </main>
+      <Footer />
     </div>
   );
 }
