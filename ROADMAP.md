@@ -35,7 +35,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): create Header component
 - [x] feat(web): create Footer component with version and repo link
 - [x] feat(web): create Layout component wrapping header, main and footer
-- [ ] feat(web): create Card component
+- [x] feat(web): create Card component
 - [ ] refactor(web): use Card in SummaryCards
 - [ ] refactor(web): use Card in TransactionForm
 - [ ] feat(web): create Button component with primary and ghost variants
