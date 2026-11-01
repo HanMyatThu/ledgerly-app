@@ -203,6 +203,36 @@ body {
   cursor: default;
 }
 
+.button {
+  border: none;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.button-primary {
+  padding: 10px 16px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+}
+
+.button-ghost {
+  padding: 4px 8px;
+  background: none;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.button-ghost:hover:not(:disabled) {
+  color: var(--expense);
+}
+
 .field-error {
   color: var(--expense);
   font-size: 0.8rem;

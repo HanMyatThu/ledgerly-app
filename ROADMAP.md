@@ -38,7 +38,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): create Card component
 - [x] refactor(web): use Card in SummaryCards
 - [x] refactor(web): use Card in TransactionForm
-- [ ] feat(web): create Button component with primary and ghost variants
+- [x] feat(web): create Button component with primary and ghost variants
 - [ ] refactor(web): use Button in TransactionForm
 - [ ] refactor(web): use Button in TransactionList
 - [ ] feat(web): create TextField component with label and error
