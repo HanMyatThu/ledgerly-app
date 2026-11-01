@@ -40,7 +40,7 @@ Goal: break the single page into small reusable pieces.
 - [x] refactor(web): use Card in TransactionForm
 - [x] feat(web): create Button component with primary and ghost variants
 - [x] refactor(web): use Button in TransactionForm
-- [ ] refactor(web): use Button in TransactionList
+- [x] refactor(web): use Button in TransactionList
 - [ ] feat(web): create TextField component with label and error
 - [ ] refactor(web): use TextField for amount, date and note inputs
 - [ ] feat(web): create SelectField component

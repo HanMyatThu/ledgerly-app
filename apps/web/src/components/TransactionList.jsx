@@ -1,4 +1,5 @@
 import { formatMoney, getCategory } from '@ledgerly/shared';
+import Button from './Button.jsx';
 
 export default function TransactionList({ transactions, onDelete }) {
   if (!transactions.length) {
@@ -21,9 +22,9 @@ export default function TransactionList({ transactions, onDelete }) {
               {tx.type === 'expense' ? '−' : '+'}
               {formatMoney(tx.amountCents)}
             </span>
-            <button type="button" className="link-button" onClick={() => onDelete(tx.id)}>
+            <Button variant="ghost" onClick={() => onDelete(tx.id)}>
               Delete
-            </button>
+            </Button>
           </div>
         </li>
       ))}
