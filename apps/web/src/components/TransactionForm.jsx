@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { categoriesFor, toCents, validateTransaction } from '@ledgerly/shared';
+import Button from './Button.jsx';
 import Card from './Card.jsx';
 
 function today() {
@@ -99,9 +100,9 @@ export default function TransactionForm({ onSubmit }) {
 
       {errors.form && <p className="error wide">{errors.form}</p>}
 
-      <button type="submit" className="primary wide" disabled={saving}>
+      <Button type="submit" className="wide" disabled={saving}>
         {saving ? 'Saving…' : 'Add transaction'}
-      </button>
+      </Button>
     </Card>
   );
 }

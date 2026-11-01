@@ -187,22 +187,6 @@ body {
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
 }
 
-.primary {
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
-  font: inherit;
-  font-weight: 600;
-  color: #fff;
-  background: var(--accent);
-  cursor: pointer;
-}
-
-.primary:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-
 .button {
   border: none;
   border-radius: 8px;
