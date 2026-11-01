@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
-import Footer from './components/Footer.jsx';
-import Header from './components/Header.jsx';
+import Layout from './components/Layout.jsx';
 import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
@@ -25,15 +24,11 @@ export default function App() {
   }
 
   return (
-    <div className="app">
-      <Header />
-      <main>
-        {error && <p className="error">{error}</p>}
-        <SummaryCards transactions={transactions} />
-        <TransactionForm onSubmit={handleCreate} />
-        <TransactionList transactions={transactions} onDelete={handleDelete} />
-      </main>
-      <Footer />
-    </div>
+    <Layout>
+      {error && <p className="error">{error}</p>}
+      <SummaryCards transactions={transactions} />
+      <TransactionForm onSubmit={handleCreate} />
+      <TransactionList transactions={transactions} onDelete={handleDelete} />
+    </Layout>
   );
 }
