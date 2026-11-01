@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
+import Header from './components/Header.jsx';
 import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
@@ -24,10 +25,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <h1>Ledgerly</h1>
-        <p>Track what you spend and earn.</p>
-      </header>
+      <Header />
       <main>
         {error && <p className="error">{error}</p>}
         <SummaryCards transactions={transactions} />
