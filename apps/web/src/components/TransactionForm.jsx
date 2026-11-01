@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { categoriesFor, toCents, validateTransaction } from '@ledgerly/shared';
+import Card from './Card.jsx';
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -45,7 +46,7 @@ export default function TransactionForm({ onSubmit }) {
   }
 
   return (
-    <form className="card transaction-form" onSubmit={handleSubmit} noValidate>
+    <Card as="form" className="transaction-form" onSubmit={handleSubmit} noValidate>
       <div className="type-toggle" role="radiogroup" aria-label="Type">
         {['expense', 'income'].map((type) => (
           <button
@@ -101,6 +102,6 @@ export default function TransactionForm({ onSubmit }) {
       <button type="submit" className="primary wide" disabled={saving}>
         {saving ? 'Saving…' : 'Add transaction'}
       </button>
-    </form>
+    </Card>
   );
 }
