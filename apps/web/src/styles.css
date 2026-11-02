@@ -1,12 +1,4 @@
 :root {
-  --bg: #f6f7f9;
-  --surface: #ffffff;
-  --text: #1c2430;
-  --muted: #667085;
-  --border: #e4e7ec;
-  --accent: #2f6fed;
-  --expense: #d92d20;
-  --income: #079455;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: var(--text);
   background: var(--bg);
