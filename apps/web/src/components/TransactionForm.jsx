@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { categoriesFor, toCents, validateTransaction } from '@ledgerly/shared';
 import Button from './Button.jsx';
 import Card from './Card.jsx';
+import TextField from './TextField.jsx';
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -63,18 +64,16 @@ export default function TransactionForm({ onSubmit }) {
         ))}
       </div>
 
-      <label>
-        Amount
-        <input
-          type="number"
-          inputMode="decimal"
-          min="0"
-          step="0.01"
-          value={form.amount}
-          onChange={(e) => update('amount', e.target.value)}
-        />
-        {errors.amountCents && <span className="field-error">Enter an amount above zero</span>}
-      </label>
+      <TextField
+        label="Amount"
+        type="number"
+        inputMode="decimal"
+        min="0"
+        step="0.01"
+        value={form.amount}
+        onChange={(e) => update('amount', e.target.value)}
+        error={errors.amountCents && 'Enter an amount above zero'}
+      />
 
       <label>
         Category
@@ -87,16 +86,22 @@ export default function TransactionForm({ onSubmit }) {
         </select>
       </label>
 
-      <label>
-        Date
-        <input type="date" value={form.date} onChange={(e) => update('date', e.target.value)} />
-        {errors.date && <span className="field-error">{errors.date}</span>}
-      </label>
+      <TextField
+        label="Date"
+        type="date"
+        value={form.date}
+        onChange={(e) => update('date', e.target.value)}
+        error={errors.date}
+      />
 
-      <label className="wide">
-        Note
-        <input type="text" maxLength={200} value={form.note} onChange={(e) => update('note', e.target.value)} />
-      </label>
+      <TextField
+        label="Note"
+        className="wide"
+        type="text"
+        maxLength={200}
+        value={form.note}
+        onChange={(e) => update('note', e.target.value)}
+      />
 
       {errors.form && <p className="error wide">{errors.form}</p>}
 
