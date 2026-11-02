@@ -156,6 +156,31 @@ body {
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
 }
 
+.segmented {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg);
+  border-radius: 8px;
+  justify-self: start;
+}
+
+.segmented button {
+  border: none;
+  background: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.segmented button.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+
 .button {
   border: none;
   border-radius: 8px;
