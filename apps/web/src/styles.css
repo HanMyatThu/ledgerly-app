@@ -204,6 +204,28 @@ body {
   color: var(--expense);
 }
 
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.field input,
+.field select {
+  font: inherit;
+  color: var(--text);
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.field input[aria-invalid='true'] {
+  border-color: var(--expense);
+}
+
 .field-error {
   color: var(--expense);
   font-size: 0.8rem;
