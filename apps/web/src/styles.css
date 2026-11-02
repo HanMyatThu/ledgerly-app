@@ -126,24 +126,6 @@ body {
   gap: 12px;
 }
 
-.transaction-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 0.875rem;
-  color: var(--muted);
-}
-
-.transaction-form input,
-.transaction-form select {
-  font: inherit;
-  color: var(--text);
-  padding: 8px 10px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-}
-
 .transaction-form .wide,
 .type-toggle {
   grid-column: 1 / -1;

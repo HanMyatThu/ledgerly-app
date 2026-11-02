@@ -44,7 +44,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): create TextField component with label and error
 - [x] refactor(web): use TextField for amount, date and note inputs
 - [x] feat(web): create SelectField component
-- [ ] refactor(web): use SelectField for category
+- [x] refactor(web): use SelectField for category
 - [ ] feat(web): create SegmentedControl component
 - [ ] refactor(web): use SegmentedControl for the type toggle
 - [ ] feat(web): create EmptyState component

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { categoriesFor, toCents, validateTransaction } from '@ledgerly/shared';
 import Button from './Button.jsx';
 import Card from './Card.jsx';
+import SelectField from './SelectField.jsx';
 import TextField from './TextField.jsx';
 
 function today() {
@@ -75,16 +76,12 @@ export default function TransactionForm({ onSubmit }) {
         error={errors.amountCents && 'Enter an amount above zero'}
       />
 
-      <label>
-        Category
-        <select value={form.categoryId} onChange={(e) => update('categoryId', e.target.value)}>
-          {categoriesFor(form.type).map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.label}
-            </option>
-          ))}
-        </select>
-      </label>
+      <SelectField
+        label="Category"
+        value={form.categoryId}
+        onChange={(e) => update('categoryId', e.target.value)}
+        options={categoriesFor(form.type).map((category) => ({ value: category.id, label: category.label }))}
+      />
 
       <TextField
         label="Date"
