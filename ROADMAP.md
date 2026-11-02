@@ -48,7 +48,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): create SegmentedControl component
 - [x] refactor(web): use SegmentedControl for the type toggle
 - [x] feat(web): create EmptyState component
-- [ ] refactor(web): use EmptyState in TransactionList
+- [x] refactor(web): use EmptyState in TransactionList
 - [ ] style(web): move design tokens into tokens.css
 
 ## Day 2: styling and polish

@@ -1,9 +1,10 @@
 import { formatMoney, getCategory } from '@ledgerly/shared';
 import Button from './Button.jsx';
+import EmptyState from './EmptyState.jsx';
 
 export default function TransactionList({ transactions, onDelete }) {
   if (!transactions.length) {
-    return <p className="empty">No transactions yet. Add your first one above.</p>;
+    return <EmptyState title="No transactions yet" message="Add your first one above." />;
   }
 
   return (
