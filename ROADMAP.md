@@ -46,7 +46,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): create SelectField component
 - [x] refactor(web): use SelectField for category
 - [x] feat(web): create SegmentedControl component
-- [ ] refactor(web): use SegmentedControl for the type toggle
+- [x] refactor(web): use SegmentedControl for the type toggle
 - [ ] feat(web): create EmptyState component
 - [ ] refactor(web): use EmptyState in TransactionList
 - [ ] style(web): move design tokens into tokens.css

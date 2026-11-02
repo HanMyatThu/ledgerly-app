@@ -2,12 +2,18 @@ import { useState } from 'react';
 import { categoriesFor, toCents, validateTransaction } from '@ledgerly/shared';
 import Button from './Button.jsx';
 import Card from './Card.jsx';
+import SegmentedControl from './SegmentedControl.jsx';
 import SelectField from './SelectField.jsx';
 import TextField from './TextField.jsx';
 
 function today() {
   return new Date().toISOString().slice(0, 10);
 }
+
+const TYPE_OPTIONS = [
+  { value: 'expense', label: 'Expense' },
+  { value: 'income', label: 'Income' },
+];
 
 const emptyForm = () => ({ type: 'expense', amount: '', categoryId: 'groceries', date: today(), note: '' });
 
@@ -50,20 +56,13 @@ export default function TransactionForm({ onSubmit }) {
 
   return (
     <Card as="form" className="transaction-form" onSubmit={handleSubmit} noValidate>
-      <div className="type-toggle" role="radiogroup" aria-label="Type">
-        {['expense', 'income'].map((type) => (
-          <button
-            key={type}
-            type="button"
-            role="radio"
-            aria-checked={form.type === type}
-            className={form.type === type ? 'active' : ''}
-            onClick={() => update('type', type)}
-          >
-            {type === 'expense' ? 'Expense' : 'Income'}
-          </button>
-        ))}
-      </div>
+      <SegmentedControl
+        label="Type"
+        className="wide"
+        options={TYPE_OPTIONS}
+        value={form.type}
+        onChange={(type) => update('type', type)}
+      />
 
       <TextField
         label="Amount"
