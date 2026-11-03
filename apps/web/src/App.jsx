@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
+import Alert from './components/Alert.jsx';
 import Layout from './components/Layout.jsx';
 import Spinner from './components/Spinner.jsx';
 import SummaryCards from './components/SummaryCards.jsx';
@@ -31,7 +32,11 @@ export default function App() {
 
   return (
     <Layout>
-      {error && <p className="error">{error}</p>}
+      {error && (
+        <Alert title="Could not load transactions" onDismiss={() => setError(null)}>
+          {error}
+        </Alert>
+      )}
       <SummaryCards transactions={transactions} />
       <TransactionForm onSubmit={handleCreate} />
       {loading ? (
