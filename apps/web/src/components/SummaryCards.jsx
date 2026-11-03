@@ -1,4 +1,4 @@
-import { formatMoney } from '@ledgerly/shared';
+import Amount from './Amount.jsx';
 import Card from './Card.jsx';
 
 function totals(transactions) {
@@ -19,15 +19,15 @@ export default function SummaryCards({ transactions }) {
     <section className="summary">
       <Card>
         <span className="summary-label">Income</span>
-        <span className="summary-value income">{formatMoney(income)}</span>
+        <Amount cents={income} type="income" className="summary-value" />
       </Card>
       <Card>
         <span className="summary-label">Expenses</span>
-        <span className="summary-value expense">{formatMoney(expense)}</span>
+        <Amount cents={expense} type="expense" className="summary-value" />
       </Card>
       <Card>
         <span className="summary-label">Balance</span>
-        <span className={`summary-value ${balance < 0 ? 'expense' : ''}`}>{formatMoney(balance)}</span>
+        <Amount cents={balance} className="summary-value" />
       </Card>
     </section>
   );

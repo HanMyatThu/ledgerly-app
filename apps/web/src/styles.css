@@ -248,14 +248,6 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-.summary-value.income {
-  color: var(--income);
-}
-
-.summary-value.expense {
-  color: var(--expense);
-}
-
 @media (max-width: 600px) {
   .summary {
     grid-template-columns: 1fr;
