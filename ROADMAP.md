@@ -53,7 +53,7 @@ Goal: break the single page into small reusable pieces.
 
 ## Day 2: styling and polish
 
-- [ ] feat(web): create Spinner component
+- [x] feat(web): create Spinner component
 - [ ] feat(web): show Spinner while transactions load
 - [ ] feat(web): create Alert component
 - [ ] refactor(web): show load errors with Alert
