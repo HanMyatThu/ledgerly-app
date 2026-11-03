@@ -1,5 +1,6 @@
 import { formatMoney, getCategory } from '@ledgerly/shared';
 import Button from './Button.jsx';
+import CategoryIcon from './CategoryIcon.jsx';
 import EmptyState from './EmptyState.jsx';
 
 export default function TransactionList({ transactions, onDelete }) {
@@ -11,12 +12,15 @@ export default function TransactionList({ transactions, onDelete }) {
     <ul className="transaction-list">
       {transactions.map((tx) => (
         <li key={tx.id} className="transaction">
-          <div>
-            <strong>{getCategory(tx.categoryId)?.label ?? tx.categoryId}</strong>
-            <span className="meta">
-              {tx.date}
-              {tx.note ? ` · ${tx.note}` : ''}
-            </span>
+          <div className="transaction-main">
+            <CategoryIcon categoryId={tx.categoryId} />
+            <div>
+              <strong>{getCategory(tx.categoryId)?.label ?? tx.categoryId}</strong>
+              <span className="meta">
+                {tx.date}
+                {tx.note ? ` · ${tx.note}` : ''}
+              </span>
+            </div>
           </div>
           <div className="transaction-actions">
             <span className={`amount ${tx.type}`}>

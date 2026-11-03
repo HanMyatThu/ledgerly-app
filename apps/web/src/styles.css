@@ -341,3 +341,10 @@ body {
   background: var(--bg);
   font-size: 1.125rem;
 }
+
+.transaction-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
