@@ -57,7 +57,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): show Spinner while transactions load
 - [x] feat(web): create Alert component
 - [x] refactor(web): show load errors with Alert
-- [ ] feat(web): create CategoryIcon component with an emoji per category
+- [x] feat(web): create CategoryIcon component with an emoji per category
 - [ ] feat(web): show CategoryIcon in transaction rows
 - [ ] feat(web): create Amount component for signed, colored money
 - [ ] refactor(web): use Amount in TransactionList
