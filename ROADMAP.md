@@ -60,7 +60,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): create CategoryIcon component with an emoji per category
 - [x] feat(web): show CategoryIcon in transaction rows
 - [x] feat(web): create Amount component for signed, colored money
-- [ ] refactor(web): use Amount in TransactionList
+- [x] refactor(web): use Amount in TransactionList
 - [ ] refactor(web): use Amount in SummaryCards
 - [ ] feat(web): create formatDate helper for friendly dates
 - [ ] feat(web): show friendly dates in transaction rows

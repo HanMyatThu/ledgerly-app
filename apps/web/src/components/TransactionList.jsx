@@ -1,4 +1,5 @@
-import { formatMoney, getCategory } from '@ledgerly/shared';
+import { getCategory } from '@ledgerly/shared';
+import Amount from './Amount.jsx';
 import Button from './Button.jsx';
 import CategoryIcon from './CategoryIcon.jsx';
 import EmptyState from './EmptyState.jsx';
@@ -23,10 +24,7 @@ export default function TransactionList({ transactions, onDelete }) {
             </div>
           </div>
           <div className="transaction-actions">
-            <span className={`amount ${tx.type}`}>
-              {tx.type === 'expense' ? '−' : '+'}
-              {formatMoney(tx.amountCents)}
-            </span>
+            <Amount cents={tx.amountCents} type={tx.type} signed />
             <Button variant="ghost" onClick={() => onDelete(tx.id)}>
               Delete
             </Button>
