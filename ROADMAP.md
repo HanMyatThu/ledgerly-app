@@ -55,7 +55,7 @@ Goal: break the single page into small reusable pieces.
 
 - [x] feat(web): create Spinner component
 - [x] feat(web): show Spinner while transactions load
-- [ ] feat(web): create Alert component
+- [x] feat(web): create Alert component
 - [ ] refactor(web): show load errors with Alert
 - [ ] feat(web): create CategoryIcon component with an emoji per category
 - [ ] feat(web): show CategoryIcon in transaction rows

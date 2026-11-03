@@ -291,3 +291,41 @@ body {
     animation-duration: 2s;
   }
 }
+
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  border: 1px solid;
+}
+
+.alert-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.alert-error {
+  color: var(--expense);
+  background: #fef3f2;
+  border-color: #fecdca;
+}
+
+.alert-info {
+  color: var(--accent);
+  background: #eff4ff;
+  border-color: #c7d7fe;
+}
+
+.alert-dismiss {
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
