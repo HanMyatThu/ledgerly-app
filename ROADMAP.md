@@ -62,7 +62,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): create Amount component for signed, colored money
 - [x] refactor(web): use Amount in TransactionList
 - [x] refactor(web): use Amount in SummaryCards
-- [ ] feat(web): create formatDate helper for friendly dates
+- [x] feat(web): create formatDate helper for friendly dates
 - [ ] feat(web): show friendly dates in transaction rows
 - [ ] style(web): add hover state to transaction rows
 - [ ] style(web): add focus-visible outlines to buttons and inputs
