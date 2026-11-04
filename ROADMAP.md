@@ -69,7 +69,7 @@ Goal: break the single page into small reusable pieces.
 - [x] style(web): add subtle shadow to cards
 - [x] feat(web): add favicon
 - [x] feat(web): add page meta description
-- [ ] style(web): tidy mobile spacing
+- [x] style(web): tidy mobile spacing
 
 ## Day 3: persistence setup
 
