@@ -68,7 +68,7 @@ Goal: break the single page into small reusable pieces.
 - [x] style(web): add focus-visible outlines to buttons and inputs
 - [x] style(web): add subtle shadow to cards
 - [x] feat(web): add favicon
-- [ ] feat(web): add page meta description
+- [x] feat(web): add page meta description
 - [ ] style(web): tidy mobile spacing
 
 ## Day 3: persistence setup
