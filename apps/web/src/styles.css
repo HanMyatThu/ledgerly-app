@@ -62,6 +62,7 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .transaction {
@@ -71,6 +72,11 @@ body {
   gap: 12px;
   padding: 12px 16px;
   border-bottom: 1px solid var(--border);
+  transition: background-color 0.15s ease;
+}
+
+.transaction:hover {
+  background: var(--bg);
 }
 
 .transaction:last-child {
