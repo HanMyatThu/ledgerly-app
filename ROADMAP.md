@@ -66,7 +66,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): show friendly dates in transaction rows
 - [x] style(web): add hover state to transaction rows
 - [x] style(web): add focus-visible outlines to buttons and inputs
-- [ ] style(web): add subtle shadow to cards
+- [x] style(web): add subtle shadow to cards
 - [ ] feat(web): add favicon
 - [ ] feat(web): add page meta description
 - [ ] style(web): tidy mobile spacing
