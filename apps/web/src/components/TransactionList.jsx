@@ -1,4 +1,5 @@
 import { getCategory } from '@ledgerly/shared';
+import { formatDate } from '../lib/formatDate.js';
 import Amount from './Amount.jsx';
 import Button from './Button.jsx';
 import CategoryIcon from './CategoryIcon.jsx';
@@ -18,7 +19,7 @@ export default function TransactionList({ transactions, onDelete }) {
             <div>
               <strong>{getCategory(tx.categoryId)?.label ?? tx.categoryId}</strong>
               <span className="meta">
-                {tx.date}
+                <time dateTime={tx.date}>{formatDate(tx.date)}</time>
                 {tx.note ? ` · ${tx.note}` : ''}
               </span>
             </div>

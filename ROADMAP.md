@@ -63,7 +63,7 @@ Goal: break the single page into small reusable pieces.
 - [x] refactor(web): use Amount in TransactionList
 - [x] refactor(web): use Amount in SummaryCards
 - [x] feat(web): create formatDate helper for friendly dates
-- [ ] feat(web): show friendly dates in transaction rows
+- [x] feat(web): show friendly dates in transaction rows
 - [ ] style(web): add hover state to transaction rows
 - [ ] style(web): add focus-visible outlines to buttons and inputs
 - [ ] style(web): add subtle shadow to cards
