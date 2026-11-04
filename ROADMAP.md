@@ -65,7 +65,7 @@ Goal: break the single page into small reusable pieces.
 - [x] feat(web): create formatDate helper for friendly dates
 - [x] feat(web): show friendly dates in transaction rows
 - [x] style(web): add hover state to transaction rows
-- [ ] style(web): add focus-visible outlines to buttons and inputs
+- [x] style(web): add focus-visible outlines to buttons and inputs
 - [ ] style(web): add subtle shadow to cards
 - [ ] feat(web): add favicon
 - [ ] feat(web): add page meta description
