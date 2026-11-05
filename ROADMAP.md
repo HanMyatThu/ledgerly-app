@@ -79,7 +79,7 @@ Goal: start moving from memory to SQLite.
 - [x] chore: gitignore the api data folder
 - [x] feat(api): create config module reading env vars
 - [x] chore(api): add .env.example
-- [ ] feat(api): create database connection module
+- [x] feat(api): create database connection module
 - [ ] feat(api): create migrations table
 - [ ] feat(api): create migration runner
 - [ ] feat(api): add migration for transactions table
