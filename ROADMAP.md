@@ -76,7 +76,7 @@ Goal: break the single page into small reusable pieces.
 Goal: start moving from memory to SQLite.
 
 - [x] chore(api): add better-sqlite3 dependency
-- [ ] chore: gitignore the api data folder
+- [x] chore: gitignore the api data folder
 - [ ] feat(api): create config module reading env vars
 - [ ] chore(api): add .env.example
 - [ ] feat(api): create database connection module

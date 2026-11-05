@@ -7,3 +7,6 @@ coverage/
 .DS_Store
 .vscode/
 .idea/
+
+# Local SQLite databases
+apps/api/data/
