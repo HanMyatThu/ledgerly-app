@@ -80,7 +80,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): create config module reading env vars
 - [x] chore(api): add .env.example
 - [x] feat(api): create database connection module
-- [ ] feat(api): create migrations table
+- [x] feat(api): create migrations table
 - [ ] feat(api): create migration runner
 - [ ] feat(api): add migration for transactions table
 - [ ] feat(api): run migrations on startup
