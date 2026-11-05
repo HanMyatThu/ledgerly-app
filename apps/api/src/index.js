@@ -1,6 +1,7 @@
 import { createApp } from './app.js';
+import { config } from './config.js';
 
-const port = Number(process.env.PORT) || 4000;
+const { port } = config;
 
 createApp().listen(port, () => {
   console.log(`Ledgerly API listening on http://localhost:${port}`);

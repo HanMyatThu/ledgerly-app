@@ -77,7 +77,7 @@ Goal: start moving from memory to SQLite.
 
 - [x] chore(api): add better-sqlite3 dependency
 - [x] chore: gitignore the api data folder
-- [ ] feat(api): create config module reading env vars
+- [x] feat(api): create config module reading env vars
 - [ ] chore(api): add .env.example
 - [ ] feat(api): create database connection module
 - [ ] feat(api): create migrations table
