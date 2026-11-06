@@ -20,6 +20,10 @@ function fromRow(row) {
 export function createSqliteTransactionStore(db) {
   const listStmt = db.prepare(`SELECT ${COLUMNS} FROM transactions ORDER BY date DESC, created_at DESC`);
   const getStmt = db.prepare(`SELECT ${COLUMNS} FROM transactions WHERE id = ?`);
+  const insertStmt = db.prepare(`
+    INSERT INTO transactions (${COLUMNS})
+    VALUES (@id, @type, @amountCents, @categoryId, @date, @note, @createdAt, @updatedAt)
+  `);
 
   return {
     list() {
@@ -27,6 +31,12 @@ export function createSqliteTransactionStore(db) {
     },
     get(id) {
       return fromRow(getStmt.get(id));
+    },
+    create(data) {
+      const now = new Date().toISOString();
+      const item = { id: randomUUID(), note: '', ...data, createdAt: now, updatedAt: now };
+      insertStmt.run(item);
+      return item;
     },
   };
 }

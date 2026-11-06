@@ -87,7 +87,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(api): test migration runner on a temp database
 - [x] feat(api): create SQLite transaction store list method
 - [x] feat(api): add SQLite store get method
-- [ ] feat(api): add SQLite store create method
+- [x] feat(api): add SQLite store create method
 - [ ] feat(api): add SQLite store update method
 - [ ] feat(api): add SQLite store remove method
 - [ ] test(api): unit tests for the SQLite store
