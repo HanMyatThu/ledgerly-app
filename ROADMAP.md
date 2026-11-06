@@ -88,7 +88,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): create SQLite transaction store list method
 - [x] feat(api): add SQLite store get method
 - [x] feat(api): add SQLite store create method
-- [ ] feat(api): add SQLite store update method
+- [x] feat(api): add SQLite store update method
 - [ ] feat(api): add SQLite store remove method
 - [ ] test(api): unit tests for the SQLite store
 

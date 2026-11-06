@@ -24,6 +24,12 @@ export function createSqliteTransactionStore(db) {
     INSERT INTO transactions (${COLUMNS})
     VALUES (@id, @type, @amountCents, @categoryId, @date, @note, @createdAt, @updatedAt)
   `);
+  const updateStmt = db.prepare(`
+    UPDATE transactions
+    SET type = @type, amount_cents = @amountCents, category_id = @categoryId,
+        date = @date, note = @note, updated_at = @updatedAt
+    WHERE id = @id
+  `);
 
   return {
     list() {
@@ -36,6 +42,13 @@ export function createSqliteTransactionStore(db) {
       const now = new Date().toISOString();
       const item = { id: randomUUID(), note: '', ...data, createdAt: now, updatedAt: now };
       insertStmt.run(item);
+      return item;
+    },
+    update(id, data) {
+      const existing = this.get(id);
+      if (!existing) return null;
+      const item = { ...existing, ...data, id, updatedAt: new Date().toISOString() };
+      updateStmt.run(item);
       return item;
     },
   };
