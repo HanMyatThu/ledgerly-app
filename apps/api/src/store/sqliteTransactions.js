@@ -46,7 +46,7 @@ export function createSqliteTransactionStore(db) {
       return item;
     },
     update(id, data) {
-      const existing = this.get(id);
+      const existing = fromRow(getStmt.get(id));
       if (!existing) return null;
       const item = { ...existing, ...data, id, updatedAt: new Date().toISOString() };
       updateStmt.run(item);
