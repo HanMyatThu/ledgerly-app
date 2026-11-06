@@ -19,10 +19,14 @@ function fromRow(row) {
 // SQLite-backed store with the same interface as the in-memory store.
 export function createSqliteTransactionStore(db) {
   const listStmt = db.prepare(`SELECT ${COLUMNS} FROM transactions ORDER BY date DESC, created_at DESC`);
+  const getStmt = db.prepare(`SELECT ${COLUMNS} FROM transactions WHERE id = ?`);
 
   return {
     list() {
       return listStmt.all().map(fromRow);
+    },
+    get(id) {
+      return fromRow(getStmt.get(id));
     },
   };
 }
