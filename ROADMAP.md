@@ -97,7 +97,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): choose store from STORE env var
 - [x] refactor(api): share CRUD tests between memory and SQLite stores
 - [x] feat(api): create seed data file with a month of transactions
-- [ ] feat(api): add npm run seed script
+- [x] feat(api): add npm run seed script
 - [ ] feat(api): add npm run db:reset script
 - [ ] feat(api): add request logger middleware
 - [ ] feat(api): add central error handler middleware
