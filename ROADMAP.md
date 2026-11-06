@@ -89,7 +89,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): add SQLite store get method
 - [x] feat(api): add SQLite store create method
 - [x] feat(api): add SQLite store update method
-- [ ] feat(api): add SQLite store remove method
+- [x] feat(api): add SQLite store remove method
 - [ ] test(api): unit tests for the SQLite store
 
 ## Day 4: persistence wiring

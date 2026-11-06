@@ -30,6 +30,7 @@ export function createSqliteTransactionStore(db) {
         date = @date, note = @note, updated_at = @updatedAt
     WHERE id = @id
   `);
+  const removeStmt = db.prepare('DELETE FROM transactions WHERE id = ?');
 
   return {
     list() {
@@ -50,6 +51,9 @@ export function createSqliteTransactionStore(db) {
       const item = { ...existing, ...data, id, updatedAt: new Date().toISOString() };
       updateStmt.run(item);
       return item;
+    },
+    remove(id) {
+      return removeStmt.run(id).changes > 0;
     },
   };
 }
