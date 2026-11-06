@@ -1,13 +1,9 @@
 import { createApp } from './app.js';
 import { config } from './config.js';
-import { setupDatabase } from './db/index.js';
+import { createStore } from './store/index.js';
 
-const { port } = config;
+const { store } = createStore(config);
 
-if (config.store === 'sqlite') {
-  setupDatabase(config.databasePath);
-}
-
-createApp().listen(port, () => {
-  console.log(`Ledgerly API listening on http://localhost:${port}`);
+createApp({ store }).listen(config.port, () => {
+  console.log(`Ledgerly API listening on http://localhost:${config.port} (${config.store} store)`);
 });

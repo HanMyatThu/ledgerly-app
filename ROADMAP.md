@@ -94,7 +94,7 @@ Goal: start moving from memory to SQLite.
 
 ## Day 4: persistence wiring
 
-- [ ] feat(api): choose store from STORE env var
+- [x] feat(api): choose store from STORE env var
 - [ ] refactor(api): share CRUD tests between memory and SQLite stores
 - [ ] feat(api): create seed data file with a month of transactions
 - [ ] feat(api): add npm run seed script
