@@ -3,6 +3,7 @@ import cors from 'cors';
 import { CATEGORIES } from '@ledgerly/shared';
 import { createTransactionStore } from './store/transactions.js';
 import { transactionsRouter } from './routes/transactions.js';
+import { errorHandler } from './middleware/errorHandler.js';
 import { requestLogger } from './middleware/requestLogger.js';
 
 export function createApp({ store = createTransactionStore(), logRequests = false } = {}) {
@@ -25,6 +26,8 @@ export function createApp({ store = createTransactionStore(), logRequests = fals
   app.use((req, res) => {
     res.status(404).json({ error: 'Not found' });
   });
+
+  app.use(errorHandler);
 
   return app;
 }
