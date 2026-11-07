@@ -4,7 +4,7 @@ import { createStore } from './store/index.js';
 
 const { store, db } = createStore(config);
 
-const server = createApp({ store, logRequests: config.logLevel !== 'silent' }).listen(config.port, () => {
+const server = createApp({ store, db, logRequests: config.logLevel !== 'silent' }).listen(config.port, () => {
   console.log(`Ledgerly API listening on http://localhost:${config.port} (${config.store} store)`);
 });
 

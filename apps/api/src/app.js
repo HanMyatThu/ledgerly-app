@@ -7,7 +7,17 @@ import { notFound } from './http.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { requestLogger } from './middleware/requestLogger.js';
 
-export function createApp({ store = createTransactionStore(), logRequests = false } = {}) {
+function databaseStatus(db) {
+  if (!db) return 'not used';
+  try {
+    db.prepare('SELECT 1').get();
+    return 'ok';
+  } catch {
+    return 'error';
+  }
+}
+
+export function createApp({ store = createTransactionStore(), db = null, logRequests = false } = {}) {
   const app = express();
 
   if (logRequests) app.use(requestLogger());
@@ -15,7 +25,13 @@ export function createApp({ store = createTransactionStore(), logRequests = fals
   app.use(express.json());
 
   app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', uptime: process.uptime() });
+    const database = databaseStatus(db);
+    const healthy = database !== 'error';
+    res.status(healthy ? 200 : 503).json({
+      status: healthy ? 'ok' : 'degraded',
+      database,
+      uptime: process.uptime(),
+    });
   });
 
   app.get('/api/categories', (req, res) => {
