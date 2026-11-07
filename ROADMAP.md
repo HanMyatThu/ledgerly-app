@@ -103,7 +103,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): add central error handler middleware
 - [x] feat(api): add notFound helper for 404 responses
 - [x] refactor(api): use notFound helper in transactions routes
-- [ ] feat(api): create asyncHandler wrapper
+- [x] feat(api): create asyncHandler wrapper
 - [ ] refactor(api): wrap route handlers with asyncHandler
 - [ ] feat(api): graceful shutdown closes the database
 - [ ] feat(api): add database status to health endpoint
