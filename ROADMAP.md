@@ -99,7 +99,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): create seed data file with a month of transactions
 - [x] feat(api): add npm run seed script
 - [x] feat(api): add npm run db:reset script
-- [ ] feat(api): add request logger middleware
+- [x] feat(api): add request logger middleware
 - [ ] feat(api): add central error handler middleware
 - [ ] feat(api): add notFound helper for 404 responses
 - [ ] refactor(api): use notFound helper in transactions routes

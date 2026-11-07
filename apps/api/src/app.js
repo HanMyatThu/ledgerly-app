@@ -3,10 +3,12 @@ import cors from 'cors';
 import { CATEGORIES } from '@ledgerly/shared';
 import { createTransactionStore } from './store/transactions.js';
 import { transactionsRouter } from './routes/transactions.js';
+import { requestLogger } from './middleware/requestLogger.js';
 
-export function createApp({ store = createTransactionStore() } = {}) {
+export function createApp({ store = createTransactionStore(), logRequests = false } = {}) {
   const app = express();
 
+  if (logRequests) app.use(requestLogger());
   app.use(cors());
   app.use(express.json());
 
