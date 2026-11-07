@@ -11,6 +11,7 @@
     "dev:api": "npm run dev -w @ledgerly/api",
     "dev:web": "npm run dev -w @ledgerly/web",
     "seed": "npm run seed -w @ledgerly/api --",
+    "db:reset": "npm run db:reset -w @ledgerly/api",
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present"
   },
