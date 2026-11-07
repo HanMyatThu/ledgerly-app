@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { validateTransaction } from '@ledgerly/shared';
-import { notFound } from '../http.js';
+import { asyncHandler, HttpError, notFound } from '../http.js';
 
 const FIELDS = ['type', 'amountCents', 'categoryId', 'date', 'note'];
 
@@ -8,39 +8,59 @@ function pick(body) {
   return Object.fromEntries(FIELDS.filter((key) => key in (body ?? {})).map((key) => [key, body[key]]));
 }
 
+function assertValid(data) {
+  const errors = validateTransaction(data);
+  if (Object.keys(errors).length) throw new HttpError(400, 'Invalid transaction', errors);
+}
+
 export function transactionsRouter(store) {
   const router = Router();
 
-  router.get('/', (req, res) => {
-    res.json(store.list());
-  });
+  function findOrThrow(id) {
+    const item = store.get(id);
+    if (!item) throw notFound('Transaction');
+    return item;
+  }
 
-  router.get('/:id', (req, res, next) => {
-    const item = store.get(req.params.id);
-    if (!item) return next(notFound('Transaction'));
-    res.json(item);
-  });
+  router.get(
+    '/',
+    asyncHandler((req, res) => {
+      res.json(store.list());
+    }),
+  );
 
-  router.post('/', (req, res) => {
-    const data = pick(req.body);
-    const errors = validateTransaction(data);
-    if (Object.keys(errors).length) return res.status(400).json({ errors });
-    res.status(201).json(store.create(data));
-  });
+  router.get(
+    '/:id',
+    asyncHandler((req, res) => {
+      res.json(findOrThrow(req.params.id));
+    }),
+  );
 
-  router.put('/:id', (req, res, next) => {
-    const existing = store.get(req.params.id);
-    if (!existing) return next(notFound('Transaction'));
-    const data = { ...existing, ...pick(req.body) };
-    const errors = validateTransaction(data);
-    if (Object.keys(errors).length) return res.status(400).json({ errors });
-    res.json(store.update(req.params.id, pick(data)));
-  });
+  router.post(
+    '/',
+    asyncHandler((req, res) => {
+      const data = pick(req.body);
+      assertValid(data);
+      res.status(201).json(store.create(data));
+    }),
+  );
 
-  router.delete('/:id', (req, res, next) => {
-    if (!store.remove(req.params.id)) return next(notFound('Transaction'));
-    res.status(204).end();
-  });
+  router.put(
+    '/:id',
+    asyncHandler((req, res) => {
+      const data = pick({ ...findOrThrow(req.params.id), ...pick(req.body) });
+      assertValid(data);
+      res.json(store.update(req.params.id, data));
+    }),
+  );
+
+  router.delete(
+    '/:id',
+    asyncHandler((req, res) => {
+      if (!store.remove(req.params.id)) throw notFound('Transaction');
+      res.status(204).end();
+    }),
+  );
 
   return router;
 }
