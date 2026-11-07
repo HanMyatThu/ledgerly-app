@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { validateTransaction } from '@ledgerly/shared';
+import { notFound } from '../http.js';
 
 const FIELDS = ['type', 'amountCents', 'categoryId', 'date', 'note'];
 
@@ -14,9 +15,9 @@ export function transactionsRouter(store) {
     res.json(store.list());
   });
 
-  router.get('/:id', (req, res) => {
+  router.get('/:id', (req, res, next) => {
     const item = store.get(req.params.id);
-    if (!item) return res.status(404).json({ error: 'Transaction not found' });
+    if (!item) return next(notFound('Transaction'));
     res.json(item);
   });
 
@@ -27,17 +28,17 @@ export function transactionsRouter(store) {
     res.status(201).json(store.create(data));
   });
 
-  router.put('/:id', (req, res) => {
+  router.put('/:id', (req, res, next) => {
     const existing = store.get(req.params.id);
-    if (!existing) return res.status(404).json({ error: 'Transaction not found' });
+    if (!existing) return next(notFound('Transaction'));
     const data = { ...existing, ...pick(req.body) };
     const errors = validateTransaction(data);
     if (Object.keys(errors).length) return res.status(400).json({ errors });
     res.json(store.update(req.params.id, pick(data)));
   });
 
-  router.delete('/:id', (req, res) => {
-    if (!store.remove(req.params.id)) return res.status(404).json({ error: 'Transaction not found' });
+  router.delete('/:id', (req, res, next) => {
+    if (!store.remove(req.params.id)) return next(notFound('Transaction'));
     res.status(204).end();
   });
 
