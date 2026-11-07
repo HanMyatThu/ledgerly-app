@@ -105,7 +105,7 @@ Goal: start moving from memory to SQLite.
 - [x] refactor(api): use notFound helper in transactions routes
 - [x] feat(api): create asyncHandler wrapper
 - [x] refactor(api): wrap route handlers with asyncHandler
-- [ ] feat(api): graceful shutdown closes the database
+- [x] feat(api): graceful shutdown closes the database
 - [ ] feat(api): add database status to health endpoint
 - [ ] test(api): health endpoint test
 - [ ] docs: document persistence in README
