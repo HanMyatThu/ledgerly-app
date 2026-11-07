@@ -26,5 +26,5 @@ test('malformed JSON gets a 400 JSON error', async () => {
 test('unknown routes get a 404 JSON error', async () => {
   const res = await fetch(`${base}/api/nope`);
   assert.equal(res.status, 404);
-  assert.equal((await res.json()).error, 'Not found');
+  assert.equal((await res.json()).error, 'Route not found');
 });

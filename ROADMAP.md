@@ -101,7 +101,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): add npm run db:reset script
 - [x] feat(api): add request logger middleware
 - [x] feat(api): add central error handler middleware
-- [ ] feat(api): add notFound helper for 404 responses
+- [x] feat(api): add notFound helper for 404 responses
 - [ ] refactor(api): use notFound helper in transactions routes
 - [ ] feat(api): create asyncHandler wrapper
 - [ ] refactor(api): wrap route handlers with asyncHandler
