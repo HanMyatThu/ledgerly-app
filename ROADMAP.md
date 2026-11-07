@@ -107,7 +107,7 @@ Goal: start moving from memory to SQLite.
 - [x] refactor(api): wrap route handlers with asyncHandler
 - [x] feat(api): graceful shutdown closes the database
 - [x] feat(api): add database status to health endpoint
-- [ ] test(api): health endpoint test
+- [x] test(api): health endpoint test
 - [ ] docs: document persistence in README
 - [ ] docs: document seeding in README
 
