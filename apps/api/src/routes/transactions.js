@@ -16,6 +16,7 @@ function listFilters(query) {
   if (DATE.test(query.from ?? '')) filters.from = query.from;
   if (DATE.test(query.to ?? '')) filters.to = query.to;
   if (query.type === 'income' || query.type === 'expense') filters.type = query.type;
+  if (typeof query.category === 'string' && query.category) filters.categoryId = query.category;
   return filters;
 }
 

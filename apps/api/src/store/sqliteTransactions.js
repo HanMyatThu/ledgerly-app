@@ -17,7 +17,7 @@ function fromRow(row) {
 }
 
 // Turns list filters into a WHERE clause with named parameters.
-function buildWhere({ from, to, type } = {}) {
+function buildWhere({ from, to, type, categoryId } = {}) {
   const clauses = [];
   const params = {};
   if (from) {
@@ -31,6 +31,10 @@ function buildWhere({ from, to, type } = {}) {
   if (type) {
     clauses.push('type = @type');
     params.type = type;
+  }
+  if (categoryId) {
+    clauses.push('category_id = @categoryId');
+    params.categoryId = categoryId;
   }
   return { where: clauses.length ? `WHERE ${clauses.join(' AND ')}` : '', params };
 }

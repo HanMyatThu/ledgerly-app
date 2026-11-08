@@ -117,7 +117,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): filter transactions by to date
 - [x] test(api): date range filter tests
 - [x] feat(api): filter transactions by type
-- [ ] feat(api): filter transactions by category
+- [x] feat(api): filter transactions by category
 - [ ] test(api): type and category filter tests
 - [ ] feat(api): search notes with q param
 - [ ] test(api): note search test
