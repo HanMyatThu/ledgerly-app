@@ -119,7 +119,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): filter transactions by type
 - [x] feat(api): filter transactions by category
 - [x] test(api): type and category filter tests
-- [ ] feat(api): search notes with q param
+- [x] feat(api): search notes with q param
 - [ ] test(api): note search test
 - [ ] feat(shared): add parseListQuery helper
 - [ ] test(shared): parseListQuery tests

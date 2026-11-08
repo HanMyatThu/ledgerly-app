@@ -17,7 +17,7 @@ function fromRow(row) {
 }
 
 // Turns list filters into a WHERE clause with named parameters.
-function buildWhere({ from, to, type, categoryId } = {}) {
+function buildWhere({ from, to, type, categoryId, q } = {}) {
   const clauses = [];
   const params = {};
   if (from) {
@@ -35,6 +35,11 @@ function buildWhere({ from, to, type, categoryId } = {}) {
   if (categoryId) {
     clauses.push('category_id = @categoryId');
     params.categoryId = categoryId;
+  }
+  if (q) {
+    // Case-insensitive substring match; escape LIKE wildcards in the search text.
+    clauses.push("note LIKE @q ESCAPE '\\'");
+    params.q = `%${q.replace(/[\\%_]/g, (char) => `\\${char}`)}%`;
   }
   return { where: clauses.length ? `WHERE ${clauses.join(' AND ')}` : '', params };
 }
