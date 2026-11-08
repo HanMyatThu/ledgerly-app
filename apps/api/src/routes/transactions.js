@@ -15,6 +15,7 @@ function listFilters(query) {
   const filters = {};
   if (DATE.test(query.from ?? '')) filters.from = query.from;
   if (DATE.test(query.to ?? '')) filters.to = query.to;
+  if (query.type === 'income' || query.type === 'expense') filters.type = query.type;
   return filters;
 }
 

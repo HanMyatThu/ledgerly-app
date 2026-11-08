@@ -1,8 +1,9 @@
 import { randomUUID } from 'node:crypto';
 
-function matches(item, { from, to } = {}) {
+function matches(item, { from, to, type } = {}) {
   if (from && item.date < from) return false;
   if (to && item.date > to) return false;
+  if (type && item.type !== type) return false;
   return true;
 }
 
