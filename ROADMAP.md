@@ -108,7 +108,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): graceful shutdown closes the database
 - [x] feat(api): add database status to health endpoint
 - [x] test(api): health endpoint test
-- [ ] docs: document persistence in README
+- [x] docs: document persistence in README
 - [ ] docs: document seeding in README
 
 ## Day 5: API filters
