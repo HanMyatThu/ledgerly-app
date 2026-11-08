@@ -1,0 +1,60 @@
+import { describe, test, before, after } from 'node:test';
+import assert from 'node:assert/strict';
+import { createApp } from '../src/app.js';
+import { createStore } from '../src/store/index.js';
+
+const FIXTURES = [
+  { type: 'expense', amountCents: 1200, categoryId: 'dining', date: '2026-10-30', note: 'Ramen night' },
+  { type: 'income', amountCents: 300000, categoryId: 'salary', date: '2026-11-01', note: 'November pay' },
+  { type: 'expense', amountCents: 6400, categoryId: 'groceries', date: '2026-11-02', note: 'Weekly shop' },
+  { type: 'expense', amountCents: 950, categoryId: 'dining', date: '2026-11-05', note: 'Coffee' },
+  { type: 'expense', amountCents: 4500, categoryId: 'transport', date: '2026-11-10', note: 'Transit pass' },
+];
+
+const STORES = {
+  memory: { store: 'memory' },
+  sqlite: { store: 'sqlite', databasePath: ':memory:' },
+};
+
+for (const [name, config] of Object.entries(STORES)) {
+  describe(`list filters with the ${name} store`, () => {
+    let server;
+    let db;
+    let base;
+
+    before(async () => {
+      const created = createStore(config);
+      db = created.db;
+      for (const item of FIXTURES) created.store.create(item);
+      server = createApp({ store: created.store }).listen(0);
+      await new Promise((resolve) => server.once('listening', resolve));
+      base = `http://localhost:${server.address().port}/api/transactions`;
+    });
+
+    after(() => {
+      server.close();
+      db?.close();
+    });
+
+    async function dates(query) {
+      const items = await (await fetch(`${base}?${query}`)).json();
+      return items.map((item) => item.date);
+    }
+
+    test('from keeps transactions on or after the date', async () => {
+      assert.deepEqual(await dates('from=2026-11-02'), ['2026-11-10', '2026-11-05', '2026-11-02']);
+    });
+
+    test('to keeps transactions on or before the date', async () => {
+      assert.deepEqual(await dates('to=2026-11-01'), ['2026-11-01', '2026-10-30']);
+    });
+
+    test('from and to together select a range', async () => {
+      assert.deepEqual(await dates('from=2026-11-01&to=2026-11-05'), ['2026-11-05', '2026-11-02', '2026-11-01']);
+    });
+
+    test('malformed dates are ignored', async () => {
+      assert.equal((await dates('from=yesterday')).length, FIXTURES.length);
+    });
+  });
+}
