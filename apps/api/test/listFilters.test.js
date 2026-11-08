@@ -9,6 +9,7 @@ const FIXTURES = [
   { type: 'expense', amountCents: 6400, categoryId: 'groceries', date: '2026-11-02', note: 'Weekly shop' },
   { type: 'expense', amountCents: 950, categoryId: 'dining', date: '2026-11-05', note: 'Coffee' },
   { type: 'expense', amountCents: 4500, categoryId: 'transport', date: '2026-11-10', note: 'Transit pass' },
+  { type: 'expense', amountCents: 2000, categoryId: 'shopping', date: '2026-11-11', note: '50% off sale' },
 ];
 
 const STORES = {
@@ -42,7 +43,7 @@ for (const [name, config] of Object.entries(STORES)) {
     }
 
     test('from keeps transactions on or after the date', async () => {
-      assert.deepEqual(await dates('from=2026-11-02'), ['2026-11-10', '2026-11-05', '2026-11-02']);
+      assert.deepEqual(await dates('from=2026-11-02'), ['2026-11-11', '2026-11-10', '2026-11-05', '2026-11-02']);
     });
 
     test('to keeps transactions on or before the date', async () => {
@@ -55,7 +56,7 @@ for (const [name, config] of Object.entries(STORES)) {
 
     test('type keeps only income or only expenses', async () => {
       assert.deepEqual(await dates('type=income'), ['2026-11-01']);
-      assert.equal((await dates('type=expense')).length, 4);
+      assert.equal((await dates('type=expense')).length, 5);
     });
 
     test('an unknown type is ignored', async () => {
@@ -69,6 +70,20 @@ for (const [name, config] of Object.entries(STORES)) {
     test('filters combine', async () => {
       assert.deepEqual(await dates('category=dining&from=2026-11-01'), ['2026-11-05']);
       assert.deepEqual(await dates('type=income&category=dining'), []);
+    });
+
+    test('q searches notes without caring about case', async () => {
+      assert.deepEqual(await dates('q=WEEKLY'), ['2026-11-02']);
+      assert.deepEqual(await dates('q=pa'), ['2026-11-10', '2026-11-01']);
+    });
+
+    test('q treats % and _ literally', async () => {
+      assert.deepEqual(await dates('q=' + encodeURIComponent('50%')), ['2026-11-11']);
+      assert.deepEqual(await dates('q=_'), []);
+    });
+
+    test('a blank q is ignored', async () => {
+      assert.equal((await dates('q=%20%20')).length, FIXTURES.length);
     });
 
     test('malformed dates are ignored', async () => {
