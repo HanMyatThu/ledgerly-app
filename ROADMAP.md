@@ -109,7 +109,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): add database status to health endpoint
 - [x] test(api): health endpoint test
 - [x] docs: document persistence in README
-- [ ] docs: document seeding in README
+- [x] docs: document seeding in README
 
 ## Day 5: API filters
 

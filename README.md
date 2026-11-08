@@ -41,6 +41,17 @@ Schema changes live in `apps/api/src/db/migrations` and run automatically when t
 
 `npm run db:reset` deletes the database and recreates it empty.
 
+## Sample data
+
+To try the app with realistic numbers, seed the database with a month of sample transactions:
+
+```bash
+npm run seed              # current month
+npm run seed -- 2026-10   # a specific month
+```
+
+Seeding adds to whatever is already there, so run `npm run db:reset` first for a clean slate. The sample data lives in `apps/api/src/db/seedData.js`.
+
 ## Roadmap
 
 See [ROADMAP.md](ROADMAP.md) for the day-by-day plan.
