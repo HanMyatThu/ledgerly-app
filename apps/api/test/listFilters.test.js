@@ -53,6 +53,24 @@ for (const [name, config] of Object.entries(STORES)) {
       assert.deepEqual(await dates('from=2026-11-01&to=2026-11-05'), ['2026-11-05', '2026-11-02', '2026-11-01']);
     });
 
+    test('type keeps only income or only expenses', async () => {
+      assert.deepEqual(await dates('type=income'), ['2026-11-01']);
+      assert.equal((await dates('type=expense')).length, 4);
+    });
+
+    test('an unknown type is ignored', async () => {
+      assert.equal((await dates('type=gift')).length, FIXTURES.length);
+    });
+
+    test('category keeps one category', async () => {
+      assert.deepEqual(await dates('category=dining'), ['2026-11-05', '2026-10-30']);
+    });
+
+    test('filters combine', async () => {
+      assert.deepEqual(await dates('category=dining&from=2026-11-01'), ['2026-11-05']);
+      assert.deepEqual(await dates('type=income&category=dining'), []);
+    });
+
     test('malformed dates are ignored', async () => {
       assert.equal((await dates('from=yesterday')).length, FIXTURES.length);
     });
