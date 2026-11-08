@@ -14,6 +14,7 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/;
 function listFilters(query) {
   const filters = {};
   if (DATE.test(query.from ?? '')) filters.from = query.from;
+  if (DATE.test(query.to ?? '')) filters.to = query.to;
   return filters;
 }
 

@@ -17,12 +17,16 @@ function fromRow(row) {
 }
 
 // Turns list filters into a WHERE clause with named parameters.
-function buildWhere({ from } = {}) {
+function buildWhere({ from, to } = {}) {
   const clauses = [];
   const params = {};
   if (from) {
     clauses.push('date >= @from');
     params.from = from;
+  }
+  if (to) {
+    clauses.push('date <= @to');
+    params.to = to;
   }
   return { where: clauses.length ? `WHERE ${clauses.join(' AND ')}` : '', params };
 }
