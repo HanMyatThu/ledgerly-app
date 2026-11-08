@@ -8,6 +8,15 @@ function pick(body) {
   return Object.fromEntries(FIELDS.filter((key) => key in (body ?? {})).map((key) => [key, body[key]]));
 }
 
+const DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+// Reads supported filters from the query string, ignoring anything malformed.
+function listFilters(query) {
+  const filters = {};
+  if (DATE.test(query.from ?? '')) filters.from = query.from;
+  return filters;
+}
+
 function assertValid(data) {
   const errors = validateTransaction(data);
   if (Object.keys(errors).length) throw new HttpError(400, 'Invalid transaction', errors);
@@ -25,7 +34,7 @@ export function transactionsRouter(store) {
   router.get(
     '/',
     asyncHandler((req, res) => {
-      res.json(store.list());
+      res.json(store.list(listFilters(req.query)));
     }),
   );
 

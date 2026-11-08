@@ -16,9 +16,19 @@ function fromRow(row) {
   };
 }
 
+// Turns list filters into a WHERE clause with named parameters.
+function buildWhere({ from } = {}) {
+  const clauses = [];
+  const params = {};
+  if (from) {
+    clauses.push('date >= @from');
+    params.from = from;
+  }
+  return { where: clauses.length ? `WHERE ${clauses.join(' AND ')}` : '', params };
+}
+
 // SQLite-backed store with the same interface as the in-memory store.
 export function createSqliteTransactionStore(db) {
-  const listStmt = db.prepare(`SELECT ${COLUMNS} FROM transactions ORDER BY date DESC, created_at DESC`);
   const getStmt = db.prepare(`SELECT ${COLUMNS} FROM transactions WHERE id = ?`);
   const insertStmt = db.prepare(`
     INSERT INTO transactions (${COLUMNS})
@@ -33,8 +43,12 @@ export function createSqliteTransactionStore(db) {
   const removeStmt = db.prepare('DELETE FROM transactions WHERE id = ?');
 
   return {
-    list() {
-      return listStmt.all().map(fromRow);
+    list(filters = {}) {
+      const { where, params } = buildWhere(filters);
+      return db
+        .prepare(`SELECT ${COLUMNS} FROM transactions ${where} ORDER BY date DESC, created_at DESC`)
+        .all(params)
+        .map(fromRow);
     },
     get(id) {
       return fromRow(getStmt.get(id));

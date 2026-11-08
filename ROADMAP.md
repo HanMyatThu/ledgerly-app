@@ -113,7 +113,7 @@ Goal: start moving from memory to SQLite.
 
 ## Day 5: API filters
 
-- [ ] feat(api): filter transactions by from date
+- [x] feat(api): filter transactions by from date
 - [ ] feat(api): filter transactions by to date
 - [ ] test(api): date range filter tests
 - [ ] feat(api): filter transactions by type

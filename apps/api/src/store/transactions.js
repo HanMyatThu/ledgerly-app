@@ -1,12 +1,19 @@
 import { randomUUID } from 'node:crypto';
 
+function matches(item, { from } = {}) {
+  if (from && item.date < from) return false;
+  return true;
+}
+
 // In-memory store. Will be replaced by a database-backed store later.
 export function createTransactionStore(seed = []) {
   const items = new Map(seed.map((item) => [item.id, item]));
 
   return {
-    list() {
-      return [...items.values()].sort((a, b) => b.date.localeCompare(a.date));
+    list(filters = {}) {
+      return [...items.values()]
+        .filter((item) => matches(item, filters))
+        .sort((a, b) => b.date.localeCompare(a.date));
     },
     get(id) {
       return items.get(id) ?? null;
