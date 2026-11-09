@@ -129,7 +129,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(api): pagination tests
 - [x] feat(api): add sort param for date and amount
 - [x] test(api): sort tests
-- [ ] docs: document list query params in README
+- [x] docs: document list query params in README
 
 ## Day 6: web filters
 
