@@ -25,7 +25,10 @@ export function transactionsRouter(store) {
   router.get(
     '/',
     asyncHandler((req, res) => {
-      res.json(store.list(parseListQuery(req.query)));
+      const query = parseListQuery(req.query);
+      // Total matches before paging, so clients can tell whether more pages exist.
+      res.set('X-Total-Count', String(store.count(query)));
+      res.json(store.list(query));
     }),
   );
 

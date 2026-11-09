@@ -71,6 +71,10 @@ export function createSqliteTransactionStore(db) {
         .all({ ...params, ...paging })
         .map(fromRow);
     },
+    count(filters = {}) {
+      const { where, params } = buildWhere(filters);
+      return db.prepare(`SELECT COUNT(*) AS total FROM transactions ${where}`).get(params).total;
+    },
     get(id) {
       return fromRow(getStmt.get(id));
     },

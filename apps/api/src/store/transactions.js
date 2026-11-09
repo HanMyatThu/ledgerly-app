@@ -21,6 +21,9 @@ export function createTransactionStore(seed = []) {
         .sort((a, b) => b.date.localeCompare(a.date));
       return found.slice(offset, limit ? offset + limit : undefined);
     },
+    count(filters = {}) {
+      return [...items.values()].filter((item) => matches(item, filters)).length;
+    },
     get(id) {
       return items.get(id) ?? null;
     },

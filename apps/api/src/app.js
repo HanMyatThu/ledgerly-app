@@ -21,7 +21,7 @@ export function createApp({ store = createTransactionStore(), db = null, logRequ
   const app = express();
 
   if (logRequests) app.use(requestLogger());
-  app.use(cors());
+  app.use(cors({ exposedHeaders: ['X-Total-Count'] }));
   app.use(express.json());
 
   app.get('/api/health', (req, res) => {
