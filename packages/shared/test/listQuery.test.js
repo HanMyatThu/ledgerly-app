@@ -38,3 +38,11 @@ test('reads limit and offset, capping the limit', () => {
   assert.deepEqual(parseListQuery({ limit: '0', offset: '-1' }), {});
   assert.deepEqual(parseListQuery({ limit: '2.5' }), {});
 });
+
+test('reads known sorts and leaves out the default', () => {
+  assert.equal(parseListQuery({ sort: 'amount' }).sort, 'amount');
+  assert.equal(parseListQuery({ sort: '-amount' }).sort, '-amount');
+  assert.equal(parseListQuery({ sort: 'date' }).sort, 'date');
+  assert.equal(parseListQuery({ sort: '-date' }).sort, undefined);
+  assert.equal(parseListQuery({ sort: 'note' }).sort, undefined);
+});

@@ -106,6 +106,27 @@ for (const [name, config] of Object.entries(STORES)) {
       assert.equal((await dates('limit=-3&offset=abc')).length, FIXTURES.length);
     });
 
+    async function amounts(query) {
+      const items = await (await fetch(`${base}?${query}`)).json();
+      return items.map((item) => item.amountCents);
+    }
+
+    test('sort=date lists oldest first', async () => {
+      assert.deepEqual((await dates('sort=date')).slice(0, 2), ['2026-10-30', '2026-11-01']);
+    });
+
+    test('sort=-amount lists largest first', async () => {
+      assert.deepEqual(await amounts('type=expense&sort=-amount'), [6400, 4500, 2000, 1200, 950]);
+    });
+
+    test('sort=amount lists smallest first and pages', async () => {
+      assert.deepEqual(await amounts('sort=amount&limit=2&offset=1'), [1200, 2000]);
+    });
+
+    test('an unknown sort falls back to newest first', async () => {
+      assert.equal((await dates('sort=note'))[0], '2026-11-11');
+    });
+
     test('malformed dates are ignored', async () => {
       assert.equal((await dates('from=yesterday')).length, FIXTURES.length);
     });
