@@ -15,9 +15,11 @@ export function createTransactionStore(seed = []) {
 
   return {
     list(filters = {}) {
-      return [...items.values()]
+      const { limit, offset = 0 } = filters;
+      const found = [...items.values()]
         .filter((item) => matches(item, filters))
         .sort((a, b) => b.date.localeCompare(a.date));
+      return found.slice(offset, limit ? offset + limit : undefined);
     },
     get(id) {
       return items.get(id) ?? null;

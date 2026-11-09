@@ -62,9 +62,13 @@ export function createSqliteTransactionStore(db) {
   return {
     list(filters = {}) {
       const { where, params } = buildWhere(filters);
+      // LIMIT -1 means no limit in SQLite.
+      const paging = { limit: filters.limit ?? -1, offset: filters.offset ?? 0 };
       return db
-        .prepare(`SELECT ${COLUMNS} FROM transactions ${where} ORDER BY date DESC, created_at DESC`)
-        .all(params)
+        .prepare(
+          `SELECT ${COLUMNS} FROM transactions ${where} ORDER BY date DESC, created_at DESC LIMIT @limit OFFSET @offset`,
+        )
+        .all({ ...params, ...paging })
         .map(fromRow);
     },
     get(id) {
