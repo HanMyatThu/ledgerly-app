@@ -31,3 +31,10 @@ test('accepts URLSearchParams', () => {
   const params = new URLSearchParams('type=income&category=salary');
   assert.deepEqual(parseListQuery(params), { type: 'income', categoryId: 'salary' });
 });
+
+test('reads limit and offset, capping the limit', () => {
+  assert.deepEqual(parseListQuery({ limit: '20', offset: '40' }), { limit: 20, offset: 40 });
+  assert.equal(parseListQuery({ limit: '5000' }).limit, 200);
+  assert.deepEqual(parseListQuery({ limit: '0', offset: '-1' }), {});
+  assert.deepEqual(parseListQuery({ limit: '2.5' }), {});
+});

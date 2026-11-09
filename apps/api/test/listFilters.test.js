@@ -86,6 +86,26 @@ for (const [name, config] of Object.entries(STORES)) {
       assert.equal((await dates('q=%20%20')).length, FIXTURES.length);
     });
 
+    test('limit and offset page through results newest first', async () => {
+      assert.deepEqual(await dates('limit=2'), ['2026-11-11', '2026-11-10']);
+      assert.deepEqual(await dates('limit=2&offset=2'), ['2026-11-05', '2026-11-02']);
+      assert.deepEqual(await dates('limit=2&offset=6'), []);
+    });
+
+    test('offset without limit returns the rest', async () => {
+      assert.equal((await dates('offset=4')).length, FIXTURES.length - 4);
+    });
+
+    test('X-Total-Count counts matches before paging', async () => {
+      const res = await fetch(`${base}?type=expense&limit=1`);
+      assert.equal(res.headers.get('x-total-count'), '5');
+      assert.equal((await res.json()).length, 1);
+    });
+
+    test('invalid paging values are ignored', async () => {
+      assert.equal((await dates('limit=-3&offset=abc')).length, FIXTURES.length);
+    });
+
     test('malformed dates are ignored', async () => {
       assert.equal((await dates('from=yesterday')).length, FIXTURES.length);
     });

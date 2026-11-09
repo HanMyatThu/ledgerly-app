@@ -126,7 +126,7 @@ Goal: start moving from memory to SQLite.
 - [x] refactor(api): use parseListQuery in transactions route
 - [x] feat(api): add limit and offset pagination
 - [x] feat(api): return total count header
-- [ ] test(api): pagination tests
+- [x] test(api): pagination tests
 - [ ] feat(api): add sort param for date and amount
 - [ ] test(api): sort tests
 - [ ] docs: document list query params in README
