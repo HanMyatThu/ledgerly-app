@@ -9,6 +9,17 @@ function matches(item, { from, to, type, categoryId, q } = {}) {
   return true;
 }
 
+const COMPARE = {
+  date: (a, b) => a.date.localeCompare(b.date) || a.createdAt.localeCompare(b.createdAt),
+  amount: (a, b) => a.amountCents - b.amountCents || a.date.localeCompare(b.date),
+};
+
+function comparator(sort = '-date') {
+  const descending = sort.startsWith('-');
+  const compare = COMPARE[descending ? sort.slice(1) : sort] ?? COMPARE.date;
+  return descending ? (a, b) => compare(b, a) : compare;
+}
+
 // In-memory store. Will be replaced by a database-backed store later.
 export function createTransactionStore(seed = []) {
   const items = new Map(seed.map((item) => [item.id, item]));
@@ -18,7 +29,7 @@ export function createTransactionStore(seed = []) {
       const { limit, offset = 0 } = filters;
       const found = [...items.values()]
         .filter((item) => matches(item, filters))
-        .sort((a, b) => b.date.localeCompare(a.date));
+        .sort(comparator(filters.sort));
       return found.slice(offset, limit ? offset + limit : undefined);
     },
     count(filters = {}) {

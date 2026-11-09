@@ -2,6 +2,8 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const TYPES = new Set(['income', 'expense']);
 const MAX_SEARCH = 100;
 export const MAX_LIMIT = 200;
+// A leading minus means descending. Newest first is the default.
+export const SORTS = ['-date', 'date', '-amount', 'amount'];
 
 function toInt(value) {
   return value !== undefined && /^\d+$/.test(value) ? Number(value) : undefined;
@@ -31,6 +33,9 @@ export function parseListQuery(query = {}) {
 
   const q = read(query, 'q')?.trim();
   if (q) filters.q = q.slice(0, MAX_SEARCH);
+
+  const sort = read(query, 'sort');
+  if (SORTS.includes(sort) && sort !== '-date') filters.sort = sort;
 
   const limit = toInt(read(query, 'limit'));
   if (limit) filters.limit = Math.min(limit, MAX_LIMIT);

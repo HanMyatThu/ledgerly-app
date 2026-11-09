@@ -127,7 +127,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): add limit and offset pagination
 - [x] feat(api): return total count header
 - [x] test(api): pagination tests
-- [ ] feat(api): add sort param for date and amount
+- [x] feat(api): add sort param for date and amount
 - [ ] test(api): sort tests
 - [ ] docs: document list query params in README
 

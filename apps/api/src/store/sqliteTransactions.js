@@ -16,6 +16,13 @@ function fromRow(row) {
   };
 }
 
+const ORDER_BY = {
+  '-date': 'date DESC, created_at DESC',
+  date: 'date ASC, created_at ASC',
+  '-amount': 'amount_cents DESC, date DESC',
+  amount: 'amount_cents ASC, date ASC',
+};
+
 // Turns list filters into a WHERE clause with named parameters.
 function buildWhere({ from, to, type, categoryId, q } = {}) {
   const clauses = [];
@@ -66,7 +73,7 @@ export function createSqliteTransactionStore(db) {
       const paging = { limit: filters.limit ?? -1, offset: filters.offset ?? 0 };
       return db
         .prepare(
-          `SELECT ${COLUMNS} FROM transactions ${where} ORDER BY date DESC, created_at DESC LIMIT @limit OFFSET @offset`,
+          `SELECT ${COLUMNS} FROM transactions ${where} ORDER BY ${ORDER_BY[filters.sort] ?? ORDER_BY['-date']} LIMIT @limit OFFSET @offset`,
         )
         .all({ ...params, ...paging })
         .map(fromRow);
