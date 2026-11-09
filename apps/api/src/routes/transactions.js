@@ -1,25 +1,11 @@
 import { Router } from 'express';
-import { validateTransaction } from '@ledgerly/shared';
+import { parseListQuery, validateTransaction } from '@ledgerly/shared';
 import { asyncHandler, HttpError, notFound } from '../http.js';
 
 const FIELDS = ['type', 'amountCents', 'categoryId', 'date', 'note'];
 
 function pick(body) {
   return Object.fromEntries(FIELDS.filter((key) => key in (body ?? {})).map((key) => [key, body[key]]));
-}
-
-const DATE = /^\d{4}-\d{2}-\d{2}$/;
-
-// Reads supported filters from the query string, ignoring anything malformed.
-function listFilters(query) {
-  const filters = {};
-  if (DATE.test(query.from ?? '')) filters.from = query.from;
-  if (DATE.test(query.to ?? '')) filters.to = query.to;
-  if (query.type === 'income' || query.type === 'expense') filters.type = query.type;
-  if (typeof query.category === 'string' && query.category) filters.categoryId = query.category;
-  const q = typeof query.q === 'string' ? query.q.trim() : '';
-  if (q) filters.q = q.slice(0, 100);
-  return filters;
 }
 
 function assertValid(data) {
@@ -39,7 +25,7 @@ export function transactionsRouter(store) {
   router.get(
     '/',
     asyncHandler((req, res) => {
-      res.json(store.list(listFilters(req.query)));
+      res.json(store.list(parseListQuery(req.query)));
     }),
   );
 
