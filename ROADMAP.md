@@ -121,7 +121,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(api): type and category filter tests
 - [x] feat(api): search notes with q param
 - [x] test(api): note search test
-- [ ] feat(shared): add parseListQuery helper
+- [x] feat(shared): add parseListQuery helper
 - [ ] test(shared): parseListQuery tests
 - [ ] refactor(api): use parseListQuery in transactions route
 - [ ] feat(api): add limit and offset pagination
