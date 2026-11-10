@@ -140,7 +140,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): show summary for the selected month
 - [x] feat(web): create FilterBar component
 - [x] feat(web): add type filter to FilterBar
-- [ ] feat(web): add category filter to FilterBar
+- [x] feat(web): add category filter to FilterBar
 - [ ] feat(web): create useDebounce hook
 - [ ] feat(web): add note search box to FilterBar
 - [ ] feat(web): keep filters in the URL query string
