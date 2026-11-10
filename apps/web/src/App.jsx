@@ -1,48 +1,27 @@
-import { useEffect, useState } from 'react';
-import { api } from './api.js';
 import Alert from './components/Alert.jsx';
 import Layout from './components/Layout.jsx';
 import Spinner from './components/Spinner.jsx';
 import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
+import { useTransactions } from './hooks/useTransactions.js';
 
 export default function App() {
-  const [transactions, setTransactions] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    api
-      .listTransactions()
-      .then(setTransactions)
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  async function handleCreate(data) {
-    const created = await api.createTransaction(data);
-    setTransactions((items) => [created, ...items].sort((a, b) => b.date.localeCompare(a.date)));
-  }
-
-  async function handleDelete(id) {
-    await api.deleteTransaction(id);
-    setTransactions((items) => items.filter((tx) => tx.id !== id));
-  }
+  const { transactions, loading, error, clearError, create, remove } = useTransactions();
 
   return (
     <Layout>
       {error && (
-        <Alert title="Could not load transactions" onDismiss={() => setError(null)}>
+        <Alert title="Could not load transactions" onDismiss={clearError}>
           {error}
         </Alert>
       )}
       <SummaryCards transactions={transactions} />
-      <TransactionForm onSubmit={handleCreate} />
-      {loading ? (
+      <TransactionForm onSubmit={create} />
+      {loading && !transactions.length ? (
         <Spinner label="Loading transactions…" />
       ) : (
-        <TransactionList transactions={transactions} onDelete={handleDelete} />
+        <TransactionList transactions={transactions} onDelete={remove} />
       )}
     </Layout>
   );
