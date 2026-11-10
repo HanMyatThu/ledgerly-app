@@ -11,12 +11,13 @@ function totals(transactions) {
   );
 }
 
-export default function SummaryCards({ transactions }) {
+export default function SummaryCards({ transactions, label = 'Summary' }) {
   const { income, expense } = totals(transactions);
   const balance = income - expense;
 
   return (
-    <section className="summary">
+    <section className="summary" aria-label={label}>
+      <h3 className="summary-caption">{label}</h3>
       <Card>
         <span className="summary-label">Income</span>
         <Amount cents={income} type="income" className="summary-value" />

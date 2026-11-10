@@ -428,3 +428,13 @@ a:focus-visible {
   font-size: 0.875rem;
   color: var(--accent);
 }
+
+.summary-caption {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}

@@ -137,7 +137,7 @@ Goal: start moving from memory to SQLite.
 - [x] refactor(web): move fetching from App into useTransactions
 - [x] feat(web): create MonthPicker component
 - [x] feat(web): load transactions for the selected month
-- [ ] feat(web): show summary for the selected month
+- [x] feat(web): show summary for the selected month
 - [ ] feat(web): create FilterBar component
 - [ ] feat(web): add type filter to FilterBar
 - [ ] feat(web): add category filter to FilterBar

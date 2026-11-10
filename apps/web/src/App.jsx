@@ -7,12 +7,14 @@ import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
 import { useTransactions } from './hooks/useTransactions.js';
-import { currentMonth, monthRange } from './lib/month.js';
+import { currentMonth, formatMonth, monthRange } from './lib/month.js';
 
 export default function App() {
   const [month, setMonth] = useState(currentMonth);
   const query = useMemo(() => monthRange(month), [month]);
-  const { transactions, loading, error, clearError, create, remove } = useTransactions(query);
+  // The summary always covers the whole month, even once the list is filtered.
+  const monthly = useTransactions(query);
+  const { transactions, loading, error, clearError, create, remove } = monthly;
 
   return (
     <Layout>
@@ -22,7 +24,7 @@ export default function App() {
         </Alert>
       )}
       <MonthPicker value={month} onChange={setMonth} />
-      <SummaryCards transactions={transactions} />
+      <SummaryCards transactions={monthly.transactions} label={`Totals for ${formatMonth(month)}`} />
       <TransactionForm onSubmit={create} />
       {loading && !transactions.length ? (
         <Spinner label="Loading transactions…" />
