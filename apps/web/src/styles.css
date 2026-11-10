@@ -393,3 +393,38 @@ a:focus-visible {
     align-items: center;
   }
 }
+
+.month-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.month-picker h2 {
+  margin: 0;
+  min-width: 10ch;
+  font-size: 1.125rem;
+  text-align: center;
+}
+
+.month-picker button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 8px;
+  min-width: 32px;
+  height: 32px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.month-picker button:hover {
+  border-color: var(--accent);
+}
+
+.month-picker .month-picker-today {
+  padding: 0 10px;
+  font-size: 0.875rem;
+  color: var(--accent);
+}
