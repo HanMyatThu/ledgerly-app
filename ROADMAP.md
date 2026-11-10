@@ -133,7 +133,7 @@ Goal: start moving from memory to SQLite.
 
 ## Day 6: web filters
 
-- [ ] feat(web): create useTransactions hook
+- [x] feat(web): create useTransactions hook
 - [ ] refactor(web): move fetching from App into useTransactions
 - [ ] feat(web): create MonthPicker component
 - [ ] feat(web): load transactions for the selected month

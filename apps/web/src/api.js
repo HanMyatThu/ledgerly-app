@@ -13,8 +13,17 @@ async function request(path, options = {}) {
   return body;
 }
 
+function toQueryString(params = {}) {
+  const search = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined && value !== null && value !== '') search.set(key, String(value));
+  }
+  const text = search.toString();
+  return text ? `?${text}` : '';
+}
+
 export const api = {
-  listTransactions: () => request('/transactions'),
+  listTransactions: (params) => request(`/transactions${toQueryString(params)}`),
   createTransaction: (data) => request('/transactions', { method: 'POST', body: JSON.stringify(data) }),
   deleteTransaction: (id) => request(`/transactions/${id}`, { method: 'DELETE' }),
 };
