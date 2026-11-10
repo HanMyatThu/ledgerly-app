@@ -138,7 +138,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): create MonthPicker component
 - [x] feat(web): load transactions for the selected month
 - [x] feat(web): show summary for the selected month
-- [ ] feat(web): create FilterBar component
+- [x] feat(web): create FilterBar component
 - [ ] feat(web): add type filter to FilterBar
 - [ ] feat(web): add category filter to FilterBar
 - [ ] feat(web): create useDebounce hook

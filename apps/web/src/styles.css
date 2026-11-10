@@ -438,3 +438,19 @@ a:focus-visible {
   text-transform: uppercase;
   color: var(--muted);
 }
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.filter-bar:empty {
+  display: none;
+}
+
+.filter-bar .field {
+  flex: 1 1 140px;
+}
