@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
 import { CATEGORIES } from '@ledgerly/shared';
+import { useDebounce } from '../hooks/useDebounce.js';
 import SelectField from './SelectField.jsx';
+import TextField from './TextField.jsx';
 
 const TYPE_OPTIONS = [
   { value: '', label: 'All types' },
@@ -24,6 +27,21 @@ function categoryOptions(type) {
 export default function FilterBar({ filters, onChange }) {
   const update = (field, value) => onChange({ ...filters, [field]: value });
 
+  // Typing updates the box right away but only searches once typing pauses.
+  const [search, setSearch] = useState(filters.q ?? '');
+  const debouncedSearch = useDebounce(search.trim(), 300);
+
+  useEffect(() => {
+    if (debouncedSearch !== (filters.q ?? '')) update('q', debouncedSearch || undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearch]);
+
+  // Keep the box in sync when filters change from outside, e.g. when cleared.
+  useEffect(() => {
+    if ((filters.q ?? '') !== search.trim()) setSearch(filters.q ?? '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters.q]);
+
   function changeType(type) {
     const next = { ...filters, type };
     // Drop a category that does not belong to the new type.
@@ -34,6 +52,13 @@ export default function FilterBar({ filters, onChange }) {
 
   return (
     <div className="filter-bar" role="search" aria-label="Filter transactions">
+      <TextField
+        label="Search notes"
+        type="search"
+        placeholder="e.g. coffee"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <SelectField
         label="Type"
         options={TYPE_OPTIONS}
