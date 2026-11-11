@@ -11,6 +11,13 @@ const TYPE_OPTIONS = [
   { value: 'income', label: 'Income' },
 ];
 
+const SORT_OPTIONS = [
+  { value: '', label: 'Newest first' },
+  { value: 'date', label: 'Oldest first' },
+  { value: '-amount', label: 'Largest amount' },
+  { value: 'amount', label: 'Smallest amount' },
+];
+
 // Narrow categories to the chosen type, and label "Other" so the two are distinguishable.
 function categoryOptions(type) {
   const categories = type ? CATEGORIES.filter((category) => category.type === type) : CATEGORIES;
@@ -75,6 +82,12 @@ export default function FilterBar({ filters, onChange }) {
         options={categoryOptions(filters.type)}
         value={filters.category ?? ''}
         onChange={(e) => update('category', e.target.value || undefined)}
+      />
+      <SelectField
+        label="Sort"
+        options={SORT_OPTIONS}
+        value={filters.sort ?? ''}
+        onChange={(e) => update('sort', e.target.value || undefined)}
       />
       {hasActiveFilters(filters) && (
         <Button variant="ghost" className="filter-bar-clear" onClick={() => onChange({ sort: filters.sort })}>
