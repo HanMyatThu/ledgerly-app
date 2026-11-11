@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import Alert from './components/Alert.jsx';
-import FilterBar from './components/FilterBar.jsx';
+import FilterBar, { hasActiveFilters } from './components/FilterBar.jsx';
 import Layout from './components/Layout.jsx';
 import MonthPicker from './components/MonthPicker.jsx';
 import Spinner from './components/Spinner.jsx';
@@ -62,7 +62,11 @@ export default function App() {
       {list.loading && !list.transactions.length ? (
         <Spinner label="Loading transactions…" />
       ) : (
-        <TransactionList transactions={list.transactions} onDelete={handleDelete} />
+        <TransactionList
+          transactions={list.transactions}
+          onDelete={handleDelete}
+          filtered={hasActiveFilters(filters)}
+        />
       )}
     </Layout>
   );

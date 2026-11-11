@@ -454,3 +454,12 @@ a:focus-visible {
 .filter-bar .field {
   flex: 1 1 140px;
 }
+
+.filter-bar .filter-bar-clear {
+  align-self: flex-end;
+  padding: 9px 8px;
+}
+
+.filter-bar .filter-bar-clear:hover:not(:disabled) {
+  color: var(--accent);
+}

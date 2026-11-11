@@ -5,9 +5,13 @@ import Button from './Button.jsx';
 import CategoryIcon from './CategoryIcon.jsx';
 import EmptyState from './EmptyState.jsx';
 
-export default function TransactionList({ transactions, onDelete }) {
+export default function TransactionList({ transactions, onDelete, filtered = false }) {
   if (!transactions.length) {
-    return <EmptyState title="No transactions yet" message="Add your first one above." />;
+    return filtered ? (
+      <EmptyState title="No matching transactions" message="Try other filters or clear them." />
+    ) : (
+      <EmptyState title="No transactions yet" message="Add your first one above." />
+    );
   }
 
   return (

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CATEGORIES } from '@ledgerly/shared';
 import { useDebounce } from '../hooks/useDebounce.js';
+import Button from './Button.jsx';
 import SelectField from './SelectField.jsx';
 import TextField from './TextField.jsx';
 
@@ -24,6 +25,10 @@ function categoryOptions(type) {
 
 // Controls that narrow the transaction list. `filters` holds the current
 // values and `onChange` receives the next filters object.
+export function hasActiveFilters(filters) {
+  return Boolean(filters.type || filters.category || filters.q);
+}
+
 export default function FilterBar({ filters, onChange }) {
   const update = (field, value) => onChange({ ...filters, [field]: value });
 
@@ -71,6 +76,11 @@ export default function FilterBar({ filters, onChange }) {
         value={filters.category ?? ''}
         onChange={(e) => update('category', e.target.value || undefined)}
       />
+      {hasActiveFilters(filters) && (
+        <Button variant="ghost" className="filter-bar-clear" onClick={() => onChange({ sort: filters.sort })}>
+          Clear filters
+        </Button>
+      )}
     </div>
   );
 }
