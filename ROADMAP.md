@@ -154,7 +154,7 @@ Goal: start moving from memory to SQLite.
 
 - [ ] feat(web): add edit button to transaction rows
 - [x] feat(web): create Modal component
-- [ ] feat(web): close Modal on Escape and backdrop click
+- [x] feat(web): close Modal on Escape and backdrop click
 - [ ] feat(web): trap focus inside Modal
 - [ ] refactor(web): let TransactionForm accept initial values
 - [ ] feat(web): open TransactionForm in a Modal for editing
