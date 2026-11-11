@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Alert from './components/Alert.jsx';
 import FilterBar, { hasActiveFilters } from './components/FilterBar.jsx';
 import Layout from './components/Layout.jsx';
+import LoadMoreButton from './components/LoadMoreButton.jsx';
 import MonthPicker from './components/MonthPicker.jsx';
 import Spinner from './components/Spinner.jsx';
 import SummaryCards from './components/SummaryCards.jsx';
@@ -10,6 +11,8 @@ import TransactionList from './components/TransactionList.jsx';
 import { useTransactions } from './hooks/useTransactions.js';
 import { formatMonth, monthRange } from './lib/month.js';
 import { readUrlState, toUrlSearch } from './lib/urlState.js';
+
+const PAGE_SIZE = 25;
 
 export default function App() {
   const [initial] = useState(() => readUrlState());
@@ -28,7 +31,7 @@ export default function App() {
 
   // The summary always covers the whole month; the list follows the filters too.
   const monthly = useTransactions(range);
-  const list = useTransactions(listQuery);
+  const list = useTransactions(listQuery, { pageSize: PAGE_SIZE });
 
   async function handleCreate(data) {
     await list.create(data);
@@ -62,11 +65,19 @@ export default function App() {
       {list.loading && !list.transactions.length ? (
         <Spinner label="Loading transactions…" />
       ) : (
-        <TransactionList
-          transactions={list.transactions}
-          onDelete={handleDelete}
-          filtered={hasActiveFilters(filters)}
-        />
+        <>
+          <TransactionList
+            transactions={list.transactions}
+            onDelete={handleDelete}
+            filtered={hasActiveFilters(filters)}
+          />
+          <LoadMoreButton
+            loaded={list.transactions.length}
+            total={list.total}
+            loading={list.loading}
+            onClick={list.loadMore}
+          />
+        </>
       )}
     </Layout>
   );
