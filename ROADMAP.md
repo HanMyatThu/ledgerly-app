@@ -143,7 +143,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): add category filter to FilterBar
 - [x] feat(web): create useDebounce hook
 - [x] feat(web): add note search box to FilterBar
-- [ ] feat(web): keep filters in the URL query string
+- [x] feat(web): keep filters in the URL query string
 - [ ] feat(web): add clear filters button
 - [ ] feat(web): create LoadMoreButton component
 - [ ] feat(web): paginate the transaction list

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Alert from './components/Alert.jsx';
 import FilterBar from './components/FilterBar.jsx';
 import Layout from './components/Layout.jsx';
@@ -8,11 +8,21 @@ import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
 import { useTransactions } from './hooks/useTransactions.js';
-import { currentMonth, formatMonth, monthRange } from './lib/month.js';
+import { formatMonth, monthRange } from './lib/month.js';
+import { readUrlState, toUrlSearch } from './lib/urlState.js';
 
 export default function App() {
-  const [month, setMonth] = useState(currentMonth);
-  const [filters, setFilters] = useState({});
+  const [initial] = useState(() => readUrlState());
+  const [month, setMonth] = useState(initial.month);
+  const [filters, setFilters] = useState(initial.filters);
+
+  // Mirror month and filters in the address bar so a view can be bookmarked or shared.
+  useEffect(() => {
+    const search = toUrlSearch({ month, filters });
+    if (search !== window.location.search) {
+      window.history.replaceState(null, '', `${window.location.pathname}${search}`);
+    }
+  }, [month, filters]);
   const range = useMemo(() => monthRange(month), [month]);
   const listQuery = useMemo(() => ({ ...range, ...filters }), [range, filters]);
 
