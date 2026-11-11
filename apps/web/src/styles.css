@@ -463,3 +463,20 @@ a:focus-visible {
 .filter-bar .filter-bar-clear:hover:not(:disabled) {
   color: var(--accent);
 }
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.load-more .button-ghost {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 8px 16px;
+}
+
+.load-more .button-ghost:hover:not(:disabled) {
+  color: var(--accent);
+  border-color: var(--accent);
+}

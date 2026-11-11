@@ -145,7 +145,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): add note search box to FilterBar
 - [x] feat(web): keep filters in the URL query string
 - [x] feat(web): add clear filters button
-- [ ] feat(web): create LoadMoreButton component
+- [x] feat(web): create LoadMoreButton component
 - [ ] feat(web): paginate the transaction list
 - [ ] feat(web): show result count
 - [ ] feat(web): add sort dropdown
