@@ -147,7 +147,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): add clear filters button
 - [x] feat(web): create LoadMoreButton component
 - [x] feat(web): paginate the transaction list
-- [ ] feat(web): show result count
+- [x] feat(web): show result count
 - [ ] feat(web): add sort dropdown
 
 ## Day 7: editing

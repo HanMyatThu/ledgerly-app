@@ -4,6 +4,7 @@ import FilterBar, { hasActiveFilters } from './components/FilterBar.jsx';
 import Layout from './components/Layout.jsx';
 import LoadMoreButton from './components/LoadMoreButton.jsx';
 import MonthPicker from './components/MonthPicker.jsx';
+import ResultCount from './components/ResultCount.jsx';
 import Spinner from './components/Spinner.jsx';
 import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
@@ -66,6 +67,7 @@ export default function App() {
         <Spinner label="Loading transactions…" />
       ) : (
         <>
+          <ResultCount shown={list.transactions.length} total={list.total} />
           <TransactionList
             transactions={list.transactions}
             onDelete={handleDelete}

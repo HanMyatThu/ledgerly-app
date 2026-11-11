@@ -480,3 +480,9 @@ a:focus-visible {
   color: var(--accent);
   border-color: var(--accent);
 }
+
+.result-count {
+  margin: 0 0 8px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
