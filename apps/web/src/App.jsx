@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Alert from './components/Alert.jsx';
 import FilterBar, { hasActiveFilters } from './components/FilterBar.jsx';
 import Layout from './components/Layout.jsx';
 import LoadMoreButton from './components/LoadMoreButton.jsx';
+import Modal from './components/Modal.jsx';
 import MonthPicker from './components/MonthPicker.jsx';
 import ResultCount from './components/ResultCount.jsx';
 import Spinner from './components/Spinner.jsx';
@@ -45,6 +46,12 @@ export default function App() {
   }
 
   const [editing, setEditing] = useState(null);
+  const closeEditor = useCallback(() => setEditing(null), []);
+
+  // Saving is wired up next; for now the dialog just closes.
+  async function handleUpdate() {
+    closeEditor();
+  }
 
   const error = list.error ?? monthly.error;
 
@@ -84,6 +91,9 @@ export default function App() {
           />
         </>
       )}
+      <Modal open={Boolean(editing)} title="Edit transaction" onClose={closeEditor}>
+        {editing && <TransactionForm key={editing.id} initial={editing} onSubmit={handleUpdate} />}
+      </Modal>
     </Layout>
   );
 }
