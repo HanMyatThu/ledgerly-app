@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Alert from './components/Alert.jsx';
+import ConfirmDialog from './components/ConfirmDialog.jsx';
 import FilterBar, { hasActiveFilters } from './components/FilterBar.jsx';
 import Layout from './components/Layout.jsx';
 import LoadMoreButton from './components/LoadMoreButton.jsx';
@@ -11,6 +12,8 @@ import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
 import { useTransactions } from './hooks/useTransactions.js';
+import { formatMoney, getCategory } from '@ledgerly/shared';
+import { formatDate } from './lib/formatDate.js';
 import { formatMonth, monthRange } from './lib/month.js';
 import { readUrlState, toUrlSearch } from './lib/urlState.js';
 
@@ -40,9 +43,12 @@ export default function App() {
     await monthly.reload();
   }
 
-  async function handleDelete(id) {
-    await list.remove(id);
+  const [deleting, setDeleting] = useState(null);
+
+  async function confirmDelete() {
+    await list.remove(deleting.id);
     await monthly.reload();
+    setDeleting(null);
   }
 
   const [editing, setEditing] = useState(null);
@@ -82,7 +88,7 @@ export default function App() {
           <TransactionList
             transactions={list.transactions}
             onEdit={setEditing}
-            onDelete={handleDelete}
+            onDelete={(id) => setDeleting(list.transactions.find((tx) => tx.id === id) ?? null)}
             filtered={hasActiveFilters(filters)}
           />
           <LoadMoreButton
@@ -96,6 +102,18 @@ export default function App() {
       <Modal open={Boolean(editing)} title="Edit transaction" onClose={closeEditor}>
         {editing && <TransactionForm key={editing.id} initial={editing} onSubmit={handleUpdate} />}
       </Modal>
+      <ConfirmDialog
+        open={Boolean(deleting)}
+        title="Delete transaction?"
+        message={
+          deleting &&
+          `${getCategory(deleting.categoryId)?.label ?? deleting.categoryId}, ${formatMoney(deleting.amountCents)} on ${formatDate(deleting.date)}. This cannot be undone.`
+        }
+        confirmLabel="Delete"
+        danger
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleting(null)}
+      />
     </Layout>
   );
 }
