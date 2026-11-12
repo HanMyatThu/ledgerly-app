@@ -48,8 +48,10 @@ export default function App() {
   const [editing, setEditing] = useState(null);
   const closeEditor = useCallback(() => setEditing(null), []);
 
-  // Saving is wired up next; for now the dialog just closes.
-  async function handleUpdate() {
+  // Errors propagate to the form, which shows them and keeps the dialog open.
+  async function handleUpdate(data) {
+    await list.update(editing.id, data);
+    await monthly.reload();
     closeEditor();
   }
 

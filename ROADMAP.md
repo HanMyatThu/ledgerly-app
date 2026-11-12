@@ -159,7 +159,7 @@ Goal: start moving from memory to SQLite.
 - [x] refactor(web): let TransactionForm accept initial values
 - [x] feat(web): open TransactionForm in a Modal for editing
 - [x] feat(web): add updateTransaction to API client
-- [ ] feat(web): save edits and refresh the list
+- [x] feat(web): save edits and refresh the list
 - [ ] feat(web): create ConfirmDialog component
 - [ ] feat(web): confirm before deleting
 - [ ] feat(web): create Toast component

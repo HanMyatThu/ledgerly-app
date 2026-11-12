@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../api.js';
 
 // Loads transactions for a query (filters as API query params) and keeps
-// them fresh after creates and deletes. With `pageSize`, it loads one page
+// them fresh after creates, edits and deletes. With `pageSize`, it loads one page
 // at a time and `loadMore` appends the next.
 export function useTransactions(query = {}, { pageSize } = {}) {
   const [transactions, setTransactions] = useState([]);
@@ -65,6 +65,14 @@ export function useTransactions(query = {}, { pageSize } = {}) {
     [reload],
   );
 
+  const update = useCallback(
+    async (id, data) => {
+      await api.updateTransaction(id, data);
+      await reload();
+    },
+    [reload],
+  );
+
   const remove = useCallback(
     async (id) => {
       await api.deleteTransaction(id);
@@ -83,6 +91,7 @@ export function useTransactions(query = {}, { pageSize } = {}) {
     reload,
     loadMore,
     create,
+    update,
     remove,
   };
 }
