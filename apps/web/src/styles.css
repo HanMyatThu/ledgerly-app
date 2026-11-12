@@ -543,3 +543,18 @@ a:focus-visible {
 .button-ghost.edit-button:hover:not(:disabled) {
   color: var(--accent);
 }
+
+.confirm-message {
+  margin: 0 0 16px;
+  color: var(--muted);
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.button-primary.button-danger {
+  background: var(--expense);
+}
