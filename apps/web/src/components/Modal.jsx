@@ -14,7 +14,8 @@ export default function Modal({ open, title, onClose, children }) {
     if (!open) return undefined;
     const previous = document.activeElement;
     const dialog = dialogRef.current;
-    const first = dialog?.querySelector('.modal-body ' + FOCUSABLE) ?? dialog?.querySelector(FOCUSABLE);
+    // Prefer the first control in the body over the close button in the header.
+    const first = dialog?.querySelector('.modal-body')?.querySelector(FOCUSABLE) ?? dialog?.querySelector(FOCUSABLE);
     first?.focus();
     return () => previous?.focus?.();
   }, [open]);
