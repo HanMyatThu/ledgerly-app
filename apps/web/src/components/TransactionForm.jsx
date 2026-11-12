@@ -17,8 +17,21 @@ const TYPE_OPTIONS = [
 
 const emptyForm = () => ({ type: 'expense', amount: '', categoryId: 'groceries', date: today(), note: '' });
 
-export default function TransactionForm({ onSubmit }) {
-  const [form, setForm] = useState(emptyForm);
+// Turns a saved transaction into form fields.
+function toForm(transaction) {
+  return {
+    type: transaction.type,
+    amount: (transaction.amountCents / 100).toFixed(2),
+    categoryId: transaction.categoryId,
+    date: transaction.date,
+    note: transaction.note ?? '',
+  };
+}
+
+// Pass `initial` to edit an existing transaction; otherwise the form adds a new one.
+export default function TransactionForm({ onSubmit, initial, submitLabel }) {
+  const [form, setForm] = useState(() => (initial ? toForm(initial) : emptyForm()));
+  const label = submitLabel ?? (initial ? 'Save changes' : 'Add transaction');
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
@@ -46,7 +59,7 @@ export default function TransactionForm({ onSubmit }) {
     setSaving(true);
     try {
       await onSubmit(payload);
-      setForm({ ...emptyForm(), type: form.type, categoryId: form.categoryId });
+      if (!initial) setForm({ ...emptyForm(), type: form.type, categoryId: form.categoryId });
     } catch (err) {
       setErrors(err.details ?? { form: err.message });
     } finally {
@@ -102,7 +115,7 @@ export default function TransactionForm({ onSubmit }) {
       {errors.form && <p className="error wide">{errors.form}</p>}
 
       <Button type="submit" className="wide" disabled={saving}>
-        {saving ? 'Saving…' : 'Add transaction'}
+        {saving ? 'Saving…' : label}
       </Button>
     </Card>
   );
