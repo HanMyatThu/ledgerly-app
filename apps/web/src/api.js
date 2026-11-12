@@ -35,5 +35,7 @@ export const api = {
     return { items: body, total: Number.isFinite(total) ? total : body.length };
   },
   createTransaction: (data) => request('/transactions', { method: 'POST', body: JSON.stringify(data) }),
+  updateTransaction: (id, data) =>
+    request(`/transactions/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteTransaction: (id) => request(`/transactions/${id}`, { method: 'DELETE' }),
 };
