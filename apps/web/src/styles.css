@@ -539,3 +539,7 @@ a:focus-visible {
   padding: 0;
   margin: 0;
 }
+
+.button-ghost.edit-button:hover:not(:disabled) {
+  color: var(--accent);
+}

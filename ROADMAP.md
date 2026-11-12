@@ -152,7 +152,7 @@ Goal: start moving from memory to SQLite.
 
 ## Day 7: editing
 
-- [ ] feat(web): add edit button to transaction rows
+- [x] feat(web): add edit button to transaction rows
 - [x] feat(web): create Modal component
 - [x] feat(web): close Modal on Escape and backdrop click
 - [ ] feat(web): trap focus inside Modal

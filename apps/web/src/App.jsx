@@ -44,6 +44,8 @@ export default function App() {
     await monthly.reload();
   }
 
+  const [editing, setEditing] = useState(null);
+
   const error = list.error ?? monthly.error;
 
   return (
@@ -70,6 +72,7 @@ export default function App() {
           <ResultCount shown={list.transactions.length} total={list.total} />
           <TransactionList
             transactions={list.transactions}
+            onEdit={setEditing}
             onDelete={handleDelete}
             filtered={hasActiveFilters(filters)}
           />

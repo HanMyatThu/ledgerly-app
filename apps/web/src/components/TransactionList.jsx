@@ -5,7 +5,7 @@ import Button from './Button.jsx';
 import CategoryIcon from './CategoryIcon.jsx';
 import EmptyState from './EmptyState.jsx';
 
-export default function TransactionList({ transactions, onDelete, filtered = false }) {
+export default function TransactionList({ transactions, onEdit, onDelete, filtered = false }) {
   if (!transactions.length) {
     return filtered ? (
       <EmptyState title="No matching transactions" message="Try other filters or clear them." />
@@ -30,6 +30,11 @@ export default function TransactionList({ transactions, onDelete, filtered = fal
           </div>
           <div className="transaction-actions">
             <Amount cents={tx.amountCents} type={tx.type} signed />
+            {onEdit && (
+              <Button variant="ghost" className="edit-button" onClick={() => onEdit(tx)}>
+                Edit
+              </Button>
+            )}
             <Button variant="ghost" onClick={() => onDelete(tx.id)}>
               Delete
             </Button>
