@@ -6,8 +6,12 @@ import SegmentedControl from './SegmentedControl.jsx';
 import SelectField from './SelectField.jsx';
 import TextField from './TextField.jsx';
 
+// Local calendar date as YYYY-MM-DD. toISOString() would give the UTC date,
+// which is the wrong day for part of the day in most time zones.
 function today() {
-  return new Date().toISOString().slice(0, 10);
+  const now = new Date();
+  const pad = (value) => String(value).padStart(2, '0');
+  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 }
 
 const TYPE_OPTIONS = [

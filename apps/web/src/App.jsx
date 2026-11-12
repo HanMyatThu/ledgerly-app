@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { formatMoney, getCategory } from '@ledgerly/shared';
 import Alert from './components/Alert.jsx';
 import ConfirmDialog from './components/ConfirmDialog.jsx';
 import FilterBar, { hasActiveFilters } from './components/FilterBar.jsx';
@@ -12,7 +13,6 @@ import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
 import { useTransactions } from './hooks/useTransactions.js';
-import { formatMoney, getCategory } from '@ledgerly/shared';
 import { formatDate } from './lib/formatDate.js';
 import { formatMonth, monthRange } from './lib/month.js';
 import { readUrlState, toUrlSearch } from './lib/urlState.js';
