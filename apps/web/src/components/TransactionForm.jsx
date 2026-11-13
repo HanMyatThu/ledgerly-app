@@ -33,7 +33,7 @@ function toForm(transaction) {
 }
 
 // Pass `initial` to edit an existing transaction; otherwise the form adds a new one.
-export default function TransactionForm({ onSubmit, initial, submitLabel }) {
+export default function TransactionForm({ id, onSubmit, initial, submitLabel }) {
   const [form, setForm] = useState(() => (initial ? toForm(initial) : emptyForm()));
   const label = submitLabel ?? (initial ? 'Save changes' : 'Add transaction');
   const [errors, setErrors] = useState({});
@@ -72,7 +72,7 @@ export default function TransactionForm({ onSubmit, initial, submitLabel }) {
   }
 
   return (
-    <Card as="form" className="transaction-form" onSubmit={handleSubmit} noValidate>
+    <Card as="form" id={id} className="transaction-form" onSubmit={handleSubmit} noValidate>
       <SegmentedControl
         label="Type"
         className="wide"

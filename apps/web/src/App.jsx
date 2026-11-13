@@ -32,6 +32,23 @@ export default function App() {
       window.history.replaceState(null, '', `${window.location.pathname}${search}`);
     }
   }, [month, filters]);
+
+  // Press "n" anywhere outside a text field to start a new transaction.
+  useEffect(() => {
+    function handleKey(event) {
+      if (event.key !== 'n' || event.metaKey || event.ctrlKey || event.altKey) return;
+      const target = event.target;
+      if (target.closest?.('input, textarea, select, [contenteditable="true"], [role="dialog"]')) return;
+      const amount = document.querySelector('#new-transaction input[type="number"]');
+      if (!amount) return;
+      event.preventDefault();
+      amount.focus();
+      amount.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, []);
+
   const range = useMemo(() => monthRange(month), [month]);
   const listQuery = useMemo(() => ({ ...range, ...filters }), [range, filters]);
 
@@ -104,7 +121,7 @@ export default function App() {
       )}
       <MonthPicker value={month} onChange={setMonth} />
       <SummaryCards transactions={monthly.transactions} label={`Totals for ${formatMonth(month)}`} />
-      <TransactionForm onSubmit={handleCreate} />
+      <TransactionForm id="new-transaction" onSubmit={handleCreate} />
       <FilterBar filters={filters} onChange={setFilters} />
       {list.loading && !list.transactions.length ? (
         <Spinner label="Loading transactions…" />
