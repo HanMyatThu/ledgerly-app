@@ -51,10 +51,28 @@ export default function App() {
 
   const [deleting, setDeleting] = useState(null);
 
+  // Undo re-creates the transaction from its saved fields (it gets a new id).
+  async function restore(tx) {
+    try {
+      const { type, amountCents, categoryId, date, note } = tx;
+      await list.create({ type, amountCents, categoryId, date, note });
+      await monthly.reload();
+      toast.show({ message: `Restored ${describe(tx)}` });
+    } catch (err) {
+      toast.show({ message: `Could not restore: ${err.message}` });
+    }
+  }
+
   async function confirmDelete() {
     await list.remove(deleting.id);
     await monthly.reload();
-    toast.show({ message: `Deleted ${describe(deleting)}` });
+    const removed = deleting;
+    toast.show({
+      message: `Deleted ${describe(removed)}`,
+      actionLabel: 'Undo',
+      duration: 8000,
+      onAction: () => restore(removed),
+    });
     setDeleting(null);
   }
 
