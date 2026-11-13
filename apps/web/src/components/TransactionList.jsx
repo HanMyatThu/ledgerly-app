@@ -1,12 +1,12 @@
 import { getCategory } from '@ledgerly/shared';
 import { formatDate } from '../lib/formatDate.js';
-import { groupByDay } from '../lib/groupByDay.js';
+import { groupByDay, netTotal } from '../lib/groupByDay.js';
 import Amount from './Amount.jsx';
 import Button from './Button.jsx';
 import CategoryIcon from './CategoryIcon.jsx';
 import EmptyState from './EmptyState.jsx';
 
-function TransactionRow({ tx, onEdit, onDelete }) {
+function TransactionRow({ tx, onEdit, onDelete, showDate = true }) {
   return (
     <li className="transaction">
       <div className="transaction-main">
@@ -14,8 +14,9 @@ function TransactionRow({ tx, onEdit, onDelete }) {
         <div>
           <strong>{getCategory(tx.categoryId)?.label ?? tx.categoryId}</strong>
           <span className="meta">
-            <time dateTime={tx.date}>{formatDate(tx.date)}</time>
-            {tx.note ? ` · ${tx.note}` : ''}
+            {showDate && <time dateTime={tx.date}>{formatDate(tx.date)}</time>}
+            {showDate && tx.note ? ' · ' : ''}
+            {tx.note}
           </span>
         </div>
       </div>
@@ -44,7 +45,9 @@ export default function TransactionList({ transactions, onEdit, onDelete, filter
     );
   }
 
-  const row = (tx) => <TransactionRow key={tx.id} tx={tx} onEdit={onEdit} onDelete={onDelete} />;
+  const row = (tx) => (
+    <TransactionRow key={tx.id} tx={tx} onEdit={onEdit} onDelete={onDelete} showDate={!grouped} />
+  );
 
   if (!grouped) return <ul className="transaction-list">{transactions.map(row)}</ul>;
 
@@ -54,6 +57,7 @@ export default function TransactionList({ transactions, onEdit, onDelete, filter
         <section key={group.date} className="transaction-group" aria-label={formatDate(group.date)}>
           <h3 className="transaction-group-header">
             <time dateTime={group.date}>{formatDate(group.date)}</time>
+            <Amount cents={netTotal(group.items)} signed type={netTotal(group.items) < 0 ? 'expense' : 'income'} />
           </h3>
           <ul className="transaction-list">{group.items.map(row)}</ul>
         </section>

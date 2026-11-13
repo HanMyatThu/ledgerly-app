@@ -167,7 +167,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): toast after create, edit and delete
 - [x] feat(web): undo delete from the toast
 - [x] feat(web): group transactions by day
-- [ ] feat(web): show daily totals in group headers
+- [x] feat(web): show daily totals in group headers
 - [ ] feat(web): press n to focus the amount field
 
 ## Day 8: budgets API
