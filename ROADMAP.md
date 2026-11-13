@@ -162,7 +162,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): save edits and refresh the list
 - [x] feat(web): create ConfirmDialog component
 - [x] feat(web): confirm before deleting
-- [ ] feat(web): create Toast component
+- [x] feat(web): create Toast component
 - [ ] feat(web): create ToastProvider and useToast hook
 - [ ] feat(web): toast after create, edit and delete
 - [ ] feat(web): undo delete from the toast
