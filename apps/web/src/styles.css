@@ -619,3 +619,17 @@ a:focus-visible {
     animation: none;
   }
 }
+
+.transaction-group + .transaction-group {
+  margin-top: 16px;
+}
+
+.transaction-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 4px 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+}

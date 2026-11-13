@@ -116,6 +116,7 @@ export default function App() {
             onEdit={setEditing}
             onDelete={(id) => setDeleting(list.transactions.find((tx) => tx.id === id) ?? null)}
             filtered={hasActiveFilters(filters)}
+            groupByDay={!filters.sort || filters.sort === 'date'}
           />
           <LoadMoreButton
             loaded={list.transactions.length}
