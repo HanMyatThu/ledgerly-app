@@ -164,7 +164,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): confirm before deleting
 - [x] feat(web): create Toast component
 - [x] feat(web): create ToastProvider and useToast hook
-- [ ] feat(web): toast after create, edit and delete
+- [x] feat(web): toast after create, edit and delete
 - [ ] feat(web): undo delete from the toast
 - [ ] feat(web): group transactions by day
 - [ ] feat(web): show daily totals in group headers

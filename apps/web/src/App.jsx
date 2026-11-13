@@ -12,6 +12,7 @@ import Spinner from './components/Spinner.jsx';
 import SummaryCards from './components/SummaryCards.jsx';
 import TransactionForm from './components/TransactionForm.jsx';
 import TransactionList from './components/TransactionList.jsx';
+import { useToast } from './components/ToastProvider.jsx';
 import { useTransactions } from './hooks/useTransactions.js';
 import { formatDate } from './lib/formatDate.js';
 import { formatMonth, monthRange } from './lib/month.js';
@@ -37,10 +38,15 @@ export default function App() {
   // The summary always covers the whole month; the list follows the filters too.
   const monthly = useTransactions(range);
   const list = useTransactions(listQuery, { pageSize: PAGE_SIZE });
+  const toast = useToast();
+
+  // e.g. "Dining out, $12.50"
+  const describe = (tx) => `${getCategory(tx.categoryId)?.label ?? tx.categoryId}, ${formatMoney(tx.amountCents)}`;
 
   async function handleCreate(data) {
     await list.create(data);
     await monthly.reload();
+    toast.show({ message: `Added ${describe(data)}` });
   }
 
   const [deleting, setDeleting] = useState(null);
@@ -48,6 +54,7 @@ export default function App() {
   async function confirmDelete() {
     await list.remove(deleting.id);
     await monthly.reload();
+    toast.show({ message: `Deleted ${describe(deleting)}` });
     setDeleting(null);
   }
 
@@ -59,6 +66,7 @@ export default function App() {
     await list.update(editing.id, data);
     await monthly.reload();
     closeEditor();
+    toast.show({ message: 'Changes saved' });
   }
 
   const error = list.error ?? monthly.error;
