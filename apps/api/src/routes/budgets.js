@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { validateBudget } from '@ledgerly/shared';
-import { HttpError, asyncHandler } from '../http.js';
+import { HttpError, asyncHandler, notFound } from '../http.js';
 
 const MONTH = /^\d{4}-(0[1-9]|1[0-2])$/;
 
@@ -36,6 +36,15 @@ export function budgetsRouter(budgets) {
       if (Object.keys(errors).length) throw new HttpError(400, 'Invalid budget', errors);
       const existed = Boolean(budgets.get(data.month, data.categoryId));
       res.status(existed ? 200 : 201).json(budgets.upsert(data));
+    }),
+  );
+
+  // DELETE /api/budgets/2026-11/groceries
+  router.delete(
+    '/:month/:categoryId',
+    asyncHandler((req, res) => {
+      if (!budgets.remove(monthParam(req.params.month), req.params.categoryId)) throw notFound('Budget');
+      res.status(204).end();
     }),
   );
 
