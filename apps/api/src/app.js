@@ -3,6 +3,8 @@ import cors from 'cors';
 import { CATEGORIES } from '@ledgerly/shared';
 import { createTransactionStore } from './store/transactions.js';
 import { transactionsRouter } from './routes/transactions.js';
+import { budgetsRouter } from './routes/budgets.js';
+import { createMemoryBudgetStore } from './store/index.js';
 import { notFound } from './http.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { requestLogger } from './middleware/requestLogger.js';
@@ -17,7 +19,12 @@ function databaseStatus(db) {
   }
 }
 
-export function createApp({ store = createTransactionStore(), db = null, logRequests = false } = {}) {
+export function createApp({
+  store = createTransactionStore(),
+  budgets = createMemoryBudgetStore(),
+  db = null,
+  logRequests = false,
+} = {}) {
   const app = express();
 
   if (logRequests) app.use(requestLogger());
@@ -39,6 +46,7 @@ export function createApp({ store = createTransactionStore(), db = null, logRequ
   });
 
   app.use('/api/transactions', transactionsRouter(store));
+  app.use('/api/budgets', budgetsRouter(budgets));
 
   app.use((req, res, next) => {
     next(notFound('Route'));
