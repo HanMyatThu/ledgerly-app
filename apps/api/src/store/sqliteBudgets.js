@@ -13,6 +13,7 @@ function fromRow(row) {
 export function createSqliteBudgetStore(db) {
   const listStmt = db.prepare('SELECT * FROM budgets WHERE month = ? ORDER BY category_id');
   const getStmt = db.prepare('SELECT * FROM budgets WHERE month = ? AND category_id = ?');
+  const removeStmt = db.prepare('DELETE FROM budgets WHERE month = ? AND category_id = ?');
   const upsertStmt = db.prepare(`
     INSERT INTO budgets (month, category_id, amount_cents, created_at, updated_at)
     VALUES (@month, @categoryId, @amountCents, @now, @now)
@@ -31,6 +32,9 @@ export function createSqliteBudgetStore(db) {
     upsert({ month, categoryId, amountCents }) {
       upsertStmt.run({ month, categoryId, amountCents, now: new Date().toISOString() });
       return fromRow(getStmt.get(month, categoryId));
+    },
+    remove(month, categoryId) {
+      return removeStmt.run(month, categoryId).changes > 0;
     },
   };
 }
