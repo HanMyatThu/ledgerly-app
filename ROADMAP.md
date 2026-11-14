@@ -182,7 +182,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): GET budgets for a month
 - [x] feat(api): PUT budget for a category and month
 - [x] feat(api): DELETE budget
-- [ ] test(api): budget route tests
+- [x] test(api): budget route tests
 - [ ] feat(api): add spentByCategory query
 - [ ] feat(api): GET budget progress for a month
 - [ ] test(api): budget progress tests
