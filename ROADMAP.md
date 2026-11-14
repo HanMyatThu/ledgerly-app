@@ -180,7 +180,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): add budget store remove method
 - [x] test(api): budget store tests
 - [x] feat(api): GET budgets for a month
-- [ ] feat(api): PUT budget for a category and month
+- [x] feat(api): PUT budget for a category and month
 - [ ] feat(api): DELETE budget
 - [ ] test(api): budget route tests
 - [ ] feat(api): add spentByCategory query
