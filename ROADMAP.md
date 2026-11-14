@@ -176,7 +176,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(shared): budget validation tests
 - [x] feat(api): add migration for budgets table
 - [x] feat(api): create budget store list method
-- [ ] feat(api): add budget store upsert method
+- [x] feat(api): add budget store upsert method
 - [ ] feat(api): add budget store remove method
 - [ ] test(api): budget store tests
 - [ ] feat(api): GET budgets for a month
