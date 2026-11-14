@@ -172,7 +172,7 @@ Goal: start moving from memory to SQLite.
 
 ## Day 8: budgets API
 
-- [ ] feat(shared): add budget validation
+- [x] feat(shared): add budget validation
 - [ ] test(shared): budget validation tests
 - [ ] feat(api): add migration for budgets table
 - [ ] feat(api): create budget store list method

@@ -33,3 +33,29 @@ export function validateTransaction(input) {
 
   return errors;
 }
+
+const MONTH_PATTERN = /^\d{4}-(0[1-9]|1[0-2])$/;
+
+// Validates a monthly budget: an expense category, a month (YYYY-MM)
+// and a positive limit in cents.
+export function validateBudget(input) {
+  const errors = {};
+  const data = input ?? {};
+
+  if (typeof data.month !== 'string' || !MONTH_PATTERN.test(data.month)) {
+    errors.month = 'Month must be in YYYY-MM format';
+  }
+
+  const category = getCategory(data.categoryId);
+  if (!category) {
+    errors.categoryId = 'Unknown category';
+  } else if (category.type !== 'expense') {
+    errors.categoryId = 'Budgets can only be set for expense categories';
+  }
+
+  if (!Number.isInteger(data.amountCents) || data.amountCents <= 0) {
+    errors.amountCents = 'Amount must be a positive number of cents';
+  }
+
+  return errors;
+}
