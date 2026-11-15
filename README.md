@@ -73,6 +73,33 @@ The response includes an `X-Total-Count` header with the number of matches befor
 curl "http://localhost:4000/api/transactions?type=expense&from=2026-11-01&sort=-amount&limit=10"
 ```
 
+## Budgets API
+
+A budget is a monthly spending limit for one expense category. Months are written `YYYY-MM` and amounts are in cents.
+
+| Method & path                                | What it does                                                    |
+| -------------------------------------------- | --------------------------------------------------------------- |
+| `GET /api/budgets?month=2026-11`             | List the month's budgets                                        |
+| `PUT /api/budgets/2026-11/groceries`         | Set a budget; body `{ "amountCents": 40000 }`. Replaces any old |
+| `DELETE /api/budgets/2026-11/groceries`      | Remove a budget                                                 |
+| `GET /api/budgets/progress?month=2026-11`    | Spent, remaining and percent used for each budget               |
+| `POST /api/budgets/2026-11/copy-previous`    | Copy October's budgets into November, keeping any already set   |
+
+A progress entry looks like this:
+
+```json
+{
+  "categoryId": "dining",
+  "budgetCents": 10000,
+  "spentCents": 12500,
+  "remainingCents": -2500,
+  "percent": 125,
+  "over": true
+}
+```
+
+Budgets can only be set for expense categories. Invalid input returns `400` with an `errors` object keyed by field.
+
 ## Roadmap
 
 See [ROADMAP.md](ROADMAP.md) for the day-by-day plan.

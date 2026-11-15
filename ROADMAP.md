@@ -187,7 +187,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): GET budget progress for a month
 - [x] test(api): budget progress tests
 - [x] feat(api): copy last month's budgets endpoint
-- [ ] docs: document budgets API in README
+- [x] docs: document budgets API in README
 
 ## Day 9: budgets UI
 
