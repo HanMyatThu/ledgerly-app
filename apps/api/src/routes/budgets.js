@@ -17,6 +17,12 @@ function monthRange(month) {
   return { from: `${month}-01`, to: `${month}-${String(lastDay).padStart(2, '0')}` };
 }
 
+function previousMonth(month) {
+  const [year, monthNumber] = month.split('-').map(Number);
+  const date = new Date(Date.UTC(year, monthNumber - 2, 1));
+  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}`;
+}
+
 // Combines a month's budgets with what was spent in each category.
 export function budgetProgress(budgetList, spent) {
   return budgetList.map((budget) => {
@@ -50,6 +56,21 @@ export function budgetsRouter(budgets, transactions) {
       const month = monthParam(req.query.month);
       const spent = transactions.spentByCategory(monthRange(month));
       res.json(budgetProgress(budgets.list(month), spent));
+    }),
+  );
+
+  // POST /api/budgets/2026-11/copy-previous
+  // Copies October's budgets into November, skipping categories November already has.
+  router.post(
+    '/:month/copy-previous',
+    asyncHandler((req, res) => {
+      const month = monthParam(req.params.month);
+      const existing = new Set(budgets.list(month).map((budget) => budget.categoryId));
+      const copied = budgets
+        .list(previousMonth(month))
+        .filter((budget) => !existing.has(budget.categoryId))
+        .map((budget) => budgets.upsert({ month, categoryId: budget.categoryId, amountCents: budget.amountCents }));
+      res.status(copied.length ? 201 : 200).json({ copied: copied.length, budgets: budgets.list(month) });
     }),
   );
 

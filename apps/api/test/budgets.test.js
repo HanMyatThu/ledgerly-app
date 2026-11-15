@@ -53,6 +53,27 @@ for (const [name, config] of Object.entries(STORES)) {
       assert.deepEqual(await (await fetch(`${base}?month=2026-11`)).json(), []);
     });
 
+    test('copies last month into the next, keeping existing budgets', async () => {
+      await put('2025-12/dining', { amountCents: 10000 });
+      await put('2025-12/transport', { amountCents: 5000 });
+      await put('2026-01/dining', { amountCents: 12000 });
+
+      const res = await fetch(`${base}/2026-01/copy-previous`, { method: 'POST' });
+      assert.equal(res.status, 201);
+      const body = await res.json();
+      assert.equal(body.copied, 1);
+      assert.deepEqual(
+        body.budgets.map((budget) => [budget.categoryId, budget.amountCents]),
+        [
+          ['dining', 12000],
+          ['transport', 5000],
+        ],
+      );
+
+      const again = await (await fetch(`${base}/2026-01/copy-previous`, { method: 'POST' })).json();
+      assert.equal(again.copied, 0);
+    });
+
     test('requires a valid month to list', async () => {
       assert.equal((await fetch(base)).status, 400);
       assert.equal((await fetch(`${base}?month=2026-13`)).status, 400);
