@@ -11,7 +11,28 @@ function monthParam(value) {
   return value;
 }
 
-export function budgetsRouter(budgets) {
+function monthRange(month) {
+  const [year, monthNumber] = month.split('-').map(Number);
+  const lastDay = new Date(Date.UTC(year, monthNumber, 0)).getUTCDate();
+  return { from: `${month}-01`, to: `${month}-${String(lastDay).padStart(2, '0')}` };
+}
+
+// Combines a month's budgets with what was spent in each category.
+export function budgetProgress(budgetList, spent) {
+  return budgetList.map((budget) => {
+    const spentCents = spent[budget.categoryId] ?? 0;
+    return {
+      categoryId: budget.categoryId,
+      budgetCents: budget.amountCents,
+      spentCents,
+      remainingCents: budget.amountCents - spentCents,
+      percent: Math.round((spentCents / budget.amountCents) * 100),
+      over: spentCents > budget.amountCents,
+    };
+  });
+}
+
+export function budgetsRouter(budgets, transactions) {
   const router = Router();
 
   // GET /api/budgets?month=2026-11
@@ -19,6 +40,16 @@ export function budgetsRouter(budgets) {
     '/',
     asyncHandler((req, res) => {
       res.json(budgets.list(monthParam(req.query.month)));
+    }),
+  );
+
+  // GET /api/budgets/progress?month=2026-11
+  router.get(
+    '/progress',
+    asyncHandler((req, res) => {
+      const month = monthParam(req.query.month);
+      const spent = transactions.spentByCategory(monthRange(month));
+      res.json(budgetProgress(budgets.list(month), spent));
     }),
   );
 

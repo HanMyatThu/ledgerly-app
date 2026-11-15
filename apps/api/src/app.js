@@ -46,7 +46,7 @@ export function createApp({
   });
 
   app.use('/api/transactions', transactionsRouter(store));
-  app.use('/api/budgets', budgetsRouter(budgets));
+  app.use('/api/budgets', budgetsRouter(budgets, store));
 
   app.use((req, res, next) => {
     next(notFound('Route'));
