@@ -68,3 +68,12 @@ test('remove deletes and reports whether anything was removed', () => {
 test('the database rejects a non-positive amount', () => {
   assert.throws(() => store.create({ ...lunch, amountCents: 0 }), /CHECK constraint/);
 });
+
+test('spentByCategory sums expenses per category within dates', () => {
+  store.create(lunch);
+  store.create({ ...lunch, amountCents: 101, date: '2026-11-02' });
+  store.create({ ...lunch, categoryId: 'transport', amountCents: 500, date: '2026-10-31' });
+  store.create(pay);
+  assert.deepEqual(store.spentByCategory({ from: '2026-11-01', to: '2026-11-30' }), { dining: 1000 });
+  assert.deepEqual(store.spentByCategory(), { dining: 1000, transport: 500 });
+});

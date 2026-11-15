@@ -32,6 +32,15 @@ export function createTransactionStore(seed = []) {
         .sort(comparator(filters.sort));
       return found.slice(offset, limit ? offset + limit : undefined);
     },
+    // Total expenses per category, e.g. { dining: 4250 }, within optional from/to dates.
+    spentByCategory({ from, to } = {}) {
+      const totals = {};
+      for (const item of items.values()) {
+        if (item.type !== 'expense' || !matches(item, { from, to })) continue;
+        totals[item.categoryId] = (totals[item.categoryId] ?? 0) + item.amountCents;
+      }
+      return totals;
+    },
     count(filters = {}) {
       return [...items.values()].filter((item) => matches(item, filters)).length;
     },

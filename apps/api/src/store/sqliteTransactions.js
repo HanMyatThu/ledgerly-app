@@ -78,6 +78,14 @@ export function createSqliteTransactionStore(db) {
         .all({ ...params, ...paging })
         .map(fromRow);
     },
+    // Total expenses per category, e.g. { dining: 4250 }, within optional from/to dates.
+    spentByCategory({ from, to } = {}) {
+      const { where, params } = buildWhere({ from, to, type: 'expense' });
+      const rows = db
+        .prepare(`SELECT category_id, SUM(amount_cents) AS total FROM transactions ${where} GROUP BY category_id`)
+        .all(params);
+      return Object.fromEntries(rows.map((row) => [row.category_id, row.total]));
+    },
     count(filters = {}) {
       const { where, params } = buildWhere(filters);
       return db.prepare(`SELECT COUNT(*) AS total FROM transactions ${where}`).get(params).total;
