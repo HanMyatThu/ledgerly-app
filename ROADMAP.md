@@ -193,7 +193,7 @@ Goal: start moving from memory to SQLite.
 
 - [x] feat(web): add react-router
 - [x] feat(web): create NavTabs component
-- [ ] feat(web): add Transactions route
+- [x] feat(web): add Transactions route
 - [ ] feat(web): add Budgets route placeholder
 - [ ] feat(web): add budget calls to API client
 - [ ] feat(web): create useBudgets hook
