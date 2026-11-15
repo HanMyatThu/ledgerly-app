@@ -191,7 +191,7 @@ Goal: start moving from memory to SQLite.
 
 ## Day 9: budgets UI
 
-- [ ] feat(web): add react-router
+- [x] feat(web): add react-router
 - [ ] feat(web): create NavTabs component
 - [ ] feat(web): add Transactions route
 - [ ] feat(web): add Budgets route placeholder
