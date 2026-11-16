@@ -672,3 +672,53 @@ a:focus-visible {
   background: var(--accent);
   transition: width 0.3s ease;
 }
+
+.budget-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.budget-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.budget-row:last-child {
+  border-bottom: none;
+}
+
+.budget-row-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.budget-row-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.budget-row-numbers {
+  font-variant-numeric: tabular-nums;
+}
+
+.budget-row-remaining {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.budget-row-actions {
+  display: flex;
+  gap: 4px;
+}
