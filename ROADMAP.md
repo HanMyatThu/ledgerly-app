@@ -199,7 +199,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): create useBudgets hook
 - [x] feat(web): create ProgressBar component
 - [x] feat(web): create BudgetRow component
-- [ ] feat(web): list budgets with progress
+- [x] feat(web): list budgets with progress
 - [ ] feat(web): color progress red when over budget
 - [ ] feat(web): create BudgetForm component
 - [ ] feat(web): set a budget from BudgetForm
