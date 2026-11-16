@@ -735,3 +735,21 @@ a:focus-visible {
   color: var(--expense);
   font-weight: 600;
 }
+
+.budget-form {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  align-items: end;
+  gap: 12px;
+}
+
+.budget-form-error {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .budget-form {
+    grid-template-columns: 1fr;
+  }
+}
