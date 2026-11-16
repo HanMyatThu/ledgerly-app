@@ -6,9 +6,11 @@ import ProgressBar from './ProgressBar.jsx';
 export default function BudgetRow({ budget, actions }) {
   const label = getCategory(budget.categoryId)?.label ?? budget.categoryId;
   const remaining = budget.remainingCents;
+  // Amber from 80% so a nearly used budget stands out before it goes over.
+  const tone = budget.over ? 'over' : budget.percent >= 80 ? 'warn' : 'normal';
 
   return (
-    <li className="budget-row">
+    <li className={`budget-row budget-row-${tone}`}>
       <CategoryIcon categoryId={budget.categoryId} />
       <div className="budget-row-body">
         <div className="budget-row-top">
@@ -17,7 +19,7 @@ export default function BudgetRow({ budget, actions }) {
             {formatMoney(budget.spentCents)} of {formatMoney(budget.budgetCents)}
           </span>
         </div>
-        <ProgressBar value={budget.spentCents} max={budget.budgetCents} label={`${label} budget used`} />
+        <ProgressBar value={budget.spentCents} max={budget.budgetCents} label={`${label} budget used`} tone={tone} />
         <span className="budget-row-remaining">
           {remaining >= 0 ? `${formatMoney(remaining)} left` : `${formatMoney(-remaining)} over`} · {budget.percent}%
         </span>

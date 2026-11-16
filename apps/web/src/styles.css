@@ -722,3 +722,16 @@ a:focus-visible {
   display: flex;
   gap: 4px;
 }
+
+.progress-warn .progress-fill {
+  background: var(--warn);
+}
+
+.progress-over .progress-fill {
+  background: var(--expense);
+}
+
+.budget-row-over .budget-row-remaining {
+  color: var(--expense);
+  font-weight: 600;
+}
