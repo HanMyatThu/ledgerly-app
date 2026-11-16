@@ -197,7 +197,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): add Budgets route placeholder
 - [x] feat(web): add budget calls to API client
 - [x] feat(web): create useBudgets hook
-- [ ] feat(web): create ProgressBar component
+- [x] feat(web): create ProgressBar component
 - [ ] feat(web): create BudgetRow component
 - [ ] feat(web): list budgets with progress
 - [ ] feat(web): color progress red when over budget
