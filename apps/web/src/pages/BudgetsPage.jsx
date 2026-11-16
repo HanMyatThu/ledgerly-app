@@ -9,7 +9,7 @@ import MonthPicker from '../components/MonthPicker.jsx';
 import Spinner from '../components/Spinner.jsx';
 import { useToast } from '../components/ToastProvider.jsx';
 import { useBudgets } from '../hooks/useBudgets.js';
-import { currentMonth, formatMonth } from '../lib/month.js';
+import { currentMonth, formatMonth, shiftMonth } from '../lib/month.js';
 
 export default function BudgetsPage() {
   const [month, setMonth] = useState(currentMonth);
@@ -35,6 +35,25 @@ export default function BudgetsPage() {
     }
   }
 
+  const [copying, setCopying] = useState(false);
+
+  async function handleCopy() {
+    setCopying(true);
+    try {
+      const copied = await budgets.copyPrevious();
+      const from = formatMonth(shiftMonth(month, -1));
+      toast.show({
+        message: copied
+          ? `Copied ${copied} budget${copied === 1 ? '' : 's'} from ${from}`
+          : `Nothing new to copy from ${from}`,
+      });
+    } catch (err) {
+      toast.show({ message: `Could not copy budgets: ${err.message}` });
+    } finally {
+      setCopying(false);
+    }
+  }
+
   return (
     <>
       {budgets.error && (
@@ -42,7 +61,12 @@ export default function BudgetsPage() {
           {budgets.error}
         </Alert>
       )}
-      <MonthPicker value={month} onChange={setMonth} />
+      <div className="budgets-toolbar">
+        <MonthPicker value={month} onChange={setMonth} />
+        <Button variant="ghost" className="copy-budgets" onClick={handleCopy} disabled={copying}>
+          {copying ? 'Copying…' : `Copy from ${formatMonth(shiftMonth(month, -1))}`}
+        </Button>
+      </div>
       <BudgetForm key={month} month={month} onSubmit={handleSet} />
       {budgets.loading && !budgets.progress.length ? (
         <Spinner label="Loading budgets…" />

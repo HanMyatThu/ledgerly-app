@@ -204,7 +204,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): create BudgetForm component
 - [x] feat(web): set a budget from BudgetForm
 - [x] feat(web): remove a budget
-- [ ] feat(web): copy last month's budgets button
+- [x] feat(web): copy last month's budgets button
 - [ ] feat(web): show budget totals at the top
 - [ ] feat(web): warn in TransactionForm when an expense goes over budget
 

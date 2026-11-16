@@ -753,3 +753,27 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+.budgets-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.budgets-toolbar .month-picker {
+  margin-bottom: 0;
+}
+
+.button-ghost.copy-budgets {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 6px 12px;
+}
+
+.button-ghost.copy-budgets:hover:not(:disabled) {
+  color: var(--accent);
+  border-color: var(--accent);
+}
