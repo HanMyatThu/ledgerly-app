@@ -38,4 +38,11 @@ export const api = {
   updateTransaction: (id, data) =>
     request(`/transactions/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteTransaction: (id) => request(`/transactions/${id}`, { method: 'DELETE' }),
+
+  listBudgets: (month) => request(`/budgets${toQueryString({ month })}`),
+  budgetProgress: (month) => request(`/budgets/progress${toQueryString({ month })}`),
+  setBudget: (month, categoryId, amountCents) =>
+    request(`/budgets/${month}/${categoryId}`, { method: 'PUT', body: JSON.stringify({ amountCents }) }),
+  removeBudget: (month, categoryId) => request(`/budgets/${month}/${categoryId}`, { method: 'DELETE' }),
+  copyPreviousBudgets: (month) => request(`/budgets/${month}/copy-previous`, { method: 'POST' }),
 };
