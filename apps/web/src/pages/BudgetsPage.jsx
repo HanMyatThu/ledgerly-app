@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { formatMoney, getCategory } from '@ledgerly/shared';
 import Alert from '../components/Alert.jsx';
+import Button from '../components/Button.jsx';
 import BudgetForm from '../components/BudgetForm.jsx';
 import BudgetRow from '../components/BudgetRow.jsx';
 import EmptyState from '../components/EmptyState.jsx';
@@ -7,7 +9,6 @@ import MonthPicker from '../components/MonthPicker.jsx';
 import Spinner from '../components/Spinner.jsx';
 import { useToast } from '../components/ToastProvider.jsx';
 import { useBudgets } from '../hooks/useBudgets.js';
-import { formatMoney, getCategory } from '@ledgerly/shared';
 import { currentMonth, formatMonth } from '../lib/month.js';
 
 export default function BudgetsPage() {
@@ -18,6 +19,20 @@ export default function BudgetsPage() {
   async function handleSet({ categoryId, amountCents }) {
     await budgets.setBudget(categoryId, amountCents);
     toast.show({ message: `${getCategory(categoryId).label} budget set to ${formatMoney(amountCents)}` });
+  }
+
+  async function handleRemove(budget) {
+    const label = getCategory(budget.categoryId)?.label ?? budget.categoryId;
+    try {
+      await budgets.removeBudget(budget.categoryId);
+      toast.show({
+        message: `Removed ${label} budget`,
+        actionLabel: 'Undo',
+        onAction: () => budgets.setBudget(budget.categoryId, budget.budgetCents),
+      });
+    } catch (err) {
+      toast.show({ message: `Could not remove budget: ${err.message}` });
+    }
   }
 
   return (
@@ -34,7 +49,15 @@ export default function BudgetsPage() {
       ) : budgets.progress.length ? (
         <ul className="budget-list">
           {budgets.progress.map((budget) => (
-            <BudgetRow key={budget.categoryId} budget={budget} />
+            <BudgetRow
+              key={budget.categoryId}
+              budget={budget}
+              actions={
+                <Button variant="ghost" onClick={() => handleRemove(budget)}>
+                  Remove
+                </Button>
+              }
+            />
           ))}
         </ul>
       ) : (
