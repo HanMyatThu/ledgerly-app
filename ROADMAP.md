@@ -206,7 +206,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): remove a budget
 - [x] feat(web): copy last month's budgets button
 - [x] feat(web): show budget totals at the top
-- [ ] feat(web): warn in TransactionForm when an expense goes over budget
+- [x] feat(web): warn in TransactionForm when an expense goes over budget
 
 ## Day 10: reports API
 

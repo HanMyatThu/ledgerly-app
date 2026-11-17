@@ -801,3 +801,13 @@ a:focus-visible {
   font-size: 0.875rem;
   color: var(--expense);
 }
+
+.budget-warning {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #93370d;
+  background: #fffaeb;
+  border: 1px solid #fedf89;
+}

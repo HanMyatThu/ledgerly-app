@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { categoriesFor, toCents, validateTransaction } from '@ledgerly/shared';
+import { useBudgetWarning } from '../hooks/useBudgetWarning.js';
 import Button from './Button.jsx';
 import Card from './Card.jsx';
 import SegmentedControl from './SegmentedControl.jsx';
@@ -36,6 +37,10 @@ function toForm(transaction) {
 export default function TransactionForm({ id, onSubmit, initial, submitLabel }) {
   const [form, setForm] = useState(() => (initial ? toForm(initial) : emptyForm()));
   const label = submitLabel ?? (initial ? 'Save changes' : 'Add transaction');
+  const budgetWarning = useBudgetWarning(
+    { type: form.type, categoryId: form.categoryId, date: form.date, amountCents: toCents(form.amount) },
+    initial,
+  );
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
@@ -115,6 +120,12 @@ export default function TransactionForm({ id, onSubmit, initial, submitLabel }) 
         value={form.note}
         onChange={(e) => update('note', e.target.value)}
       />
+
+      {budgetWarning && (
+        <p className="budget-warning wide" role="status">
+          {budgetWarning}
+        </p>
+      )}
 
       {errors.form && <p className="error wide">{errors.form}</p>}
 
