@@ -41,6 +41,18 @@ export function createTransactionStore(seed = []) {
       }
       return totals;
     },
+    // Income and expense totals per month, oldest first, within optional from/to dates.
+    monthlyTotals({ from, to } = {}) {
+      const totals = new Map();
+      for (const item of items.values()) {
+        if (!matches(item, { from, to })) continue;
+        const month = item.date.slice(0, 7);
+        const entry = totals.get(month) ?? { month, incomeCents: 0, expenseCents: 0 };
+        entry[item.type === 'income' ? 'incomeCents' : 'expenseCents'] += item.amountCents;
+        totals.set(month, entry);
+      }
+      return [...totals.values()].sort((a, b) => a.month.localeCompare(b.month));
+    },
     count(filters = {}) {
       return [...items.values()].filter((item) => matches(item, filters)).length;
     },

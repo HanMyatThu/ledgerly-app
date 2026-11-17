@@ -86,6 +86,20 @@ export function createSqliteTransactionStore(db) {
         .all(params);
       return Object.fromEntries(rows.map((row) => [row.category_id, row.total]));
     },
+    // Income and expense totals per month, oldest first, within optional from/to dates.
+    monthlyTotals({ from, to } = {}) {
+      const { where, params } = buildWhere({ from, to });
+      return db
+        .prepare(
+          `SELECT substr(date, 1, 7) AS month,
+                  SUM(CASE WHEN type = 'income' THEN amount_cents ELSE 0 END) AS incomeCents,
+                  SUM(CASE WHEN type = 'expense' THEN amount_cents ELSE 0 END) AS expenseCents
+           FROM transactions ${where}
+           GROUP BY month
+           ORDER BY month`,
+        )
+        .all(params);
+    },
     count(filters = {}) {
       const { where, params } = buildWhere(filters);
       return db.prepare(`SELECT COUNT(*) AS total FROM transactions ${where}`).get(params).total;
