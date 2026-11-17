@@ -777,3 +777,27 @@ a:focus-visible {
   color: var(--accent);
   border-color: var(--accent);
 }
+
+.budget-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.budget-totals-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.budget-totals-numbers > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.budget-totals-note {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--expense);
+}

@@ -4,6 +4,7 @@ import Alert from '../components/Alert.jsx';
 import Button from '../components/Button.jsx';
 import BudgetForm from '../components/BudgetForm.jsx';
 import BudgetRow from '../components/BudgetRow.jsx';
+import BudgetTotals from '../components/BudgetTotals.jsx';
 import EmptyState from '../components/EmptyState.jsx';
 import MonthPicker from '../components/MonthPicker.jsx';
 import Spinner from '../components/Spinner.jsx';
@@ -67,6 +68,7 @@ export default function BudgetsPage() {
           {copying ? 'Copying…' : `Copy from ${formatMonth(shiftMonth(month, -1))}`}
         </Button>
       </div>
+      <BudgetTotals progress={budgets.progress} />
       <BudgetForm key={month} month={month} onSubmit={handleSet} />
       {budgets.loading && !budgets.progress.length ? (
         <Spinner label="Loading budgets…" />
