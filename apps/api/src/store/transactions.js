@@ -53,6 +53,20 @@ export function createTransactionStore(seed = []) {
       }
       return [...totals.values()].sort((a, b) => a.month.localeCompare(b.month));
     },
+    // Totals per category for one type, largest first: [{ categoryId, totalCents, count }].
+    categoryTotals({ from, to, type = 'expense' } = {}) {
+      const totals = new Map();
+      for (const item of items.values()) {
+        if (!matches(item, { from, to, type })) continue;
+        const entry = totals.get(item.categoryId) ?? { categoryId: item.categoryId, totalCents: 0, count: 0 };
+        entry.totalCents += item.amountCents;
+        entry.count += 1;
+        totals.set(item.categoryId, entry);
+      }
+      return [...totals.values()].sort(
+        (a, b) => b.totalCents - a.totalCents || a.categoryId.localeCompare(b.categoryId),
+      );
+    },
     count(filters = {}) {
       return [...items.values()].filter((item) => matches(item, filters)).length;
     },
