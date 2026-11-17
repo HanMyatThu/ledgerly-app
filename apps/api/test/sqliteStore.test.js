@@ -77,3 +77,14 @@ test('spentByCategory sums expenses per category within dates', () => {
   assert.deepEqual(store.spentByCategory({ from: '2026-11-01', to: '2026-11-30' }), { dining: 1000 });
   assert.deepEqual(store.spentByCategory(), { dining: 1000, transport: 500 });
 });
+
+test('categoryTotals can return just the top categories', () => {
+  store.create(lunch);
+  store.create({ ...lunch, categoryId: 'groceries', amountCents: 5000 });
+  store.create({ ...lunch, categoryId: 'transport', amountCents: 300 });
+  assert.deepEqual(
+    store.categoryTotals({ limit: 2 }).map((row) => row.categoryId),
+    ['groceries', 'dining'],
+  );
+  assert.equal(store.categoryTotals().length, 3);
+});

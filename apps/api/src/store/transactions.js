@@ -54,7 +54,8 @@ export function createTransactionStore(seed = []) {
       return [...totals.values()].sort((a, b) => a.month.localeCompare(b.month));
     },
     // Totals per category for one type, largest first: [{ categoryId, totalCents, count }].
-    categoryTotals({ from, to, type = 'expense' } = {}) {
+    // Pass `limit` for just the top categories.
+    categoryTotals({ from, to, type = 'expense', limit } = {}) {
       const totals = new Map();
       for (const item of items.values()) {
         if (!matches(item, { from, to, type })) continue;
@@ -63,9 +64,10 @@ export function createTransactionStore(seed = []) {
         entry.count += 1;
         totals.set(item.categoryId, entry);
       }
-      return [...totals.values()].sort(
+      const sorted = [...totals.values()].sort(
         (a, b) => b.totalCents - a.totalCents || a.categoryId.localeCompare(b.categoryId),
       );
+      return limit ? sorted.slice(0, limit) : sorted;
     },
     count(filters = {}) {
       return [...items.values()].filter((item) => matches(item, filters)).length;

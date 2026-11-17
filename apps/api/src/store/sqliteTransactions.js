@@ -101,16 +101,18 @@ export function createSqliteTransactionStore(db) {
         .all(params);
     },
     // Totals per category for one type, largest first: [{ categoryId, totalCents, count }].
-    categoryTotals({ from, to, type = 'expense' } = {}) {
+    // Pass `limit` for just the top categories.
+    categoryTotals({ from, to, type = 'expense', limit } = {}) {
       const { where, params } = buildWhere({ from, to, type });
       return db
         .prepare(
           `SELECT category_id AS categoryId, SUM(amount_cents) AS totalCents, COUNT(*) AS count
            FROM transactions ${where}
            GROUP BY category_id
-           ORDER BY totalCents DESC, categoryId ASC`,
+           ORDER BY totalCents DESC, categoryId ASC
+           LIMIT @limit`,
         )
-        .all(params);
+        .all({ ...params, limit: limit ?? -1 });
     },
     count(filters = {}) {
       const { where, params } = buildWhere(filters);

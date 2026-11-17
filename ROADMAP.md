@@ -216,7 +216,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): category totals query
 - [x] feat(api): GET reports categories endpoint
 - [x] test(api): category report tests
-- [ ] feat(api): top categories query
+- [x] feat(api): top categories query
 - [ ] feat(api): GET reports top endpoint
 - [ ] test(api): top categories tests
 - [ ] feat(api): average daily spend query
