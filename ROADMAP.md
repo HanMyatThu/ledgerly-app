@@ -211,7 +211,7 @@ Goal: start moving from memory to SQLite.
 ## Day 10: reports API
 
 - [x] feat(api): monthly totals query
-- [ ] feat(api): GET reports monthly endpoint
+- [x] feat(api): GET reports monthly endpoint
 - [ ] test(api): monthly report tests
 - [ ] feat(api): category totals query
 - [ ] feat(api): GET reports categories endpoint

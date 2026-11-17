@@ -4,6 +4,7 @@ import { CATEGORIES } from '@ledgerly/shared';
 import { createTransactionStore } from './store/transactions.js';
 import { transactionsRouter } from './routes/transactions.js';
 import { budgetsRouter } from './routes/budgets.js';
+import { reportsRouter } from './routes/reports.js';
 import { createMemoryBudgetStore } from './store/index.js';
 import { notFound } from './http.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -47,6 +48,7 @@ export function createApp({
 
   app.use('/api/transactions', transactionsRouter(store));
   app.use('/api/budgets', budgetsRouter(budgets, store));
+  app.use('/api/reports', reportsRouter(store));
 
   app.use((req, res, next) => {
     next(notFound('Route'));
