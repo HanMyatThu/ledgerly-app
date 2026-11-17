@@ -62,6 +62,29 @@ for (const [name, config] of Object.entries(STORES)) {
       );
     });
 
+    test('category totals for a month, largest first, with share', async () => {
+      const { body } = await get('/categories?month=2026-11');
+      assert.deepEqual(body, [
+        { categoryId: 'groceries', totalCents: 9000, count: 1, percent: 51 },
+        { categoryId: 'dining', totalCents: 5500, count: 2, percent: 31 },
+        { categoryId: 'transport', totalCents: 3000, count: 1, percent: 17 },
+      ]);
+    });
+
+    test('category totals for income', async () => {
+      const { body } = await get('/categories?month=2026-11&type=income');
+      assert.deepEqual(body, [{ categoryId: 'salary', totalCents: 300000, count: 1, percent: 100 }]);
+    });
+
+    test('category totals for an empty month', async () => {
+      assert.deepEqual((await get('/categories?month=2026-10')).body, []);
+    });
+
+    test('category totals reject bad input', async () => {
+      assert.equal((await get('/categories?month=11-2026')).status, 400);
+      assert.equal((await get('/categories?type=gift')).status, 400);
+    });
+
     test('monthly rejects bad spans', async () => {
       assert.equal((await get('/monthly?from=2026-13')).status, 400);
       assert.equal((await get('/monthly?from=2026-11&to=2026-09')).status, 400);
