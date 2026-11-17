@@ -11,6 +11,21 @@ function monthSpan(query) {
   return { from, to };
 }
 
+// Reads ?month=YYYY-MM (default this month) and ?type=income|expense (default expense).
+function monthAndType(query) {
+  const month = query.month ?? currentMonth();
+  if (!MONTH.test(month)) throw new HttpError(400, 'Month must be in YYYY-MM format');
+  const type = query.type ?? 'expense';
+  if (type !== 'income' && type !== 'expense') throw new HttpError(400, 'Type must be "income" or "expense"');
+  return { month, type };
+}
+
+// Adds each category's share of the total, as a whole percent.
+function withShare(rows) {
+  const total = rows.reduce((sum, row) => sum + row.totalCents, 0);
+  return rows.map((row) => ({ ...row, percent: total ? Math.round((row.totalCents / total) * 100) : 0 }));
+}
+
 export function reportsRouter(store) {
   const router = Router();
 
@@ -29,6 +44,15 @@ export function reportsRouter(store) {
           return { month, incomeCents, expenseCents, netCents: incomeCents - expenseCents };
         }),
       );
+    }),
+  );
+
+  // GET /api/reports/categories?month=2026-11&type=expense
+  router.get(
+    '/categories',
+    asyncHandler((req, res) => {
+      const { month, type } = monthAndType(req.query);
+      res.json(withShare(store.categoryTotals({ ...monthRange(month), type })));
     }),
   );
 
