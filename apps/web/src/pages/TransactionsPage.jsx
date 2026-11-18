@@ -12,6 +12,7 @@ import SummaryCards from '../components/SummaryCards.jsx';
 import TransactionForm from '../components/TransactionForm.jsx';
 import TransactionList from '../components/TransactionList.jsx';
 import { useToast } from '../components/ToastProvider.jsx';
+import { useSummary } from '../hooks/useSummary.js';
 import { useTransactions } from '../hooks/useTransactions.js';
 import { formatDate } from '../lib/formatDate.js';
 import { formatMonth, monthRange } from '../lib/month.js';
@@ -52,7 +53,7 @@ export default function TransactionsPage() {
   const listQuery = useMemo(() => ({ ...range, ...filters }), [range, filters]);
 
   // The summary always covers the whole month; the list follows the filters too.
-  const monthly = useTransactions(range);
+  const monthly = useSummary(month);
   const list = useTransactions(listQuery, { pageSize: PAGE_SIZE });
   const toast = useToast();
 
@@ -119,7 +120,7 @@ export default function TransactionsPage() {
         </Alert>
       )}
       <MonthPicker value={month} onChange={setMonth} />
-      <SummaryCards transactions={monthly.transactions} label={`Totals for ${formatMonth(month)}`} />
+      <SummaryCards summary={monthly.summary} label={`Totals for ${formatMonth(month)}`} />
       <TransactionForm id="new-transaction" onSubmit={handleCreate} />
       <FilterBar filters={filters} onChange={setFilters} />
       {list.loading && !list.transactions.length ? (

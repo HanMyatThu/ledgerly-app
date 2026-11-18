@@ -39,6 +39,8 @@ export const api = {
     request(`/transactions/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteTransaction: (id) => request(`/transactions/${id}`, { method: 'DELETE' }),
 
+  reportSummary: (month) => request(`/reports/summary${toQueryString({ month })}`),
+
   listBudgets: (month) => request(`/budgets${toQueryString({ month })}`),
   budgetProgress: (month) => request(`/budgets/progress${toQueryString({ month })}`),
   setBudget: (month, categoryId, amountCents) =>
