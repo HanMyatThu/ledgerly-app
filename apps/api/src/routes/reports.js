@@ -56,5 +56,21 @@ export function reportsRouter(store) {
     }),
   );
 
+  // GET /api/reports/top?month=2026-11&limit=5
+  // The categories with the most spending in a month.
+  router.get(
+    '/top',
+    asyncHandler((req, res) => {
+      const { month } = monthAndType({ month: req.query.month });
+      const limit = Number(req.query.limit ?? 5);
+      if (!Number.isInteger(limit) || limit < 1 || limit > 20) {
+        throw new HttpError(400, 'Limit must be a whole number from 1 to 20');
+      }
+      // Share is of all spending in the month, not just the top few.
+      const all = withShare(store.categoryTotals({ ...monthRange(month), type: 'expense' }));
+      res.json(all.slice(0, limit));
+    }),
+  );
+
   return router;
 }
