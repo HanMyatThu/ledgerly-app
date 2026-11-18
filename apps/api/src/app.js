@@ -25,6 +25,7 @@ export function createApp({
   budgets = createMemoryBudgetStore(),
   db = null,
   logRequests = false,
+  today,
 } = {}) {
   const app = express();
 
@@ -48,7 +49,7 @@ export function createApp({
 
   app.use('/api/transactions', transactionsRouter(store));
   app.use('/api/budgets', budgetsRouter(budgets, store));
-  app.use('/api/reports', reportsRouter(store));
+  app.use('/api/reports', reportsRouter(store, today ? { today } : undefined));
 
   app.use((req, res, next) => {
     next(notFound('Route'));

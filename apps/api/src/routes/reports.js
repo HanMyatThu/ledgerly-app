@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { HttpError, asyncHandler } from '../http.js';
 import { MONTH, currentMonth, monthRange, monthsBetween, shiftMonth } from '../lib/months.js';
+import { averageDailySpend } from '../lib/summary.js';
 
 // Reads ?from=YYYY-MM&to=YYYY-MM, defaulting to the six months ending this month.
 function monthSpan(query) {
@@ -26,7 +27,8 @@ function withShare(rows) {
   return rows.map((row) => ({ ...row, percent: total ? Math.round((row.totalCents / total) * 100) : 0 }));
 }
 
-export function reportsRouter(store) {
+// `today` is injectable so tests do not depend on the real date.
+export function reportsRouter(store, { today = () => new Date().toISOString().slice(0, 10) } = {}) {
   const router = Router();
 
   // GET /api/reports/monthly?from=2026-06&to=2026-11
@@ -88,6 +90,7 @@ export function reportsRouter(store) {
         expenseCents,
         balanceCents: incomeCents - expenseCents,
         count: store.count(range),
+        averageDailySpendCents: averageDailySpend(expenseCents, month, today()),
       });
     }),
   );
