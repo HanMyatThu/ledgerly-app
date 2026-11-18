@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { HttpError, asyncHandler } from '../http.js';
 import { MONTH, currentMonth, monthRange, monthsBetween, shiftMonth } from '../lib/months.js';
-import { averageDailySpend } from '../lib/summary.js';
+import { averageDailySpend, percentChange } from '../lib/summary.js';
 
 // Reads ?from=YYYY-MM&to=YYYY-MM, defaulting to the six months ending this month.
 function monthSpan(query) {
@@ -81,9 +81,12 @@ export function reportsRouter(store, { today = () => new Date().toISOString().sl
     asyncHandler((req, res) => {
       const { month } = monthAndType({ month: req.query.month });
       const range = monthRange(month);
-      const [row] = store.monthlyTotals(range);
-      const incomeCents = row?.incomeCents ?? 0;
-      const expenseCents = row?.expenseCents ?? 0;
+      const totals = (m) => {
+        const [row] = store.monthlyTotals(monthRange(m));
+        return { incomeCents: row?.incomeCents ?? 0, expenseCents: row?.expenseCents ?? 0 };
+      };
+      const { incomeCents, expenseCents } = totals(month);
+      const previous = totals(shiftMonth(month, -1));
       res.json({
         month,
         incomeCents,
@@ -91,6 +94,13 @@ export function reportsRouter(store, { today = () => new Date().toISOString().sl
         balanceCents: incomeCents - expenseCents,
         count: store.count(range),
         averageDailySpendCents: averageDailySpend(expenseCents, month, today()),
+        // Compared with the month before; percents are null when last month was zero.
+        previous: {
+          month: shiftMonth(month, -1),
+          ...previous,
+          incomeChangePercent: percentChange(incomeCents, previous.incomeCents),
+          expenseChangePercent: percentChange(expenseCents, previous.expenseCents),
+        },
       });
     }),
   );

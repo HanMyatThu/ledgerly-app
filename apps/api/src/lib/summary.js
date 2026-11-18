@@ -16,3 +16,10 @@ export function averageDailySpend(expenseCents, month, today) {
   const days = daysElapsed(month, today);
   return days ? Math.round(expenseCents / days) : 0;
 }
+
+// Percent change from `previous` to `current`, rounded; null when there is
+// nothing to compare against.
+export function percentChange(current, previous) {
+  if (!previous) return null;
+  return Math.round(((current - previous) / previous) * 100);
+}

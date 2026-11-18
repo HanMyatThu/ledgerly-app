@@ -119,6 +119,19 @@ for (const [name, config] of Object.entries(STORES)) {
       assert.equal(body.averageDailySpendCents, 972);
     });
 
+    test('summary compares with the previous month', async () => {
+      const { body } = await get('/summary?month=2026-10');
+      assert.deepEqual(body.previous, {
+        month: '2026-09',
+        incomeCents: 300000,
+        expenseCents: 122500,
+        incomeChangePercent: -100,
+        expenseChangePercent: -100,
+      });
+      const november = (await get('/summary?month=2026-11')).body;
+      assert.equal(november.previous.expenseChangePercent, null);
+    });
+
     test('summary of an empty month is all zeros', async () => {
       const { body } = await get('/summary?month=2026-10');
       assert.equal(body.incomeCents, 0);

@@ -224,7 +224,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): GET summary endpoint for a month
 - [x] test(api): summary endpoint tests
 - [ ] refactor(web): load SummaryCards from summary endpoint
-- [ ] feat(api): month-over-month change in summary
+- [x] feat(api): month-over-month change in summary
 - [ ] docs: document reports API in README
 
 ## Day 11: reports UI
