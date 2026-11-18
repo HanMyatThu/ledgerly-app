@@ -72,5 +72,25 @@ export function reportsRouter(store) {
     }),
   );
 
+  // GET /api/reports/summary?month=2026-11
+  // Income, expenses and balance for one month.
+  router.get(
+    '/summary',
+    asyncHandler((req, res) => {
+      const { month } = monthAndType({ month: req.query.month });
+      const range = monthRange(month);
+      const [row] = store.monthlyTotals(range);
+      const incomeCents = row?.incomeCents ?? 0;
+      const expenseCents = row?.expenseCents ?? 0;
+      res.json({
+        month,
+        incomeCents,
+        expenseCents,
+        balanceCents: incomeCents - expenseCents,
+        count: store.count(range),
+      });
+    }),
+  );
+
   return router;
 }
