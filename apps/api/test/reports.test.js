@@ -85,6 +85,29 @@ for (const [name, config] of Object.entries(STORES)) {
       assert.equal((await get('/categories?type=gift')).status, 400);
     });
 
+    test('top returns the biggest spending categories', async () => {
+      const { body } = await get('/top?month=2026-11&limit=2');
+      assert.deepEqual(
+        body.map((row) => [row.categoryId, row.totalCents, row.percent]),
+        [
+          ['groceries', 9000, 51],
+          ['dining', 5500, 31],
+        ],
+      );
+    });
+
+    test('top defaults to five and never includes income', async () => {
+      const { body } = await get('/top?month=2026-11');
+      assert.equal(body.length, 3);
+      assert.ok(body.every((row) => row.categoryId !== 'salary'));
+    });
+
+    test('top rejects a bad limit', async () => {
+      for (const limit of ['0', '21', 'abc', '2.5']) {
+        assert.equal((await get(`/top?limit=${limit}`)).status, 400, `limit ${limit}`);
+      }
+    });
+
     test('monthly rejects bad spans', async () => {
       assert.equal((await get('/monthly?from=2026-13')).status, 400);
       assert.equal((await get('/monthly?from=2026-11&to=2026-09')).status, 400);
