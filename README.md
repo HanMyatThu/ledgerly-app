@@ -100,6 +100,37 @@ A progress entry looks like this:
 
 Budgets can only be set for expense categories. Invalid input returns `400` with an `errors` object keyed by field.
 
+## Reports API
+
+All amounts are in cents and months are `YYYY-MM`. When `month` is left out, the current month is used.
+
+| Path                                                 | Returns                                                                     |
+| ---------------------------------------------------- | --------------------------------------------------------------------------- |
+| `GET /api/reports/summary?month=2026-11`             | Income, expenses, balance, count, average daily spend and the previous month |
+| `GET /api/reports/monthly?from=2026-06&to=2026-11`   | Income, expenses and net for every month in the span (default: last six)    |
+| `GET /api/reports/categories?month=2026-11&type=expense` | Total, count and percent share per category, largest first             |
+| `GET /api/reports/top?month=2026-11&limit=5`         | The biggest spending categories (1 to 20, default 5)                        |
+
+Average daily spend divides the month's expenses by the days that have passed so far, so it is meaningful mid-month. Month-over-month change percents are `null` when the previous month had nothing to compare against.
+
+```json
+{
+  "month": "2026-11",
+  "incomeCents": 300000,
+  "expenseCents": 17500,
+  "balanceCents": 282500,
+  "count": 5,
+  "averageDailySpendCents": 972,
+  "previous": {
+    "month": "2026-10",
+    "incomeCents": 300000,
+    "expenseCents": 20000,
+    "incomeChangePercent": 0,
+    "expenseChangePercent": -13
+  }
+}
+```
+
 ## Roadmap
 
 See [ROADMAP.md](ROADMAP.md) for the day-by-day plan.
