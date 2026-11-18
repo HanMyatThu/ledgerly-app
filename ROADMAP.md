@@ -222,7 +222,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): average daily spend query
 - [x] feat(api): add average daily spend to summary endpoint
 - [x] feat(api): GET summary endpoint for a month
-- [ ] test(api): summary endpoint tests
+- [x] test(api): summary endpoint tests
 - [ ] refactor(web): load SummaryCards from summary endpoint
 - [ ] feat(api): month-over-month change in summary
 - [ ] docs: document reports API in README

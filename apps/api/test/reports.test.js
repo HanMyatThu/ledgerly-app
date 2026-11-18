@@ -30,7 +30,7 @@ for (const [name, config] of Object.entries(STORES)) {
       const created = createStore(config);
       db = created.db;
       for (const item of FIXTURES) created.store.create(item);
-      server = createApp(created).listen(0);
+      server = createApp({ ...created, today: () => '2026-11-18' }).listen(0);
       await new Promise((resolve) => server.once('listening', resolve));
       base = `http://localhost:${server.address().port}/api/reports`;
     });
@@ -106,6 +106,29 @@ for (const [name, config] of Object.entries(STORES)) {
       for (const limit of ['0', '21', 'abc', '2.5']) {
         assert.equal((await get(`/top?limit=${limit}`)).status, 400, `limit ${limit}`);
       }
+    });
+
+    test('summary totals a month', async () => {
+      const { body } = await get('/summary?month=2026-11');
+      assert.equal(body.month, '2026-11');
+      assert.equal(body.incomeCents, 300000);
+      assert.equal(body.expenseCents, 17500);
+      assert.equal(body.balanceCents, 282500);
+      assert.equal(body.count, 5);
+      // 17500 cents over the 18 days so far.
+      assert.equal(body.averageDailySpendCents, 972);
+    });
+
+    test('summary of an empty month is all zeros', async () => {
+      const { body } = await get('/summary?month=2026-10');
+      assert.equal(body.incomeCents, 0);
+      assert.equal(body.expenseCents, 0);
+      assert.equal(body.count, 0);
+      assert.equal(body.averageDailySpendCents, 0);
+    });
+
+    test('summary rejects a bad month', async () => {
+      assert.equal((await get('/summary?month=2026-00')).status, 400);
     });
 
     test('monthly rejects bad spans', async () => {
