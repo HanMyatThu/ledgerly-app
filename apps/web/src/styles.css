@@ -833,3 +833,48 @@ a:focus-visible {
 .chart-card-body {
   min-height: 0;
 }
+
+.donut {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) 1.2fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.chart-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.875rem;
+}
+
+.chart-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-swatch {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.chart-legend-label {
+  flex: 1;
+}
+
+.chart-legend-value {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 600px) {
+  .donut {
+    grid-template-columns: 1fr;
+  }
+}

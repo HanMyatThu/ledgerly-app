@@ -235,7 +235,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): create useReports hook
 - [x] feat(web): create ChartCard component
 - [x] feat(web): create CategoryDonut chart
-- [ ] feat(web): add legend to CategoryDonut
+- [x] feat(web): add legend to CategoryDonut
 - [ ] feat(web): create IncomeExpenseBars chart
 - [ ] feat(web): add tooltip formatting to charts
 - [ ] feat(web): create TopCategoriesTable component

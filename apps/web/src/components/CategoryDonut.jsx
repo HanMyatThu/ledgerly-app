@@ -1,4 +1,4 @@
-import { getCategory } from '@ledgerly/shared';
+import { formatMoney, getCategory } from '@ledgerly/shared';
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
 import { categoryColor } from '../lib/chartColors.js';
 
@@ -30,6 +30,17 @@ export default function CategoryDonut({ categories }) {
           </Pie>
         </PieChart>
       </ResponsiveContainer>
+      <ul className="chart-legend">
+        {data.map((row) => (
+          <li key={row.categoryId}>
+            <span className="chart-swatch" style={{ background: categoryColor(row.categoryId) }} aria-hidden="true" />
+            <span className="chart-legend-label">{row.name}</span>
+            <span className="chart-legend-value">
+              {formatMoney(row.totalCents)} · {row.percent}%
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
