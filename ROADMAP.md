@@ -230,7 +230,7 @@ Goal: start moving from memory to SQLite.
 ## Day 11: reports UI
 
 - [x] chore(web): add recharts
-- [ ] feat(web): add Reports route
+- [x] feat(web): add Reports route
 - [ ] feat(web): add report calls to API client
 - [ ] feat(web): create useReports hook
 - [ ] feat(web): create ChartCard component
