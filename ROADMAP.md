@@ -231,7 +231,7 @@ Goal: start moving from memory to SQLite.
 
 - [x] chore(web): add recharts
 - [x] feat(web): add Reports route
-- [ ] feat(web): add report calls to API client
+- [x] feat(web): add report calls to API client
 - [ ] feat(web): create useReports hook
 - [ ] feat(web): create ChartCard component
 - [ ] feat(web): create CategoryDonut chart

@@ -40,6 +40,9 @@ export const api = {
   deleteTransaction: (id) => request(`/transactions/${id}`, { method: 'DELETE' }),
 
   reportSummary: (month) => request(`/reports/summary${toQueryString({ month })}`),
+  reportMonthly: (from, to) => request(`/reports/monthly${toQueryString({ from, to })}`),
+  reportCategories: (month, type = 'expense') => request(`/reports/categories${toQueryString({ month, type })}`),
+  reportTop: (month, limit = 5) => request(`/reports/top${toQueryString({ month, limit })}`),
 
   listBudgets: (month) => request(`/budgets${toQueryString({ month })}`),
   budgetProgress: (month) => request(`/budgets/progress${toQueryString({ month })}`),
