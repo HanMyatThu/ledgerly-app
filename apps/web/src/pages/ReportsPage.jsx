@@ -1,12 +1,33 @@
 import { useState } from 'react';
+import Alert from '../components/Alert.jsx';
+import CategoryDonut from '../components/CategoryDonut.jsx';
+import ChartCard from '../components/ChartCard.jsx';
+import IncomeExpenseBars from '../components/IncomeExpenseBars.jsx';
 import MonthPicker from '../components/MonthPicker.jsx';
+import Spinner from '../components/Spinner.jsx';
+import { useReports } from '../hooks/useReports.js';
 import { currentMonth } from '../lib/month.js';
 
 export default function ReportsPage() {
   const [month, setMonth] = useState(currentMonth);
+  const { monthly, categories, loading, error } = useReports(month);
+
   return (
     <>
       <MonthPicker value={month} onChange={setMonth} />
+      {error && <Alert title="Could not load reports">{error}</Alert>}
+      {loading ? (
+        <Spinner label="Loading reports…" />
+      ) : (
+        <div className="report-grid">
+          <ChartCard title="Spending by category">
+            <CategoryDonut categories={categories} />
+          </ChartCard>
+          <ChartCard title="Income and expenses" subtitle="Last six months">
+            <IncomeExpenseBars monthly={monthly} />
+          </ChartCard>
+        </div>
+      )}
     </>
   );
 }

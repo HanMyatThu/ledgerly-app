@@ -878,3 +878,9 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+.report-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
