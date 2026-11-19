@@ -1,4 +1,5 @@
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import ChartTooltip from './ChartTooltip.jsx';
 
 const SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -21,14 +22,15 @@ export default function IncomeExpenseBars({ monthly }) {
     <ResponsiveContainer width="100%" height={260}>
       <BarChart data={data} barGap={2} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
         <CartesianGrid vertical={false} stroke="var(--border)" />
-        <XAxis dataKey="label" tickLine={false} axisLine={false} tick={{ fill: 'var(--text-muted)', fontSize: 12 }} />
+        <XAxis dataKey="label" tickLine={false} axisLine={false} tick={{ fill: 'var(--muted)', fontSize: 12 }} />
         <YAxis
           tickFormatter={axisMoney}
           tickLine={false}
           axisLine={false}
           width={52}
-          tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
+          tick={{ fill: 'var(--muted)', fontSize: 12 }}
         />
+        <Tooltip content={<ChartTooltip />} cursor={{ fill: 'var(--bg)' }} />
         <Legend iconType="square" wrapperStyle={{ fontSize: 13 }} />
         <Bar dataKey="incomeCents" name="Income" fill="var(--income)" radius={[4, 4, 0, 0]} isAnimationActive={false} />
         <Bar dataKey="expenseCents" name="Expenses" fill="var(--expense)" radius={[4, 4, 0, 0]} isAnimationActive={false} />

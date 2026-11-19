@@ -1,5 +1,6 @@
 import { formatMoney, getCategory } from '@ledgerly/shared';
-import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import ChartTooltip from './ChartTooltip.jsx';
 import { categoryColor } from '../lib/chartColors.js';
 
 // Share of spending by category for one month.
@@ -28,6 +29,7 @@ export default function CategoryDonut({ categories }) {
               <Cell key={row.categoryId} fill={categoryColor(row.categoryId)} />
             ))}
           </Pie>
+          <Tooltip content={<ChartTooltip />} />
         </PieChart>
       </ResponsiveContainer>
       <ul className="chart-legend">
