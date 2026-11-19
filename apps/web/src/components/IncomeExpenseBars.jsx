@@ -31,7 +31,11 @@ export default function IncomeExpenseBars({ monthly }) {
           tick={{ fill: 'var(--muted)', fontSize: 12 }}
         />
         <Tooltip content={<ChartTooltip />} cursor={{ fill: 'var(--bg)' }} />
-        <Legend iconType="square" wrapperStyle={{ fontSize: 13 }} />
+        <Legend
+          iconType="square"
+          wrapperStyle={{ fontSize: 13 }}
+          formatter={(value) => <span style={{ color: 'var(--text)' }}>{value}</span>}
+        />
         <Bar dataKey="incomeCents" name="Income" fill="var(--income)" radius={[4, 4, 0, 0]} isAnimationActive={false} />
         <Bar dataKey="expenseCents" name="Expenses" fill="var(--expense)" radius={[4, 4, 0, 0]} isAnimationActive={false} />
       </BarChart>
