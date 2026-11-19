@@ -811,3 +811,25 @@ a:focus-visible {
   background: #fffaeb;
   border: 1px solid #fedf89;
 }
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.chart-card-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.chart-card-header p {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.chart-card-body {
+  min-height: 0;
+}
