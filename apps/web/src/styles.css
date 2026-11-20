@@ -381,9 +381,11 @@ a:focus-visible {
     flex-wrap: wrap;
   }
 
-  .summary .trend {
+  .summary .trend,
+  .summary-note {
     flex-basis: 100%;
     justify-content: flex-end;
+    text-align: right;
   }
 
   .transaction {
@@ -997,4 +999,9 @@ a:focus-visible {
 
 .trend-bad {
   color: var(--expense);
+}
+
+.summary-note {
+  font-size: 0.75rem;
+  color: var(--muted);
 }

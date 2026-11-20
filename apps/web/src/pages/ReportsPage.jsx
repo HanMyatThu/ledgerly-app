@@ -5,13 +5,14 @@ import ChartCard from '../components/ChartCard.jsx';
 import IncomeExpenseBars from '../components/IncomeExpenseBars.jsx';
 import MonthPicker from '../components/MonthPicker.jsx';
 import Spinner from '../components/Spinner.jsx';
+import SummaryCards from '../components/SummaryCards.jsx';
 import TopCategoriesTable from '../components/TopCategoriesTable.jsx';
 import { useReports } from '../hooks/useReports.js';
 import { currentMonth } from '../lib/month.js';
 
 export default function ReportsPage() {
   const [month, setMonth] = useState(currentMonth);
-  const { monthly, categories, top, loading, error } = useReports(month);
+  const { summary, monthly, categories, top, loading, error } = useReports(month);
 
   return (
     <>
@@ -21,6 +22,7 @@ export default function ReportsPage() {
         <Spinner label="Loading reports…" />
       ) : (
         <div className="report-grid">
+          {summary && <SummaryCards summary={summary} label="This month at a glance" />}
           <ChartCard title="Spending by category">
             <CategoryDonut categories={categories} />
           </ChartCard>
