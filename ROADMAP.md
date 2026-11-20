@@ -248,7 +248,7 @@ Goal: start moving from memory to SQLite.
 
 ## Day 12: CSV import and export
 
-- [ ] feat(shared): add toCsv helper
+- [x] feat(shared): add toCsv helper
 - [ ] test(shared): toCsv tests
 - [ ] feat(shared): add parseCsv helper
 - [ ] test(shared): parseCsv tests
