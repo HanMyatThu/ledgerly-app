@@ -972,3 +972,20 @@ a:focus-visible {
   font-variant-numeric: tabular-nums;
   color: var(--muted);
 }
+
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.trend-good {
+  color: var(--income);
+}
+
+.trend-bad {
+  color: var(--expense);
+}
