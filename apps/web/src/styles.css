@@ -891,9 +891,28 @@ a:focus-visible {
 }
 
 .report-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 16px;
+}
+
+.report-grid > .summary,
+.report-grid > .report-wide {
+  grid-column: 1 / -1;
+}
+
+.report-grid > .summary {
+  margin-bottom: 0;
+}
+
+@media (min-width: 900px) {
+  .report-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .report-grid .donut {
+    grid-template-columns: 1fr;
+  }
 }
 
 .chart-tooltip {
@@ -978,7 +997,7 @@ a:focus-visible {
 }
 
 .share-value {
-  min-width: 3ch;
+  min-width: 4ch;
   text-align: right;
   font-variant-numeric: tabular-nums;
   color: var(--muted);

@@ -244,7 +244,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): show month-over-month change on summary cards
 - [x] feat(web): show average daily spend
 - [x] feat(web): empty state for reports with no data
-- [ ] style(web): responsive grid for report cards
+- [x] style(web): responsive grid for report cards
 
 ## Day 12: CSV import and export
 

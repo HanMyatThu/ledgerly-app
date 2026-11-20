@@ -35,11 +35,11 @@ export default function ReportsPage() {
       ) : (
         <div className="report-grid">
           {summary && <SummaryCards summary={summary} label="This month at a glance" />}
+          <ChartCard title="Income and expenses" subtitle="Last six months" className="report-wide">
+            <IncomeExpenseBars monthly={monthly} />
+          </ChartCard>
           <ChartCard title="Spending by category">
             <CategoryDonut categories={categories} />
-          </ChartCard>
-          <ChartCard title="Income and expenses" subtitle="Last six months">
-            <IncomeExpenseBars monthly={monthly} />
           </ChartCard>
           <ChartCard title="Top categories" subtitle="Where most of the money went">
             <TopCategoriesTable rows={top} />
