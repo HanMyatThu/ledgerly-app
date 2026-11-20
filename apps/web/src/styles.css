@@ -935,7 +935,7 @@ a:focus-visible {
   border-bottom: 0;
 }
 
-.top-table td:first-child {
+.top-table .cell-row {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -944,4 +944,31 @@ a:focus-visible {
 .top-table .num {
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+
+.top-table .share-col {
+  width: 40%;
+  padding-left: 16px;
+}
+
+.share-bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.share-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+.share-value {
+  min-width: 3ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
 }

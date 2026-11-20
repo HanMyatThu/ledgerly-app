@@ -239,7 +239,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): create IncomeExpenseBars chart
 - [x] feat(web): add tooltip formatting to charts
 - [x] feat(web): create TopCategoriesTable component
-- [ ] feat(web): show percentage of spend in TopCategoriesTable
+- [x] feat(web): show percentage of spend in TopCategoriesTable
 - [ ] feat(web): create TrendBadge component
 - [ ] feat(web): show month-over-month change on summary cards
 - [ ] feat(web): show average daily spend
