@@ -377,6 +377,15 @@ a:focus-visible {
     margin-bottom: 0;
   }
 
+  .summary .card {
+    flex-wrap: wrap;
+  }
+
+  .summary .trend {
+    flex-basis: 100%;
+    justify-content: flex-end;
+  }
+
   .transaction {
     padding: 10px 12px;
     align-items: flex-start;
