@@ -5,12 +5,13 @@ import ChartCard from '../components/ChartCard.jsx';
 import IncomeExpenseBars from '../components/IncomeExpenseBars.jsx';
 import MonthPicker from '../components/MonthPicker.jsx';
 import Spinner from '../components/Spinner.jsx';
+import TopCategoriesTable from '../components/TopCategoriesTable.jsx';
 import { useReports } from '../hooks/useReports.js';
 import { currentMonth } from '../lib/month.js';
 
 export default function ReportsPage() {
   const [month, setMonth] = useState(currentMonth);
-  const { monthly, categories, loading, error } = useReports(month);
+  const { monthly, categories, top, loading, error } = useReports(month);
 
   return (
     <>
@@ -25,6 +26,9 @@ export default function ReportsPage() {
           </ChartCard>
           <ChartCard title="Income and expenses" subtitle="Last six months">
             <IncomeExpenseBars monthly={monthly} />
+          </ChartCard>
+          <ChartCard title="Top categories" subtitle="Where most of the money went">
+            <TopCategoriesTable rows={top} />
           </ChartCard>
         </div>
       )}

@@ -910,3 +910,38 @@ a:focus-visible {
   margin-left: auto;
   font-variant-numeric: tabular-nums;
 }
+
+.top-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.top-table th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.top-table td {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.top-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.top-table td:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
