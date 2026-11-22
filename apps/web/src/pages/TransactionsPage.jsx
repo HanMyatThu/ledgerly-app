@@ -4,6 +4,7 @@ import { api } from '../api.js';
 import Alert from '../components/Alert.jsx';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import FilterBar, { hasActiveFilters } from '../components/FilterBar.jsx';
+import ImportDialog from '../components/ImportDialog.jsx';
 import LoadMoreButton from '../components/LoadMoreButton.jsx';
 import Modal from '../components/Modal.jsx';
 import MonthPicker from '../components/MonthPicker.jsx';
@@ -94,6 +95,14 @@ export default function TransactionsPage() {
     setDeleting(null);
   }
 
+  const [importing, setImporting] = useState(false);
+
+  async function handleImported({ accepted, rejected }) {
+    await Promise.all([list.reload(), monthly.reload()]);
+    const skipped = rejected.length ? `, skipped ${rejected.length}` : '';
+    toast.show({ message: `Imported ${accepted.length} transactions${skipped}` });
+  }
+
   const [editing, setEditing] = useState(null);
   const closeEditor = useCallback(() => setEditing(null), []);
 
@@ -125,6 +134,9 @@ export default function TransactionsPage() {
       <TransactionForm id="new-transaction" onSubmit={handleCreate} />
       <FilterBar filters={filters} onChange={setFilters} />
       <div className="list-toolbar">
+        <button type="button" className="button button-ghost" onClick={() => setImporting(true)}>
+          Import CSV
+        </button>
         <a className="button button-ghost" href={api.exportCsvUrl(listQuery)} download>
           Export CSV
         </a>
@@ -152,6 +164,7 @@ export default function TransactionsPage() {
       <Modal open={Boolean(editing)} title="Edit transaction" onClose={closeEditor}>
         {editing && <TransactionForm key={editing.id} initial={editing} onSubmit={handleUpdate} />}
       </Modal>
+      <ImportDialog open={importing} onClose={() => setImporting(false)} onImported={handleImported} />
       <ConfirmDialog
         open={Boolean(deleting)}
         title="Delete transaction?"

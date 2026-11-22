@@ -1079,3 +1079,29 @@ a.button {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+.import-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.import-help {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.import-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+}
+
+.import-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

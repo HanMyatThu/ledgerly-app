@@ -260,7 +260,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(api): import tests
 - [x] feat(web): add export button
 - [x] feat(web): create FileDrop component
-- [ ] feat(web): create ImportDialog component
+- [x] feat(web): create ImportDialog component
 - [ ] feat(web): preview rows before importing
 - [ ] feat(web): show rejected rows with reasons
 - [ ] docs: document CSV format in README
