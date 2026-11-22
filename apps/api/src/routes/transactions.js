@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { parseListQuery, validateTransaction } from '@ledgerly/shared';
 import { asyncHandler, HttpError, notFound } from '../http.js';
+import { transactionsToCsv } from '../lib/transactionCsv.js';
 
 const FIELDS = ['type', 'amountCents', 'categoryId', 'date', 'note'];
 
@@ -29,6 +30,18 @@ export function transactionsRouter(store) {
       // Total matches before paging, so clients can tell whether more pages exist.
       res.set('X-Total-Count', String(store.count(query)));
       res.json(store.list(query));
+    }),
+  );
+
+  // GET /api/transactions/export.csv?from=...&to=...
+  // Every transaction matching the list filters, as a CSV download. Paging is ignored.
+  router.get(
+    '/export.csv',
+    asyncHandler((req, res) => {
+      const { limit, offset, ...filters } = parseListQuery(req.query);
+      res.set('Content-Type', 'text/csv; charset=utf-8');
+      res.set('Content-Disposition', 'attachment; filename="ledgerly-transactions.csv"');
+      res.send(transactionsToCsv(store.list(filters)));
     }),
   );
 
