@@ -1140,3 +1140,29 @@ a.button {
 .import-table tr:last-child td {
   border-bottom: 0;
 }
+
+.import-summary {
+  margin: 0;
+}
+
+.import-rejected {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+
+.import-rejected ul {
+  margin: 2px 0 0;
+  padding-left: 16px;
+  color: var(--expense);
+}
+
+.import-rejected code {
+  color: var(--text);
+}
