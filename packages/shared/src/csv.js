@@ -20,3 +20,54 @@ export function toCsv(rows, columns) {
   }
   return `${lines.join('\r\n')}\r\n`;
 }
+
+// Reads CSV text into an array of rows, each an array of cell strings.
+// Handles quoted cells (with commas, quotes and new lines inside), CRLF or LF
+// line endings, a leading byte-order mark and a trailing new line.
+// Throws when a quoted cell is never closed.
+export function parseCsv(text) {
+  const input = String(text ?? '').replace(/^﻿/, '');
+  const rows = [];
+  let row = [];
+  let cell = '';
+  let inQuotes = false;
+  let i = 0;
+
+  while (i < input.length) {
+    const char = input[i];
+    if (inQuotes) {
+      if (char === '"' && input[i + 1] === '"') {
+        cell += '"';
+        i += 2;
+        continue;
+      }
+      if (char === '"') inQuotes = false;
+      else cell += char;
+      i += 1;
+      continue;
+    }
+    if (char === '"' && cell === '') {
+      inQuotes = true;
+    } else if (char === ',') {
+      row.push(cell);
+      cell = '';
+    } else if (char === '\n' || char === '\r') {
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = '';
+      if (char === '\r' && input[i + 1] === '\n') i += 1;
+    } else {
+      cell += char;
+    }
+    i += 1;
+  }
+
+  if (inQuotes) throw new Error('Unclosed quote in CSV');
+  if (cell !== '' || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+  // Blank lines carry no data.
+  return rows.filter((cells) => !(cells.length === 1 && cells[0] === ''));
+}

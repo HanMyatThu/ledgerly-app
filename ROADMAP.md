@@ -250,7 +250,7 @@ Goal: start moving from memory to SQLite.
 
 - [x] feat(shared): add toCsv helper
 - [x] test(shared): toCsv tests
-- [ ] feat(shared): add parseCsv helper
+- [x] feat(shared): add parseCsv helper
 - [ ] test(shared): parseCsv tests
 - [ ] feat(api): GET transactions export csv
 - [ ] test(api): export test
