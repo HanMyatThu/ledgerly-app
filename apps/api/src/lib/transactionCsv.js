@@ -22,7 +22,6 @@ export const MAX_IMPORT_ROWS = 1000;
 // Export prefixes formula-like text with an apostrophe; take it off again on import.
 function cleanNote(value) {
   const note = (value ?? '').trim();
-  if (!note) return undefined;
   return /^'[=+\-@]/.test(note) ? note.slice(1) : note;
 }
 
