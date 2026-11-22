@@ -131,6 +131,38 @@ Average daily spend divides the month's expenses by the days that have passed so
 }
 ```
 
+## CSV import and export
+
+The Transactions page has **Export CSV** and **Import CSV** buttons. Both use the same layout, so an exported file can be imported again.
+
+```csv
+date,type,category,amount,note
+2026-11-03,expense,dining,8.99,Lunch
+2026-11-01,income,salary,2500.00,
+```
+
+| Column | Required | Format |
+| --- | --- | --- |
+| `date` | yes | `YYYY-MM-DD` |
+| `type` | yes | `expense` or `income` |
+| `category` | yes | a category id such as `groceries` or `salary`, matching the type |
+| `amount` | yes | a positive amount in dollars, such as `12.50` (no currency sign) |
+| `note` | no | up to 200 characters |
+
+Column names are not case-sensitive, columns can be in any order, and extra columns are ignored. Cells with commas, quotes or line breaks are quoted the usual CSV way. On export, text starting with `=`, `+`, `-` or `@` gets a leading `'` so spreadsheet apps do not run it as a formula; import removes it again.
+
+- `GET /api/transactions/export.csv` takes the same filters as the list (`from`, `to`, `type`, `category`, `q`, `sort`) and returns every match as a download. Paging is ignored.
+- `POST /api/transactions/import` takes the file as the request body with `Content-Type: text/csv` (up to 1 MB and 1000 rows). Valid rows are saved and invalid rows are skipped. The response lists both:
+
+```json
+{
+  "accepted": [{ "id": "…", "date": "2026-11-03", "amountCents": 899, "...": "…" }],
+  "rejected": [{ "line": 4, "values": { "date": "bad-date", "...": "…" }, "errors": { "date": "Date must be in YYYY-MM-DD format" } }]
+}
+```
+
+`line` is the line number in the file, counting the header as line 1. The status is `201` when at least one row was saved and `200` when none were. A file that is empty, malformed or missing a required column gets a `400` and nothing is saved.
+
 ## Roadmap
 
 See [ROADMAP.md](ROADMAP.md) for the day-by-day plan.

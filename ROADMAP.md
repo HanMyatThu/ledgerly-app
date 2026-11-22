@@ -263,7 +263,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): create ImportDialog component
 - [x] feat(web): preview rows before importing
 - [x] feat(web): show rejected rows with reasons
-- [ ] docs: document CSV format in README
+- [x] docs: document CSV format in README
 
 ## Day 13: recurring transactions
 
