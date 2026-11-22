@@ -38,6 +38,13 @@ export const api = {
   updateTransaction: (id, data) =>
     request(`/transactions/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteTransaction: (id) => request(`/transactions/${id}`, { method: 'DELETE' }),
+  // A download link for the transactions matching `params`, as CSV. Paging is ignored.
+  exportCsvUrl: (params) => {
+    const { limit, offset, ...filters } = params ?? {};
+    return `/api/transactions/export.csv${toQueryString(filters)}`;
+  },
+  importCsv: (text) =>
+    request('/transactions/import', { method: 'POST', headers: { 'Content-Type': 'text/csv' }, body: text }),
 
   reportSummary: (month) => request(`/reports/summary${toQueryString({ month })}`),
   reportMonthly: (from, to) => request(`/reports/monthly${toQueryString({ from, to })}`),

@@ -1024,3 +1024,16 @@ a:focus-visible {
   font-size: 0.75rem;
   color: var(--muted);
 }
+
+.list-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+a.button {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}

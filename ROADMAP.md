@@ -258,7 +258,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): validate each imported row
 - [x] feat(api): return accepted and rejected rows
 - [x] test(api): import tests
-- [ ] feat(web): add export button
+- [x] feat(web): add export button
 - [ ] feat(web): create FileDrop component
 - [ ] feat(web): create ImportDialog component
 - [ ] feat(web): preview rows before importing

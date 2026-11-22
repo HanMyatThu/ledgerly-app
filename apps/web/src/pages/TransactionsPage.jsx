@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { formatMoney, getCategory } from '@ledgerly/shared';
+import { api } from '../api.js';
 import Alert from '../components/Alert.jsx';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import FilterBar, { hasActiveFilters } from '../components/FilterBar.jsx';
@@ -123,6 +124,11 @@ export default function TransactionsPage() {
       <SummaryCards summary={monthly.summary} label={`Totals for ${formatMonth(month)}`} />
       <TransactionForm id="new-transaction" onSubmit={handleCreate} />
       <FilterBar filters={filters} onChange={setFilters} />
+      <div className="list-toolbar">
+        <a className="button button-ghost" href={api.exportCsvUrl(listQuery)} download>
+          Export CSV
+        </a>
+      </div>
       {list.loading && !list.transactions.length ? (
         <Spinner label="Loading transactions…" />
       ) : (
