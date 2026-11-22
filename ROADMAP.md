@@ -253,7 +253,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(shared): add parseCsv helper
 - [x] test(shared): parseCsv tests
 - [x] feat(api): GET transactions export csv
-- [ ] test(api): export test
+- [x] test(api): export test
 - [ ] feat(api): accept CSV body on import endpoint
 - [ ] feat(api): validate each imported row
 - [ ] feat(api): return accepted and rejected rows
