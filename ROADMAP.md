@@ -256,7 +256,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(api): export test
 - [x] feat(api): accept CSV body on import endpoint
 - [x] feat(api): validate each imported row
-- [ ] feat(api): return accepted and rejected rows
+- [x] feat(api): return accepted and rejected rows
 - [ ] test(api): import tests
 - [ ] feat(web): add export button
 - [ ] feat(web): create FileDrop component

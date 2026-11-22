@@ -46,18 +46,20 @@ export function transactionsRouter(store) {
   );
 
   // POST /api/transactions/import with a text/csv body in the export layout.
+  // Valid rows are saved and invalid ones are skipped; the response lists both,
+  // with each rejected row's line number, values and errors by column.
   router.post(
     '/import',
     express.text({ type: ['text/csv', 'text/plain'], limit: '1mb' }),
     asyncHandler((req, res) => {
-      const drafts = csvToDrafts(req.body);
-      // Check every row first so one response lists all the problems in the file.
-      const invalid = drafts
-        .map((draft) => ({ line: draft.line, errors: validateDraft(draft.data) }))
-        .filter((row) => Object.keys(row.errors).length);
-      if (invalid.length) throw new HttpError(400, 'Some rows are invalid', { rows: invalid });
-      const created = drafts.map((draft) => store.create(draft.data));
-      res.status(201).json({ imported: created.length });
+      const accepted = [];
+      const rejected = [];
+      for (const draft of csvToDrafts(req.body)) {
+        const errors = validateDraft(draft.data);
+        if (Object.keys(errors).length) rejected.push({ line: draft.line, values: draft.data, errors });
+        else accepted.push(store.create(draft.data));
+      }
+      res.status(accepted.length ? 201 : 200).json({ accepted, rejected });
     }),
   );
 
