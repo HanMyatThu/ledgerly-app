@@ -259,7 +259,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): return accepted and rejected rows
 - [x] test(api): import tests
 - [x] feat(web): add export button
-- [ ] feat(web): create FileDrop component
+- [x] feat(web): create FileDrop component
 - [ ] feat(web): create ImportDialog component
 - [ ] feat(web): preview rows before importing
 - [ ] feat(web): show rejected rows with reasons
