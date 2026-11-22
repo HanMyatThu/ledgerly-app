@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import { parseListQuery, validateTransaction } from '@ledgerly/shared';
 import { asyncHandler, HttpError, notFound } from '../http.js';
-import { csvToDrafts, transactionsToCsv } from '../lib/transactionCsv.js';
+import { csvToDrafts, transactionsToCsv, validateDraft } from '../lib/transactionCsv.js';
 
 const FIELDS = ['type', 'amountCents', 'categoryId', 'date', 'note'];
 
@@ -51,7 +51,11 @@ export function transactionsRouter(store) {
     express.text({ type: ['text/csv', 'text/plain'], limit: '1mb' }),
     asyncHandler((req, res) => {
       const drafts = csvToDrafts(req.body);
-      drafts.forEach((draft) => assertValid(draft.data));
+      // Check every row first so one response lists all the problems in the file.
+      const invalid = drafts
+        .map((draft) => ({ line: draft.line, errors: validateDraft(draft.data) }))
+        .filter((row) => Object.keys(row.errors).length);
+      if (invalid.length) throw new HttpError(400, 'Some rows are invalid', { rows: invalid });
       const created = drafts.map((draft) => store.create(draft.data));
       res.status(201).json({ imported: created.length });
     }),

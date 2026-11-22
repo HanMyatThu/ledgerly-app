@@ -1,4 +1,4 @@
-import { parseCsv, toCents, toCsv } from '@ledgerly/shared';
+import { parseCsv, toCents, toCsv, validateTransaction } from '@ledgerly/shared';
 import { HttpError } from '../http.js';
 
 // The CSV layout for transactions, shared by export and import.
@@ -57,4 +57,17 @@ export function csvToDrafts(text) {
       note: cleanNote(cells[index.note]),
     },
   }));
+}
+
+// Checks one draft and returns its errors keyed by CSV column name (empty when valid).
+export function validateDraft(data) {
+  const errors = validateTransaction(data);
+  const byColumn = {};
+  for (const [field, message] of Object.entries(errors)) {
+    const column = field === 'categoryId' ? 'category' : field === 'amountCents' ? 'amount' : field;
+    byColumn[column] = message;
+  }
+  if (Number.isNaN(data.amountCents)) byColumn.amount = 'Amount must be a number like 12.50';
+  else if (byColumn.amount) byColumn.amount = 'Amount must be more than zero';
+  return byColumn;
 }
