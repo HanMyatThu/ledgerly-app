@@ -1105,3 +1105,38 @@ a.button {
   justify-content: flex-end;
   gap: 8px;
 }
+
+.import-preview p {
+  margin: 0 0 6px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.import-preview-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.import-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.import-table th,
+.import-table td {
+  padding: 6px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.import-table th {
+  font-weight: 600;
+  background: var(--bg);
+}
+
+.import-table tr:last-child td {
+  border-bottom: 0;
+}
