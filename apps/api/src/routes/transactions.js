@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 import { parseListQuery, validateTransaction } from '@ledgerly/shared';
 import { asyncHandler, HttpError, notFound } from '../http.js';
-import { transactionsToCsv } from '../lib/transactionCsv.js';
+import { csvToDrafts, transactionsToCsv } from '../lib/transactionCsv.js';
 
 const FIELDS = ['type', 'amountCents', 'categoryId', 'date', 'note'];
 
@@ -42,6 +42,18 @@ export function transactionsRouter(store) {
       res.set('Content-Type', 'text/csv; charset=utf-8');
       res.set('Content-Disposition', 'attachment; filename="ledgerly-transactions.csv"');
       res.send(transactionsToCsv(store.list(filters)));
+    }),
+  );
+
+  // POST /api/transactions/import with a text/csv body in the export layout.
+  router.post(
+    '/import',
+    express.text({ type: ['text/csv', 'text/plain'], limit: '1mb' }),
+    asyncHandler((req, res) => {
+      const drafts = csvToDrafts(req.body);
+      drafts.forEach((draft) => assertValid(draft.data));
+      const created = drafts.map((draft) => store.create(draft.data));
+      res.status(201).json({ imported: created.length });
     }),
   );
 
