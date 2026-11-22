@@ -268,7 +268,7 @@ Goal: start moving from memory to SQLite.
 ## Day 13: recurring transactions
 
 - [x] feat(shared): add recurrence helpers for weekly and monthly
-- [ ] test(shared): recurrence helper tests
+- [x] test(shared): recurrence helper tests
 - [ ] feat(api): add migration for recurring table
 - [ ] feat(api): create recurring store
 - [ ] test(api): recurring store tests
