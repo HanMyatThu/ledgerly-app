@@ -272,7 +272,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): add migration for recurring table
 - [x] feat(api): create recurring store
 - [x] test(api): recurring store tests
-- [ ] feat(api): recurring CRUD routes
+- [x] feat(api): recurring CRUD routes
 - [ ] test(api): recurring route tests
 - [ ] feat(api): materialize due recurring transactions
 - [ ] feat(api): run materializer on startup

@@ -5,7 +5,8 @@ import { createTransactionStore } from './store/transactions.js';
 import { transactionsRouter } from './routes/transactions.js';
 import { budgetsRouter } from './routes/budgets.js';
 import { reportsRouter } from './routes/reports.js';
-import { createMemoryBudgetStore } from './store/index.js';
+import { recurringRouter } from './routes/recurring.js';
+import { createMemoryBudgetStore, createMemoryRecurringStore } from './store/index.js';
 import { notFound } from './http.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { requestLogger } from './middleware/requestLogger.js';
@@ -23,6 +24,7 @@ function databaseStatus(db) {
 export function createApp({
   store = createTransactionStore(),
   budgets = createMemoryBudgetStore(),
+  recurring = createMemoryRecurringStore(),
   db = null,
   logRequests = false,
   today,
@@ -49,6 +51,7 @@ export function createApp({
 
   app.use('/api/transactions', transactionsRouter(store));
   app.use('/api/budgets', budgetsRouter(budgets, store));
+  app.use('/api/recurring', recurringRouter(recurring));
   app.use('/api/reports', reportsRouter(store, today ? { today } : undefined));
 
   app.use((req, res, next) => {
