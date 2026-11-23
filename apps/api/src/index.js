@@ -3,6 +3,7 @@ import { config } from './config.js';
 import { createStore } from './store/index.js';
 import { materializeRecurring } from './lib/materialize.js';
 import { localToday } from './lib/today.js';
+import { runDaily } from './lib/daily.js';
 
 const { store, budgets, recurring, db } = createStore(config);
 
@@ -17,6 +18,8 @@ function runMaterializer() {
 }
 
 runMaterializer();
+// And keep adding them each day while it runs.
+const stopDaily = runDaily(runMaterializer);
 
 const server = createApp({ store, budgets, recurring, db, logRequests: config.logLevel !== 'silent' }).listen(config.port, () => {
   console.log(`Ledgerly API listening on http://localhost:${config.port} (${config.store} store)`);
@@ -28,6 +31,7 @@ let shuttingDown = false;
 function shutdown(signal) {
   if (shuttingDown) return;
   shuttingDown = true;
+  stopDaily();
   console.log(`${signal} received, shutting down`);
 
   const force = setTimeout(() => {
