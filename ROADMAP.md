@@ -274,7 +274,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(api): recurring store tests
 - [x] feat(api): recurring CRUD routes
 - [x] test(api): recurring route tests
-- [ ] feat(api): materialize due recurring transactions
+- [x] feat(api): materialize due recurring transactions
 - [ ] feat(api): run materializer on startup
 - [ ] feat(api): run materializer daily
 - [ ] test(api): materializer tests

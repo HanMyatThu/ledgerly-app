@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-const COLUMNS = 'id, type, amount_cents, category_id, date, note, created_at, updated_at';
+const COLUMNS = 'id, type, amount_cents, category_id, date, note, recurring_id, created_at, updated_at';
 
 function fromRow(row) {
   if (!row) return null;
@@ -11,6 +11,7 @@ function fromRow(row) {
     categoryId: row.category_id,
     date: row.date,
     note: row.note,
+    recurringId: row.recurring_id,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -56,7 +57,7 @@ export function createSqliteTransactionStore(db) {
   const getStmt = db.prepare(`SELECT ${COLUMNS} FROM transactions WHERE id = ?`);
   const insertStmt = db.prepare(`
     INSERT INTO transactions (${COLUMNS})
-    VALUES (@id, @type, @amountCents, @categoryId, @date, @note, @createdAt, @updatedAt)
+    VALUES (@id, @type, @amountCents, @categoryId, @date, @note, @recurringId, @createdAt, @updatedAt)
   `);
   const updateStmt = db.prepare(`
     UPDATE transactions
@@ -123,7 +124,7 @@ export function createSqliteTransactionStore(db) {
     },
     create(data) {
       const now = new Date().toISOString();
-      const item = { id: randomUUID(), note: '', ...data, createdAt: now, updatedAt: now };
+      const item = { id: randomUUID(), note: '', recurringId: null, ...data, createdAt: now, updatedAt: now };
       insertStmt.run(item);
       return item;
     },

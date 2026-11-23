@@ -77,7 +77,7 @@ export function createTransactionStore(seed = []) {
     },
     create(data) {
       const now = new Date().toISOString();
-      const item = { id: randomUUID(), note: '', ...data, createdAt: now, updatedAt: now };
+      const item = { id: randomUUID(), note: '', recurringId: null, ...data, createdAt: now, updatedAt: now };
       items.set(item.id, item);
       return item;
     },
