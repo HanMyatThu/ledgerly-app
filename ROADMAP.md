@@ -277,7 +277,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(api): materialize due recurring transactions
 - [x] feat(api): run materializer on startup
 - [x] feat(api): run materializer daily
-- [ ] test(api): materializer tests
+- [x] test(api): materializer tests
 - [ ] feat(web): add repeat option to TransactionForm
 - [ ] feat(web): add Recurring route
 - [ ] feat(web): list recurring rules
