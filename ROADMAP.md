@@ -271,7 +271,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(shared): recurrence helper tests
 - [x] feat(api): add migration for recurring table
 - [x] feat(api): create recurring store
-- [ ] test(api): recurring store tests
+- [x] test(api): recurring store tests
 - [ ] feat(api): recurring CRUD routes
 - [ ] test(api): recurring route tests
 - [ ] feat(api): materialize due recurring transactions
