@@ -1,8 +1,22 @@
 import { createApp } from './app.js';
 import { config } from './config.js';
 import { createStore } from './store/index.js';
+import { materializeRecurring } from './lib/materialize.js';
+import { localToday } from './lib/today.js';
 
 const { store, budgets, recurring, db } = createStore(config);
+
+// Catch up on recurring transactions that fell due while the server was down.
+function runMaterializer() {
+  try {
+    const created = materializeRecurring({ recurring, store, today: localToday() });
+    if (created.length) console.log(`Added ${created.length} recurring transactions`);
+  } catch (err) {
+    console.error('Recurring transactions failed:', err);
+  }
+}
+
+runMaterializer();
 
 const server = createApp({ store, budgets, recurring, db, logRequests: config.logLevel !== 'silent' }).listen(config.port, () => {
   console.log(`Ledgerly API listening on http://localhost:${config.port} (${config.store} store)`);
