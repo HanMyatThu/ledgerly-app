@@ -282,7 +282,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): add Recurring route
 - [x] feat(web): list recurring rules
 - [x] feat(web): pause and resume a recurring rule
-- [ ] feat(web): show a repeat badge on generated transactions
+- [x] feat(web): show a repeat badge on generated transactions
 
 ## Day 14: tooling
 

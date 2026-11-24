@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { getCategory } from '@ledgerly/shared';
 import { formatDate } from '../lib/formatDate.js';
 import { groupByDay, netTotal } from '../lib/groupByDay.js';
@@ -12,7 +13,14 @@ function TransactionRow({ tx, onEdit, onDelete, showDate = true }) {
       <div className="transaction-main">
         <CategoryIcon categoryId={tx.categoryId} />
         <div>
-          <strong>{getCategory(tx.categoryId)?.label ?? tx.categoryId}</strong>
+          <strong>
+            {getCategory(tx.categoryId)?.label ?? tx.categoryId}
+            {tx.recurringId && (
+              <Link to="/recurring" className="repeat-badge" title="Added by a recurring rule">
+                <span aria-hidden="true">↻</span> Repeats
+              </Link>
+            )}
+          </strong>
           <span className="meta">
             {showDate && <time dateTime={tx.date}>{formatDate(tx.date)}</time>}
             {showDate && tx.note ? ' · ' : ''}
