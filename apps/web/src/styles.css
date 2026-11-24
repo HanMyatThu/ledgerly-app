@@ -1172,3 +1172,23 @@ a.button {
   color: var(--muted);
   font-size: 0.9rem;
 }
+
+.recurring-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.recurring-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.recurring-schedule,
+.recurring-next {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
