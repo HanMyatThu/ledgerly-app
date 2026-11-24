@@ -6,7 +6,7 @@ import CategoryIcon from './CategoryIcon.jsx';
 
 // One row per recurring rule: what it adds, how often, and when next.
 // Paused rules are dimmed and can be resumed.
-export default function RecurringList({ rules, onTogglePaused, busyId }) {
+export default function RecurringList({ rules, onTogglePaused, onDelete, busyId }) {
   return (
     <ul className="transaction-list recurring-list">
       {rules.map((rule) => {
@@ -32,6 +32,14 @@ export default function RecurringList({ rules, onTogglePaused, busyId }) {
                 disabled={busyId === rule.id}
               >
                 {rule.paused ? 'Resume' : 'Pause'}
+              </button>
+              <button
+                type="button"
+                className="button button-ghost delete-button"
+                onClick={() => onDelete(rule)}
+                disabled={busyId === rule.id}
+              >
+                Delete
               </button>
             </div>
           </li>

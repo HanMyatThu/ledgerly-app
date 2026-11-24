@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api.js';
 import Alert from '../components/Alert.jsx';
+import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import EmptyState from '../components/EmptyState.jsx';
 import RecurringList from '../components/RecurringList.jsx';
 import Spinner from '../components/Spinner.jsx';
@@ -13,6 +14,23 @@ export default function RecurringPage() {
   const { rules, loading, error, reload } = useRecurring();
   const toast = useToast();
   const [busyId, setBusyId] = useState(null);
+  const [deleting, setDeleting] = useState(null);
+
+  // Deleting a rule stops future occurrences; transactions it already added stay.
+  async function confirmDelete() {
+    const rule = deleting;
+    setDeleting(null);
+    setBusyId(rule.id);
+    try {
+      await api.deleteRecurring(rule.id);
+      await reload();
+      toast.show({ message: 'Rule deleted' });
+    } catch (err) {
+      toast.show({ message: `Could not delete the rule: ${err.message}` });
+    } finally {
+      setBusyId(null);
+    }
+  }
 
   // Resuming adds any occurrences that fell due while the rule was paused.
   async function togglePaused(rule) {
@@ -38,7 +56,7 @@ export default function RecurringPage() {
       {loading ? (
         <Spinner label="Loading recurring rules…" />
       ) : rules.length ? (
-        <RecurringList rules={rules} onTogglePaused={togglePaused} busyId={busyId} />
+        <RecurringList rules={rules} onTogglePaused={togglePaused} onDelete={setDeleting} busyId={busyId} />
       ) : (
         <EmptyState
           title="No recurring transactions yet"
@@ -50,6 +68,15 @@ export default function RecurringPage() {
           }
         />
       )}
+      <ConfirmDialog
+        open={Boolean(deleting)}
+        title="Delete this rule?"
+        message="No more transactions will be added. The ones it already added stay in your list."
+        confirmLabel="Delete rule"
+        danger
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleting(null)}
+      />
     </section>
   );
 }
