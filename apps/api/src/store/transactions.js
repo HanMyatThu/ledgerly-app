@@ -75,6 +75,12 @@ export function createTransactionStore(seed = []) {
     get(id) {
       return items.get(id) ?? null;
     },
+    // Forgets the rule behind transactions it generated, once the rule is deleted.
+    unlinkRecurring(recurringId) {
+      for (const item of items.values()) {
+        if (item.recurringId === recurringId) item.recurringId = null;
+      }
+    },
     create(data) {
       const now = new Date().toISOString();
       const item = { id: randomUUID(), note: '', recurringId: null, ...data, createdAt: now, updatedAt: now };

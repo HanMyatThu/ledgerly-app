@@ -66,6 +66,7 @@ export function createSqliteTransactionStore(db) {
     WHERE id = @id
   `);
   const removeStmt = db.prepare('DELETE FROM transactions WHERE id = ?');
+  const unlinkStmt = db.prepare('UPDATE transactions SET recurring_id = NULL WHERE recurring_id = ?');
 
   return {
     list(filters = {}) {
@@ -121,6 +122,10 @@ export function createSqliteTransactionStore(db) {
     },
     get(id) {
       return fromRow(getStmt.get(id));
+    },
+    // The foreign key already does this in SQLite; kept so both stores share one interface.
+    unlinkRecurring(recurringId) {
+      unlinkStmt.run(recurringId);
     },
     create(data) {
       const now = new Date().toISOString();

@@ -90,6 +90,14 @@ describe('recurring API', () => {
     );
   });
 
+  test('deleting a rule keeps its transactions but unlinks them', async () => {
+    const rule = await (await fetch(base, json('POST', { ...rent, note: 'Phone', startDate: '2026-11-20' }))).json();
+    await fetch(`${base}/${rule.id}`, { method: 'DELETE' });
+    const phone = (await (await fetch(transactionsUrl)).json()).filter((item) => item.note === 'Phone');
+    assert.equal(phone.length, 1);
+    assert.equal(phone[0].recurringId, null);
+  });
+
   test('answers 404 for unknown rules', async () => {
     assert.equal((await fetch(`${base}/nope`, json('PUT', rent))).status, 404);
     assert.equal((await fetch(`${base}/nope/pause`, { method: 'POST' })).status, 404);

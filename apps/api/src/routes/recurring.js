@@ -86,6 +86,8 @@ export function recurringRouter(recurring, store, { today = localToday } = {}) {
     '/:id',
     asyncHandler((req, res) => {
       if (!recurring.remove(req.params.id)) throw notFound('Recurring rule');
+      // Generated transactions stay, but no longer point at the deleted rule.
+      store.unlinkRecurring(req.params.id);
       res.status(204).end();
     }),
   );
