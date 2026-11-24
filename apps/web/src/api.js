@@ -51,6 +51,12 @@ export const api = {
   reportCategories: (month, type = 'expense') => request(`/reports/categories${toQueryString({ month, type })}`),
   reportTop: (month, limit = 5) => request(`/reports/top${toQueryString({ month, limit })}`),
 
+  listRecurring: () => request('/recurring'),
+  createRecurring: (data) => request('/recurring', { method: 'POST', body: JSON.stringify(data) }),
+  pauseRecurring: (id) => request(`/recurring/${id}/pause`, { method: 'POST' }),
+  resumeRecurring: (id) => request(`/recurring/${id}/resume`, { method: 'POST' }),
+  deleteRecurring: (id) => request(`/recurring/${id}`, { method: 'DELETE' }),
+
   listBudgets: (month) => request(`/budgets${toQueryString({ month })}`),
   budgetProgress: (month) => request(`/budgets/progress${toQueryString({ month })}`),
   setBudget: (month, categoryId, amountCents) =>

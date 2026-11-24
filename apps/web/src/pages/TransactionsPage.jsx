@@ -62,10 +62,18 @@ export default function TransactionsPage() {
   // e.g. "Dining out, $12.50"
   const describe = (tx) => `${getCategory(tx.categoryId)?.label ?? tx.categoryId}, ${formatMoney(tx.amountCents)}`;
 
-  async function handleCreate(data) {
-    await list.create(data);
+  async function handleCreate({ repeat = 'none', ...data }) {
+    if (repeat === 'none') {
+      await list.create(data);
+      toast.show({ message: `Added ${describe(data)}` });
+    } else {
+      // The server adds the first occurrence (and any already due) straight away.
+      const { date, ...template } = data;
+      await api.createRecurring({ ...template, frequency: repeat, startDate: date });
+      await list.reload();
+      toast.show({ message: `Added ${describe(data)}, repeating ${repeat}` });
+    }
     await monthly.reload();
-    toast.show({ message: `Added ${describe(data)}` });
   }
 
   const [deleting, setDeleting] = useState(null);

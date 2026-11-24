@@ -20,7 +20,20 @@ const TYPE_OPTIONS = [
   { value: 'income', label: 'Income' },
 ];
 
-const emptyForm = () => ({ type: 'expense', amount: '', categoryId: 'groceries', date: today(), note: '' });
+const REPEAT_OPTIONS = [
+  { value: 'none', label: 'Does not repeat' },
+  { value: 'weekly', label: 'Every week' },
+  { value: 'monthly', label: 'Every month' },
+];
+
+const emptyForm = () => ({
+  type: 'expense',
+  amount: '',
+  categoryId: 'groceries',
+  date: today(),
+  note: '',
+  repeat: 'none',
+});
 
 // Turns a saved transaction into form fields.
 function toForm(transaction) {
@@ -34,6 +47,8 @@ function toForm(transaction) {
 }
 
 // Pass `initial` to edit an existing transaction; otherwise the form adds a new one.
+// New transactions can repeat: the submitted payload then has `repeat` set to
+// "weekly" or "monthly", and the date is the first occurrence.
 export default function TransactionForm({ id, onSubmit, initial, submitLabel }) {
   const [form, setForm] = useState(() => (initial ? toForm(initial) : emptyForm()));
   const label = submitLabel ?? (initial ? 'Save changes' : 'Add transaction');
@@ -61,6 +76,7 @@ export default function TransactionForm({ id, onSubmit, initial, submitLabel }) 
       date: form.date,
       note: form.note.trim(),
     };
+    if (!initial) payload.repeat = form.repeat;
     const found = validateTransaction(payload);
     setErrors(found);
     if (Object.keys(found).length) return;
@@ -111,6 +127,15 @@ export default function TransactionForm({ id, onSubmit, initial, submitLabel }) 
         onChange={(e) => update('date', e.target.value)}
         error={errors.date}
       />
+
+      {!initial && (
+        <SelectField
+          label="Repeat"
+          value={form.repeat}
+          onChange={(e) => update('repeat', e.target.value)}
+          options={REPEAT_OPTIONS}
+        />
+      )}
 
       <TextField
         label="Note"
