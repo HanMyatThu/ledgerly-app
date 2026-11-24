@@ -51,7 +51,7 @@ export function createApp({
 
   app.use('/api/transactions', transactionsRouter(store));
   app.use('/api/budgets', budgetsRouter(budgets, store));
-  app.use('/api/recurring', recurringRouter(recurring));
+  app.use('/api/recurring', recurringRouter(recurring, store, today ? { today } : undefined));
   app.use('/api/reports', reportsRouter(store, today ? { today } : undefined));
 
   app.use((req, res, next) => {

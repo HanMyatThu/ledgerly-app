@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { FREQUENCIES, validateTransaction } from '@ledgerly/shared';
 import { asyncHandler, HttpError, notFound } from '../http.js';
+import { materializeRecurring } from '../lib/materialize.js';
+import { localToday } from '../lib/today.js';
 
 const FIELDS = ['type', 'amountCents', 'categoryId', 'note', 'frequency', 'startDate', 'endDate'];
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -30,8 +32,15 @@ function validateRule(data) {
   if (Object.keys(errors).length) throw new HttpError(400, 'Invalid recurring rule', errors);
 }
 
-export function recurringRouter(recurring) {
+// `store` receives the generated transactions. New and resumed rules are caught up
+// straight away, so an occurrence due today shows up without waiting for midnight.
+export function recurringRouter(recurring, store, { today = localToday } = {}) {
   const router = Router();
+
+  function catchUp(id) {
+    materializeRecurring({ recurring, store, today: today() });
+    return recurring.get(id);
+  }
 
   function findOrThrow(id) {
     const rule = recurring.get(id);
@@ -58,7 +67,8 @@ export function recurringRouter(recurring) {
     asyncHandler((req, res) => {
       const data = pick(req.body);
       validateRule(data);
-      res.status(201).json(recurring.create(data));
+      const rule = recurring.create(data);
+      res.status(201).json(catchUp(rule.id));
     }),
   );
 
@@ -89,7 +99,8 @@ export function recurringRouter(recurring) {
       `/:id/${action}`,
       asyncHandler((req, res) => {
         findOrThrow(req.params.id);
-        res.json(recurring.setPaused(req.params.id, paused));
+        recurring.setPaused(req.params.id, paused);
+        res.json(paused ? recurring.get(req.params.id) : catchUp(req.params.id));
       }),
     );
   }

@@ -16,13 +16,15 @@ describe('recurring API', () => {
   let server;
   let db;
   let base;
+  let transactionsUrl;
 
   before(async () => {
     const created = createStore({ store: 'sqlite', databasePath: ':memory:' });
     db = created.db;
-    server = createApp(created).listen(0);
+    server = createApp({ ...created, today: () => '2026-11-24' }).listen(0);
     await new Promise((resolve) => server.once('listening', resolve));
     base = `http://localhost:${server.address().port}/api/recurring`;
+    transactionsUrl = `http://localhost:${server.address().port}/api/transactions`;
   });
 
   after(() => {
@@ -76,6 +78,16 @@ describe('recurring API', () => {
     const res = await fetch(`${base}/${rule.id}`, json('PUT', { type: 'income' }));
     assert.equal(res.status, 400);
     assert.ok((await res.json()).errors.categoryId);
+  });
+
+  test('adds the occurrences already due when a rule is created', async () => {
+    const rule = await (await fetch(base, json('POST', { ...rent, note: 'Gym', startDate: '2026-10-24' }))).json();
+    assert.equal(rule.lastDate, '2026-11-24');
+    const generated = (await (await fetch(transactionsUrl)).json()).filter((item) => item.recurringId === rule.id);
+    assert.deepEqual(
+      generated.map((item) => item.date),
+      ['2026-11-24', '2026-10-24'],
+    );
   });
 
   test('answers 404 for unknown rules', async () => {
