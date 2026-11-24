@@ -1225,3 +1225,45 @@ a.button {
   color: var(--accent);
   border-color: var(--accent);
 }
+
+.nav-tab {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .nav-tabs {
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-tab {
+    padding: 8px 9px;
+    font-size: 0.9rem;
+  }
+
+  .recurring-rule {
+    flex-wrap: wrap;
+  }
+
+  .recurring-actions {
+    width: 100%;
+    justify-content: flex-end;
+    padding-left: 44px;
+  }
+
+  .recurring-actions .amount {
+    margin-right: auto;
+  }
+}
+
+.transaction-form .span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+  .transaction-form .span-2 {
+    grid-column: 1 / -1;
+  }
+}

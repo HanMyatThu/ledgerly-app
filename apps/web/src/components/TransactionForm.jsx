@@ -139,7 +139,7 @@ export default function TransactionForm({ id, onSubmit, initial, submitLabel }) 
 
       <TextField
         label="Note"
-        className="wide"
+        className={initial ? 'wide' : 'span-2'}
         type="text"
         maxLength={200}
         value={form.note}
