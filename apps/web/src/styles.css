@@ -1192,3 +1192,15 @@ a.button {
   font-size: 0.8rem;
   color: var(--muted);
 }
+
+.recurring-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.recurring-rule.is-paused .recurring-main,
+.recurring-rule.is-paused .amount {
+  opacity: 0.55;
+}
