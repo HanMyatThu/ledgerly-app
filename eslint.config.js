@@ -51,6 +51,10 @@ export default [
     },
   },
   {
+    files: ['apps/web/src/**/*.test.{js,jsx}', 'apps/web/src/setupTests.js'],
+    languageOptions: { globals: { ...globals.browser, ...globals.node } },
+  },
+  {
     files: ['apps/web/vite.config.js'],
     languageOptions: { globals: globals.node },
   },

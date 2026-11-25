@@ -7,6 +7,12 @@ export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
   },
+  // Component tests: lib tests in test/ still run with node --test.
+  test: {
+    environment: 'jsdom',
+    include: ['src/**/*.test.{js,jsx}'],
+    setupFiles: ['./src/setupTests.js'],
+  },
   server: {
     port: 5173,
     proxy: {
