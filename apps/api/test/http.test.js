@@ -12,6 +12,7 @@ test('notFound builds a 404 HttpError', () => {
 test('asyncHandler passes rejections to next', async () => {
   const boom = new Error('boom');
   const received = await new Promise((resolve) => {
+    // eslint-disable-next-line require-await -- the handler must be async to return a rejected promise
     asyncHandler(async () => {
       throw boom;
     })({}, {}, resolve);

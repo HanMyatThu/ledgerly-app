@@ -78,7 +78,7 @@ for (const [name, config] of Object.entries(STORES)) {
     });
 
     test('q treats % and _ literally', async () => {
-      assert.deepEqual(await dates('q=' + encodeURIComponent('50%')), ['2026-11-11']);
+      assert.deepEqual(await dates(`q=${encodeURIComponent('50%')}`), ['2026-11-11']);
       assert.deepEqual(await dates('q=_'), []);
     });
 
