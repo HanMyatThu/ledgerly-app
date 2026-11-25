@@ -14,7 +14,7 @@ export function useTransactions(query = {}, { pageSize } = {}) {
   const latest = useRef(0);
 
   const fetchPage = useCallback(
-    async (offset) => {
+    (offset) => {
       const params = { ...JSON.parse(key) };
       if (pageSize) Object.assign(params, { limit: pageSize, offset: offset || undefined });
       return api.listTransactionsPage(params);
