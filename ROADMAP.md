@@ -294,7 +294,7 @@ Goal: start moving from memory to SQLite.
 - [x] fix(web): resolve lint warnings
 - [x] fix(shared): resolve lint warnings
 - [x] chore(web): add Vitest and Testing Library
-- [ ] test(web): Button tests
+- [x] test(web): Button tests
 - [ ] test(web): TextField tests
 - [ ] test(web): SummaryCards tests
 - [ ] test(web): TransactionForm tests
