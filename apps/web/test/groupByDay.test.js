@@ -5,7 +5,11 @@ import { groupByDay, netTotal } from '../src/lib/groupByDay.js';
 const tx = (date, type, amountCents) => ({ date, type, amountCents });
 
 test('groups consecutive transactions by date', () => {
-  const groups = groupByDay([tx('2026-11-03', 'expense', 1), tx('2026-11-03', 'expense', 2), tx('2026-11-01', 'income', 3)]);
+  const groups = groupByDay([
+    tx('2026-11-03', 'expense', 1),
+    tx('2026-11-03', 'expense', 2),
+    tx('2026-11-01', 'income', 3),
+  ]);
   assert.deepEqual(
     groups.map((group) => [group.date, group.items.length]),
     [

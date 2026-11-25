@@ -12,9 +12,7 @@ export function loadConfig(env = process.env) {
   return {
     port: toPort(env.PORT, 4000),
     store: env.STORE === 'memory' ? 'memory' : 'sqlite',
-    databasePath: env.DATABASE_PATH
-      ? path.resolve(env.DATABASE_PATH)
-      : path.join(apiRoot, 'data', 'ledgerly.db'),
+    databasePath: env.DATABASE_PATH ? path.resolve(env.DATABASE_PATH) : path.join(apiRoot, 'data', 'ledgerly.db'),
     logLevel: env.LOG_LEVEL ?? 'info',
   };
 }

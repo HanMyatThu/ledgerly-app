@@ -10,7 +10,10 @@ export function ensureMigrationsTable(db) {
 
 export function appliedMigrations(db) {
   ensureMigrationsTable(db);
-  return db.prepare('SELECT name FROM migrations ORDER BY id').all().map((row) => row.name);
+  return db
+    .prepare('SELECT name FROM migrations ORDER BY id')
+    .all()
+    .map((row) => row.name);
 }
 
 // Applies each migration whose name is not yet recorded, in order.

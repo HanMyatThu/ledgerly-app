@@ -32,7 +32,11 @@ describe('recurring API', () => {
     db?.close();
   });
 
-  const json = (method, body) => ({ method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const json = (method, body) => ({
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
 
   test('creates, reads, updates and deletes a rule', async () => {
     const created = await fetch(base, json('POST', rent));
@@ -61,7 +65,10 @@ describe('recurring API', () => {
   });
 
   test('rejects invalid rules with errors per field', async () => {
-    const res = await fetch(base, json('POST', { ...rent, frequency: 'daily', startDate: 'soon', categoryId: 'salary' }));
+    const res = await fetch(
+      base,
+      json('POST', { ...rent, frequency: 'daily', startDate: 'soon', categoryId: 'salary' }),
+    );
     assert.equal(res.status, 400);
     const body = await res.json();
     assert.deepEqual(Object.keys(body.errors).sort(), ['categoryId', 'frequency', 'startDate']);

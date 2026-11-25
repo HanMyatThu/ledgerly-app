@@ -37,7 +37,13 @@ export default function IncomeExpenseBars({ monthly }) {
           formatter={(value) => <span style={{ color: 'var(--text)' }}>{value}</span>}
         />
         <Bar dataKey="incomeCents" name="Income" fill="var(--income)" radius={[4, 4, 0, 0]} isAnimationActive={false} />
-        <Bar dataKey="expenseCents" name="Expenses" fill="var(--expense)" radius={[4, 4, 0, 0]} isAnimationActive={false} />
+        <Bar
+          dataKey="expenseCents"
+          name="Expenses"
+          fill="var(--expense)"
+          radius={[4, 4, 0, 0]}
+          isAnimationActive={false}
+        />
       </BarChart>
     </ResponsiveContainer>
   );

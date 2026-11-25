@@ -12,9 +12,21 @@ describe('GET /api/transactions/export.csv', () => {
   before(async () => {
     const created = createStore({ store: 'sqlite', databasePath: ':memory:' });
     db = created.db;
-    created.store.create({ type: 'expense', amountCents: 899, categoryId: 'dining', date: '2026-11-02', note: 'Lunch, "big"' });
+    created.store.create({
+      type: 'expense',
+      amountCents: 899,
+      categoryId: 'dining',
+      date: '2026-11-02',
+      note: 'Lunch, "big"',
+    });
     created.store.create({ type: 'income', amountCents: 250000, categoryId: 'salary', date: '2026-11-01' });
-    created.store.create({ type: 'expense', amountCents: 1200, categoryId: 'transport', date: '2026-10-30', note: '=1+1' });
+    created.store.create({
+      type: 'expense',
+      amountCents: 1200,
+      categoryId: 'transport',
+      date: '2026-10-30',
+      note: '=1+1',
+    });
     server = createApp({ store: created.store }).listen(0);
     await new Promise((resolve) => server.once('listening', resolve));
     base = `http://localhost:${server.address().port}/api/transactions/export.csv`;

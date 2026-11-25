@@ -27,9 +27,7 @@ export function createTransactionStore(seed = []) {
   return {
     list(filters = {}) {
       const { limit, offset = 0 } = filters;
-      const found = [...items.values()]
-        .filter((item) => matches(item, filters))
-        .sort(comparator(filters.sort));
+      const found = [...items.values()].filter((item) => matches(item, filters)).sort(comparator(filters.sort));
       return found.slice(offset, limit ? offset + limit : undefined);
     },
     // Total expenses per category, e.g. { dining: 4250 }, within optional from/to dates.

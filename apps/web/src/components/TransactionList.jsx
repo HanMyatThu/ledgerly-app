@@ -44,7 +44,13 @@ function TransactionRow({ tx, onEdit, onDelete, showDate = true }) {
 }
 
 // With `groupByDay`, rows are shown under a header for each date.
-export default function TransactionList({ transactions, onEdit, onDelete, filtered = false, groupByDay: grouped = false }) {
+export default function TransactionList({
+  transactions,
+  onEdit,
+  onDelete,
+  filtered = false,
+  groupByDay: grouped = false,
+}) {
   if (!transactions.length) {
     return filtered ? (
       <EmptyState title="No matching transactions" message="Try other filters or clear them." />
@@ -53,9 +59,7 @@ export default function TransactionList({ transactions, onEdit, onDelete, filter
     );
   }
 
-  const row = (tx) => (
-    <TransactionRow key={tx.id} tx={tx} onEdit={onEdit} onDelete={onDelete} showDate={!grouped} />
-  );
+  const row = (tx) => <TransactionRow key={tx.id} tx={tx} onEdit={onEdit} onDelete={onDelete} showDate={!grouped} />;
 
   if (!grouped) return <ul className="transaction-list">{transactions.map(row)}</ul>;
 

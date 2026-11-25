@@ -20,7 +20,10 @@ function tempDatabase(t) {
 test('applies every migration on a fresh database', (t) => {
   const db = tempDatabase(t);
   const applied = runMigrations(db, migrations);
-  assert.deepEqual(applied, migrations.map((m) => m.name));
+  assert.deepEqual(
+    applied,
+    migrations.map((m) => m.name),
+  );
   assert.deepEqual(appliedMigrations(db), applied);
 
   const table = db.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'transactions'").get();

@@ -9,7 +9,11 @@ export default function ChartTooltip({ active, payload, label }) {
       <div className="chart-tooltip-title">{title}</div>
       {payload.map((entry) => (
         <div key={entry.dataKey ?? entry.name} className="chart-tooltip-row">
-          <span className="chart-swatch" style={{ background: entry.payload?.fill ?? entry.color }} aria-hidden="true" />
+          <span
+            className="chart-swatch"
+            style={{ background: entry.payload?.fill ?? entry.color }}
+            aria-hidden="true"
+          />
           {label != null && <span>{entry.name}</span>}
           <strong>{formatMoney(entry.value)}</strong>
         </div>

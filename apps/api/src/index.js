@@ -21,9 +21,12 @@ runMaterializer();
 // And keep adding them each day while it runs.
 const stopDaily = runDaily(runMaterializer);
 
-const server = createApp({ store, budgets, recurring, db, logRequests: config.logLevel !== 'silent' }).listen(config.port, () => {
-  console.log(`Ledgerly API listening on http://localhost:${config.port} (${config.store} store)`);
-});
+const server = createApp({ store, budgets, recurring, db, logRequests: config.logLevel !== 'silent' }).listen(
+  config.port,
+  () => {
+    console.log(`Ledgerly API listening on http://localhost:${config.port} (${config.store} store)`);
+  },
+);
 
 let shuttingDown = false;
 

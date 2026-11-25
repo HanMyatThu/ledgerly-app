@@ -87,7 +87,10 @@ export default function BudgetsPage() {
           ))}
         </ul>
       ) : (
-        <EmptyState title="No budgets this month" message={`Set a limit above to start tracking ${formatMonth(month)}.`} />
+        <EmptyState
+          title="No budgets this month"
+          message={`Set a limit above to start tracking ${formatMonth(month)}.`}
+        />
       )}
     </>
   );
