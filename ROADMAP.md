@@ -287,7 +287,7 @@ Goal: start moving from memory to SQLite.
 ## Day 14: tooling
 
 - [x] chore: add ESLint config
-- [ ] chore: add Prettier config
+- [x] chore: add Prettier config
 - [ ] chore: add lint and format scripts
 - [ ] style: format the codebase with Prettier
 - [ ] fix(api): resolve lint warnings
