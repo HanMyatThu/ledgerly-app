@@ -292,7 +292,7 @@ Goal: start moving from memory to SQLite.
 - [x] style: format the codebase with Prettier
 - [x] fix(api): resolve lint warnings
 - [x] fix(web): resolve lint warnings
-- [ ] fix(shared): resolve lint warnings
+- [x] fix(shared): resolve lint warnings
 - [ ] chore(web): add Vitest and Testing Library
 - [ ] test(web): Button tests
 - [ ] test(web): TextField tests

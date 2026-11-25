@@ -26,7 +26,7 @@ export function toCsv(rows, columns) {
 // line endings, a leading byte-order mark and a trailing new line.
 // Throws when a quoted cell is never closed.
 export function parseCsv(text) {
-  const input = String(text ?? '').replace(/^﻿/, '');
+  const input = String(text ?? '').replace(/^\uFEFF/, '');
   const rows = [];
   let row = [];
   let cell = '';
