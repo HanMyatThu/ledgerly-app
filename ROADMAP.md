@@ -288,7 +288,7 @@ Goal: start moving from memory to SQLite.
 
 - [x] chore: add ESLint config
 - [x] chore: add Prettier config
-- [ ] chore: add lint and format scripts
+- [x] chore: add lint and format scripts
 - [ ] style: format the codebase with Prettier
 - [ ] fix(api): resolve lint warnings
 - [ ] fix(web): resolve lint warnings

@@ -24,6 +24,14 @@ npm run dev:api   # http://localhost:4000
 npm run dev:web   # http://localhost:5173
 ```
 
+Before pushing, check the code:
+
+```bash
+npm run lint           # ESLint (npm run lint:fix fixes what it can)
+npm run format:check   # Prettier (npm run format rewrites files)
+npm test
+```
+
 ## Persistence
 
 By default the API keeps transactions in a SQLite database at `apps/api/data/ledgerly.db`, so they survive restarts. The file and folder are created on first start and are ignored by git.

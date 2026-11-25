@@ -14,7 +14,11 @@
     "seed": "npm run seed -w @ledgerly/api --",
     "db:reset": "npm run db:reset -w @ledgerly/api",
     "build": "npm run build --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present"
+    "test": "npm run test --workspaces --if-present",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "engines": {
     "node": ">=20"
