@@ -300,7 +300,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(web): TransactionForm tests
 - [x] test(web): TransactionList tests
 - [x] test(web): useDebounce tests
-- [ ] ci: add GitHub Actions workflow for lint
+- [x] ci: add GitHub Actions workflow for lint
 - [ ] ci: run tests and build in the workflow
 - [ ] docs: add CI badge to README
 
