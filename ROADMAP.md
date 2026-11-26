@@ -297,7 +297,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(web): Button tests
 - [x] test(web): TextField tests
 - [x] test(web): SummaryCards tests
-- [ ] test(web): TransactionForm tests
+- [x] test(web): TransactionForm tests
 - [ ] test(web): TransactionList tests
 - [ ] test(web): useDebounce tests
 - [ ] ci: add GitHub Actions workflow for lint
