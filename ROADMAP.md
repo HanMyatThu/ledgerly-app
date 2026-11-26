@@ -296,7 +296,7 @@ Goal: start moving from memory to SQLite.
 - [x] chore(web): add Vitest and Testing Library
 - [x] test(web): Button tests
 - [x] test(web): TextField tests
-- [ ] test(web): SummaryCards tests
+- [x] test(web): SummaryCards tests
 - [ ] test(web): TransactionForm tests
 - [ ] test(web): TransactionList tests
 - [ ] test(web): useDebounce tests
