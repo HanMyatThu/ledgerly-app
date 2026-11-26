@@ -302,7 +302,7 @@ Goal: start moving from memory to SQLite.
 - [x] test(web): useDebounce tests
 - [x] ci: add GitHub Actions workflow for lint
 - [x] ci: run tests and build in the workflow
-- [ ] docs: add CI badge to README
+- [x] docs: add CI badge to README
 
 ## Day 15: release
 

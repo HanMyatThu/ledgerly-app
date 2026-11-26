@@ -1,5 +1,7 @@
 # Ledgerly
 
+[![CI](https://github.com/HanMyatThu/ledgerly-app/actions/workflows/ci.yml/badge.svg)](https://github.com/HanMyatThu/ledgerly-app/actions/workflows/ci.yml)
+
 Ledgerly is a small personal budget and expense tracker. Log what you spend and earn, sort it into categories, set monthly budgets, and see where your money goes.
 
 It is a monorepo with a React front end and a Node.js API.
