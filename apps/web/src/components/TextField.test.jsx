@@ -41,7 +41,9 @@ describe('TextField', () => {
 
   test('is valid with no error', () => {
     render(<TextField label="Date" />);
-    expect(screen.getByLabelText('Date')).not.toHaveAttribute('aria-invalid');
+    const input = screen.getByLabelText('Date');
+    expect(input).not.toHaveAttribute('aria-invalid');
+    expect(input).not.toHaveAttribute('aria-describedby');
   });
 
   test('marks the input invalid and shows the error', () => {
@@ -49,6 +51,11 @@ describe('TextField', () => {
     const input = screen.getByLabelText(/Date/);
     expect(input).toHaveAttribute('aria-invalid', 'true');
     expect(screen.getByText('Pick a date')).toHaveClass('field-error');
+  });
+
+  test('links the error message to the input', () => {
+    render(<TextField label="Date" error="Pick a date" />);
+    expect(screen.getByLabelText(/Date/)).toHaveAccessibleDescription('Pick a date');
   });
 
   test('keeps extra classes on the field', () => {
