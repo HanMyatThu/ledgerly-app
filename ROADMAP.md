@@ -313,7 +313,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): add dark mode tokens
 - [x] feat(web): create ThemeToggle component
 - [x] feat(web): remember theme choice
-- [ ] feat(web): add currency setting
+- [x] feat(web): add currency setting
 - [ ] feat(web): use currency setting in formatMoney calls
 - [ ] feat(web): add 404 page
 - [ ] feat(web): add About page

@@ -1313,3 +1313,18 @@ a.button {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
+
+.currency-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.currency-select select {
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
