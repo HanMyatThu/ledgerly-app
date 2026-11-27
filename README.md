@@ -34,6 +34,35 @@ npm run format:check   # Prettier (npm run format rewrites files)
 npm test
 ```
 
+## Running with Docker
+
+Docker Compose runs the API and the web app in separate containers:
+
+```bash
+docker compose up --build
+```
+
+Then open http://localhost:8080. The web container serves the built app with nginx and forwards `/api` requests to the API container. The SQLite database is kept in the `ledgerly-data` volume, so your data survives restarts and rebuilds. `docker compose down -v` deletes it.
+
+To build or run one image on its own, build from the repository root, because both images need the shared package:
+
+```bash
+docker build -f apps/api/Dockerfile -t ledgerly-api .
+docker run -p 4000:4000 -v ledgerly-data:/data ledgerly-api
+
+docker build -f apps/web/Dockerfile -t ledgerly-web .
+docker run -p 8080:80 -e API_URL=http://host.docker.internal:4000 ledgerly-web
+```
+
+| Variable        | Image | Default             | Meaning                               |
+| --------------- | ----- | ------------------- | ------------------------------------- |
+| `PORT`          | api   | `4000`              | Port the API listens on               |
+| `DATABASE_PATH` | api   | `/data/ledgerly.db` | SQLite file; keep `/data` on a volume |
+| `LOG_LEVEL`     | api   | `info`              | `silent` turns off request logs       |
+| `API_URL`       | web   | `http://api:4000`   | Where nginx sends `/api` requests     |
+
+The API image has a health check on `/api/health`, and Compose waits for it before starting the web container.
+
 ## Persistence
 
 By default the API keeps transactions in a SQLite database at `apps/api/data/ledgerly.db`, so they survive restarts. The file and folder are created on first start and are ignored by git.
