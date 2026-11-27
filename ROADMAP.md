@@ -308,7 +308,7 @@ Goal: start moving from memory to SQLite.
 
 - [x] chore(api): add Dockerfile
 - [x] chore(web): add Dockerfile with nginx
-- [ ] chore: add docker-compose for both apps
+- [x] chore: add docker-compose for both apps
 - [ ] docs: document Docker setup
 - [ ] feat(web): add dark mode tokens
 - [ ] feat(web): create ThemeToggle component

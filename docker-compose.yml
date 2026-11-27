@@ -1,0 +1,29 @@
+# Runs Ledgerly with the API and web app in separate containers.
+#   docker compose up --build
+# then open http://localhost:8080. Data is kept in the ledgerly-data volume.
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      LOG_LEVEL: info
+    volumes:
+      - ledgerly-data:/data
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      API_URL: http://api:4000
+    ports:
+      - '8080:80'
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  ledgerly-data:
