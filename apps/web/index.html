@@ -7,6 +7,15 @@
     <meta name="theme-color" content="#2f6fed" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Ledgerly</title>
+    <script>
+      // Apply the saved theme before the first paint, so a dark choice never flashes light.
+      try {
+        const theme = localStorage.getItem('ledgerly-theme');
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {
+        // No storage: follow the system setting.
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

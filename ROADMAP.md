@@ -312,7 +312,7 @@ Goal: start moving from memory to SQLite.
 - [x] docs: document Docker setup
 - [x] feat(web): add dark mode tokens
 - [x] feat(web): create ThemeToggle component
-- [ ] feat(web): remember theme choice
+- [x] feat(web): remember theme choice
 - [ ] feat(web): add currency setting
 - [ ] feat(web): use currency setting in formatMoney calls
 - [ ] feat(web): add 404 page
