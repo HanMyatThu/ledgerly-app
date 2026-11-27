@@ -307,7 +307,7 @@ Goal: start moving from memory to SQLite.
 ## Day 15: release
 
 - [x] chore(api): add Dockerfile
-- [ ] chore(web): add Dockerfile with nginx
+- [x] chore(web): add Dockerfile with nginx
 - [ ] chore: add docker-compose for both apps
 - [ ] docs: document Docker setup
 - [ ] feat(web): add dark mode tokens
