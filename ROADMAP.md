@@ -311,7 +311,7 @@ Goal: start moving from memory to SQLite.
 - [x] chore: add docker-compose for both apps
 - [x] docs: document Docker setup
 - [x] feat(web): add dark mode tokens
-- [ ] feat(web): create ThemeToggle component
+- [x] feat(web): create ThemeToggle component
 - [ ] feat(web): remember theme choice
 - [ ] feat(web): add currency setting
 - [ ] feat(web): use currency setting in formatMoney calls
