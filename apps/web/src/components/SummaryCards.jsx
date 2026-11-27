@@ -1,12 +1,13 @@
-import { formatMoney } from '@ledgerly/shared';
 import Amount from './Amount.jsx';
 import Card from './Card.jsx';
 import TrendBadge from './TrendBadge.jsx';
+import { useMoney } from './CurrencyProvider.jsx';
 
 // Income, expenses and balance for a month, from the summary endpoint.
 // Income and expenses also show the change from the month before,
 // and expenses show the average spent per day so far.
 export default function SummaryCards({ summary, label = 'Summary' }) {
+  const formatMoney = useMoney();
   const previous = summary.previous;
   return (
     <section className="summary" aria-label={label}>

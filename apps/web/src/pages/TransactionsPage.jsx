@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { formatMoney, getCategory } from '@ledgerly/shared';
+import { getCategory } from '@ledgerly/shared';
 import { api } from '../api.js';
 import Alert from '../components/Alert.jsx';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
@@ -19,10 +19,12 @@ import { useTransactions } from '../hooks/useTransactions.js';
 import { formatDate } from '../lib/formatDate.js';
 import { formatMonth, monthRange } from '../lib/month.js';
 import { readUrlState, toUrlSearch } from '../lib/urlState.js';
+import { useMoney } from '../components/CurrencyProvider.jsx';
 
 const PAGE_SIZE = 25;
 
 export default function TransactionsPage() {
+  const formatMoney = useMoney();
   const [initial] = useState(() => readUrlState());
   const [month, setMonth] = useState(initial.month);
   const [filters, setFilters] = useState(initial.filters);

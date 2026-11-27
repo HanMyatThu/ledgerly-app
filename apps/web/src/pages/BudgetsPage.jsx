@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { formatMoney, getCategory } from '@ledgerly/shared';
+import { getCategory } from '@ledgerly/shared';
 import Alert from '../components/Alert.jsx';
 import Button from '../components/Button.jsx';
 import BudgetForm from '../components/BudgetForm.jsx';
@@ -11,8 +11,10 @@ import Spinner from '../components/Spinner.jsx';
 import { useToast } from '../components/ToastProvider.jsx';
 import { useBudgets } from '../hooks/useBudgets.js';
 import { currentMonth, formatMonth, shiftMonth } from '../lib/month.js';
+import { useMoney } from '../components/CurrencyProvider.jsx';
 
 export default function BudgetsPage() {
+  const formatMoney = useMoney();
   const [month, setMonth] = useState(currentMonth);
   const budgets = useBudgets(month);
   const toast = useToast();

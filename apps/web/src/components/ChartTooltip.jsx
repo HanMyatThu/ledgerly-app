@@ -1,7 +1,8 @@
-import { formatMoney } from '@ledgerly/shared';
+import { useMoney } from './CurrencyProvider.jsx';
 
 // Shared hover tooltip for recharts: a title and one row per series, in money.
 export default function ChartTooltip({ active, payload, label }) {
+  const formatMoney = useMoney();
   if (!active || !payload?.length) return null;
   const title = label ?? payload[0].name;
   return (

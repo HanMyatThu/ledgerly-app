@@ -1,8 +1,9 @@
-import { formatMoney } from '@ledgerly/shared';
+import { useMoney } from './CurrencyProvider.jsx';
 
 // Renders money with an optional sign and a color for income or expense.
 // Without a type, negative values are shown as expenses.
 export default function Amount({ cents, type, signed = false, className = '' }) {
+  const formatMoney = useMoney();
   const tone = type ?? (cents < 0 ? 'expense' : '');
   const sign = signed ? (tone === 'expense' ? '−' : '+') : '';
   const value = signed ? Math.abs(cents) : cents;

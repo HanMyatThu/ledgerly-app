@@ -1,9 +1,11 @@
-import { formatMoney, getCategory } from '@ledgerly/shared';
+import { getCategory } from '@ledgerly/shared';
 import CategoryIcon from './CategoryIcon.jsx';
 import ProgressBar from './ProgressBar.jsx';
+import { useMoney } from './CurrencyProvider.jsx';
 
 // One budget with how much of it has been spent.
 export default function BudgetRow({ budget, actions }) {
+  const formatMoney = useMoney();
   const label = getCategory(budget.categoryId)?.label ?? budget.categoryId;
   const remaining = budget.remainingCents;
   // Amber from 80% so a nearly used budget stands out before it goes over.

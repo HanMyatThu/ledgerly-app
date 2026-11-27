@@ -1,5 +1,7 @@
+import { useMemo } from 'react';
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import ChartTooltip from './ChartTooltip.jsx';
+import { useCurrency } from './CurrencyProvider.jsx';
 
 const SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -7,15 +9,21 @@ function shortMonth(month) {
   return SHORT_MONTHS[Number(month.slice(5, 7)) - 1];
 }
 
-// Compact axis labels: 1200 dollars becomes "$1.2k".
-function axisMoney(cents) {
-  const dollars = cents / 100;
-  if (Math.abs(dollars) >= 1000) return `$${(dollars / 1000).toFixed(1).replace(/\.0$/, '')}k`;
-  return `$${Math.round(dollars)}`;
+// Compact axis labels in the chosen currency: 1200 dollars becomes "$1.2K".
+function compactMoney(currency) {
+  const format = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  });
+  return (cents) => format.format(cents / 100);
 }
 
 // Income next to expenses for each month in the range.
 export default function IncomeExpenseBars({ monthly }) {
+  const { currency } = useCurrency();
+  const axisMoney = useMemo(() => compactMoney(currency), [currency]);
   const data = monthly.map((row) => ({ ...row, label: shortMonth(row.month) }));
 
   return (

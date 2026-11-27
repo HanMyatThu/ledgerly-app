@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { formatMoney, getCategory } from '@ledgerly/shared';
+import { getCategory } from '@ledgerly/shared';
 import { api } from '../api.js';
+import { useMoney } from '../components/CurrencyProvider.jsx';
 
 // Returns a warning when adding `amountCents` to an expense category would push
 // it past that month's budget. `previous` is the transaction being edited, so
 // its old amount is not counted twice.
 export function useBudgetWarning({ type, categoryId, date, amountCents }, previous) {
+  const formatMoney = useMoney();
   const month = typeof date === 'string' ? date.slice(0, 7) : '';
   const [progress, setProgress] = useState(null);
 

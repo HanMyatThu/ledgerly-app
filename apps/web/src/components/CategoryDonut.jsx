@@ -1,10 +1,12 @@
-import { formatMoney, getCategory } from '@ledgerly/shared';
+import { getCategory } from '@ledgerly/shared';
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import ChartTooltip from './ChartTooltip.jsx';
 import { categoryColor } from '../lib/chartColors.js';
+import { useMoney } from './CurrencyProvider.jsx';
 
 // Share of spending by category for one month.
 export default function CategoryDonut({ categories }) {
+  const formatMoney = useMoney();
   const data = categories.map((row) => ({
     ...row,
     name: getCategory(row.categoryId)?.label ?? row.categoryId,

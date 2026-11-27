@@ -1,9 +1,11 @@
-import { formatMoney, getCategory } from '@ledgerly/shared';
+import { getCategory } from '@ledgerly/shared';
 import CategoryIcon from './CategoryIcon.jsx';
+import { useMoney } from './CurrencyProvider.jsx';
 
 // The categories with the most spending this month, largest first,
 // with each one's share of all spending in the month.
 export default function TopCategoriesTable({ rows }) {
+  const formatMoney = useMoney();
   return (
     <table className="top-table">
       <thead>
