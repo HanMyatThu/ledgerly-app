@@ -48,6 +48,11 @@ describe('SummaryCards', () => {
     expect(screen.getAllByText('No data last month')).toHaveLength(2);
   });
 
+  test('says when nothing changed', () => {
+    render(<SummaryCards summary={{ ...summary, previous: { incomeChangePercent: 0, expenseChangePercent: 0 } }} />);
+    expect(screen.getAllByText('Same as last month')).toHaveLength(2);
+  });
+
   test('shows the average daily spend only when there is spending', () => {
     const { rerender } = render(<SummaryCards summary={summary} />);
     expect(screen.getByText('$82.50 a day on average')).toBeInTheDocument();

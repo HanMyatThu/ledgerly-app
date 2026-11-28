@@ -4,6 +4,9 @@ export default function TrendBadge({ percent, goodWhen = 'up', label = 'vs last 
   if (percent === null || percent === undefined) {
     return <span className="trend trend-flat">No data last month</span>;
   }
+  if (percent === 0) {
+    return <span className="trend trend-flat">Same as last month</span>;
+  }
   const direction = percent > 0 ? 'up' : percent < 0 ? 'down' : 'flat';
   const tone = direction === 'flat' ? 'flat' : direction === goodWhen ? 'good' : 'bad';
   const arrow = direction === 'up' ? '▲' : direction === 'down' ? '▼' : '–';

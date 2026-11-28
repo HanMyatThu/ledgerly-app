@@ -28,5 +28,6 @@ The first release, built from November 1 to November 28, 2026.
 - An empty note in an imported CSV row stopped the import.
 - Deleting a recurring rule left its transactions pointing at it.
 - Form errors were not read out by screen readers.
+- An unchanged month showed as "– 0%" instead of saying it was the same.
 
 [0.1.0]: https://github.com/HanMyatThu/ledgerly-app/releases/tag/v0.1.0
