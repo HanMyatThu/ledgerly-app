@@ -6,6 +6,17 @@ Ledgerly is a small personal budget and expense tracker. Log what you spend and 
 
 It is a monorepo with a React front end and a Node.js API.
 
+## Features
+
+- **Transactions:** add, edit and delete income and expenses, with categories, notes and an undo after deleting. Press <kbd>n</kbd> to jump to a new entry.
+- **Find things fast:** search notes, filter by type and category, sort by date or amount, and page through long lists. The month and filters live in the address bar, so views can be bookmarked.
+- **Monthly budgets:** set a limit per expense category, see progress bars and what is left, copy last month's budgets, and get a warning before an entry goes over.
+- **Recurring transactions:** make rent, salary or subscriptions repeat weekly or monthly. Rules can be paused, resumed or deleted, and their transactions carry a badge.
+- **Reports:** a six-month income and expense chart, spending by category, top categories, month-over-month trends and average daily spend.
+- **CSV import and export:** download any filtered list, or import a file with a preview first and a clear list of rows that were skipped and why.
+- **Comfortable to use:** dark mode (automatic or chosen), a display currency setting, keyboard-friendly dialogs and a layout that works on phones.
+- **Easy to run:** SQLite storage with migrations, sample data, Docker images and a Compose file, and CI that runs lint, tests and the build.
+
 ## Layout
 
 ```
