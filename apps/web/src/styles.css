@@ -1328,3 +1328,43 @@ a.button {
   color: var(--text);
   font: inherit;
 }
+
+.about h2 {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+}
+
+.about h3 {
+  margin: 20px 0 6px;
+  font-size: 1rem;
+}
+
+.about p,
+.about li {
+  line-height: 1.6;
+}
+
+.about ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.about a {
+  color: var(--accent);
+}
+
+.about kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--bg);
+  font-family: inherit;
+  font-size: 0.85em;
+}
+
+.about-meta {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
