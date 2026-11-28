@@ -20,6 +20,7 @@ test('reports ok without a database for the memory store', async () => {
   assert.equal(body.status, 'ok');
   assert.equal(body.database, 'not used');
   assert.equal(typeof body.uptime, 'number');
+  assert.match(body.version, /^\d+\.\d+\.\d+$/);
 });
 
 test('reports ok with an open database', async () => {

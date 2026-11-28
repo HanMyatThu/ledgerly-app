@@ -1,4 +1,5 @@
 import express from 'express';
+import pkg from '../package.json' with { type: 'json' };
 import cors from 'cors';
 import { CATEGORIES } from '@ledgerly/shared';
 import { createTransactionStore } from './store/transactions.js';
@@ -40,6 +41,7 @@ export function createApp({
     const healthy = database !== 'error';
     res.status(healthy ? 200 : 503).json({
       status: healthy ? 'ok' : 'degraded',
+      version: pkg.version,
       database,
       uptime: process.uptime(),
     });

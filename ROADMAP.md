@@ -321,7 +321,7 @@ Goal: start moving from memory to SQLite.
 - [x] docs: add screenshots to README
 - [x] docs: add CONTRIBUTING.md
 - [x] docs: add CHANGELOG.md
-- [ ] chore: bump version to 0.1.0
+- [x] chore: bump version to 0.1.0
 
 ## Later ideas
 
