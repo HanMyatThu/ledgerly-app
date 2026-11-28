@@ -17,6 +17,18 @@ It is a monorepo with a React front end and a Node.js API.
 - **Comfortable to use:** dark mode (automatic or chosen), a display currency setting, keyboard-friendly dialogs and a layout that works on phones.
 - **Easy to run:** SQLite storage with migrations, sample data, Docker images and a Compose file, and CI that runs lint, tests and the build.
 
+## Screenshots
+
+![Transactions page with monthly totals, the entry form and the list](docs/screenshots/transactions.png)
+
+| Reports                                                                                 | Reports in dark mode                                                    |
+| --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| ![Six-month bar chart, spending donut and top categories](docs/screenshots/reports.png) | ![The same report in the dark theme](docs/screenshots/reports-dark.png) |
+
+| Budgets                                                       | Recurring                                                                |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| ![Budget progress per category](docs/screenshots/budgets.png) | ![Recurring rules with their next dates](docs/screenshots/recurring.png) |
+
 ## Layout
 
 ```
