@@ -315,7 +315,7 @@ Goal: start moving from memory to SQLite.
 - [x] feat(web): remember theme choice
 - [x] feat(web): add currency setting
 - [x] feat(web): use currency setting in formatMoney calls
-- [ ] feat(web): add 404 page
+- [x] feat(web): add 404 page
 - [ ] feat(web): add About page
 - [ ] docs: add feature list to README
 - [ ] docs: add screenshots to README
